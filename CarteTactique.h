@@ -8,10 +8,10 @@
 
 
 class CarteTactique : public Carte {
-    const string m_nom;
+    const string nom;
 public:
-    CarteTactique(const string& nom): m_nom(nom) {};
-    const string &getNom() const { return m_nom; }
+    CarteTactique(const string& nom): nom(nom) {};
+    const string &getNom() const { return nom; }
 };
 
 #endif //LO21_SCHOTTEN_TOTTEN_CARTETACTIQUE_H

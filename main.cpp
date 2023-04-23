@@ -14,5 +14,10 @@ int main() {
     cout << cc.getPuissance() << endl;
     cout << cc.getCouleur() << endl;
 
+    CarteTroupeElite cte=CarteTroupeElite("Joker", Puissance(1), Couleur(1));
+    cout << cte.getNom() << endl;
+    cout << cte.getPuissance() << endl;
+    cout << cte.getCouleur() << endl;
+
     return 0;
 }
