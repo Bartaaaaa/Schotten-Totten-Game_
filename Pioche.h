@@ -11,12 +11,12 @@
 class Pioche
 {
     const Carte** cartes;
-    size_t nb;
+    size_t m_nb;
 
 public:
     Pioche();
-    bool estVide() const { return nb==0; }
-    size_t getNbCartes() const { return nb; }
+    bool estVide() const { return m_nb==0; }
+    size_t getNbCartes() const { return m_nb; }
     const Carte& piocher();
     ~Pioche();
 

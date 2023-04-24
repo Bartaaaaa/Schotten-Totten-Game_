@@ -13,10 +13,10 @@ using namespace std;
 
 class CarteException {
 private:
-    string info;
+    string m_info;
 public:
-    CarteException(const string& i) : info(i) {}
-    string getInfo() const { return info; }
+    CarteException(const string& i) : m_info(i) {}
+    string getInfo() const { return m_info; }
 };
 
 enum class Couleur { jaune, vert, violet, rouge, bleu, marron};
