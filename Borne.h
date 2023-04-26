@@ -16,7 +16,7 @@ class Borne{
     int m_dernier_pose;
 
 public :
-    Borne(int num, bool collin, bool boue, int revendique, int dernier_pose):
+    Borne(int num, bool collin=false, bool boue=false, int revendique=0, int dernier_pose=0):
             m_num(num), m_collin(collin), m_boue(boue), m_revendique(revendique), m_dernier_pose(dernier_pose){}
     int getNum() const {
         return m_num;
@@ -47,7 +47,7 @@ public :
     }
     void setDernierPose(int dernier_pose){
         m_dernier_pose = dernier_pose;
-}
+    }
 };
 
 
