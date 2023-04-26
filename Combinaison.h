@@ -10,14 +10,15 @@
 #include <vector>
 
 class Combinaison{
-    std::vector<CarteClan> m_cartes;
+    vector<CarteClan> m_cartes;
     int m_force_combi;
     int m_total_puissance;
 public :
-    Combinaison(std::vector<CarteClan> cartes, int force_combi, int total_puissance):
+    Combinaison(vector<CarteClan> cartes, int force_combi, int total_puissance):
             m_cartes(cartes), m_force_combi(force_combi), m_total_puissance(total_puissance){}
-            Combinaison(); //on a besoin d'un constructeur sans arguments sinon on peut pas créer mcartes_j1 dans borne, à moins qu'on les créer autrepart.
-    std::vector<CarteClan> getCartes(){
+    Combinaison(); //on a besoin d'un constructeur sans arguments sinon on peut pas créer mcartes_j1 dans borne, à moins qu'on les créer autrepart.
+
+    vector<CarteClan> getCartes(){
         return m_cartes;
     }
     int getForceCombi() const{

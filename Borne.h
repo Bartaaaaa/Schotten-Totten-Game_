@@ -11,13 +11,16 @@ class Borne{
     bool m_collin;
     bool m_boue;
     int m_revendique;
-    Combinaison m_cartesj1;
-    Combinaison m_cartesj2;
+    Combinaison *m_cartesj1;
+    Combinaison *m_cartesj2;
     int m_dernier_pose;
 
 public :
     Borne(int num, bool collin=false, bool boue=false, int revendique=0, int dernier_pose=0):
-            m_num(num), m_collin(collin), m_boue(boue), m_revendique(revendique), m_dernier_pose(dernier_pose){}
+            m_num(num), m_collin(collin), m_boue(boue), m_revendique(revendique), m_dernier_pose(dernier_pose){
+        m_cartesj1 = new Combinaison();
+        m_cartesj2 = new Combinaison();
+    }
     int getNum() const {
         return m_num;
     }

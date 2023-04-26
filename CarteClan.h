@@ -19,6 +19,8 @@ public:
     Couleur getCouleur() const { return m_couleur; }
 };
 
+ostream &operator<<(ostream &os, const CarteClan &carteClan);
+
 
 
 #endif //LO21_SCHOTTEN_TOTTEN_CARTECLAN_H
