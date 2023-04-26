@@ -5,12 +5,28 @@
 #include "Pioche.h"
 #include "CarteException.h"
 
-    Pioche::Pioche() : cartes(new const Carte*[JeuClan::getJeuClan().getNbCartes()]), m_nb(JeuClan::getJeuClan().getNbCartes())
+    Pioche::Pioche(const JeuClan& jeuClan) : cartes(new const Carte*[jeuClan.getNbCartes()]), m_nb(jeuClan.getNbCartes())
     {
         size_t i=0;
-        for(auto it = JeuClan::getJeuClan().getIterator(); !it.isDone(); it.next())
+        for(auto it = jeuClan.getIterator(); !it.isDone(); it.next())
             cartes[i++] = &it.currentItem();
 
+
+        // shuffle (très naif)
+        for(size_t it=0; it<2*m_nb ; ++it){
+            size_t a = rand() % m_nb,  b = rand() % m_nb; // on tire deux positions entre 0 et nb
+            const Carte * tmp = cartes[a];
+            cartes[a]=cartes[b];
+            cartes[b]=tmp;
+        }
+    }
+
+    Pioche::Pioche(const JeuTactique& jeuTactique) : cartes(new const Carte*[jeuTactique.getNbCartes()]), m_nb(jeuTactique.getNbCartes())
+    {
+        size_t i = 0;
+        for (auto it = jeuTactique.getIterator(); !it.isDone(); it.next()) {
+           cartes[i++] = &it.currentItem();
+        }
 
         // shuffle (très naif)
         for(size_t it=0; it<2*m_nb ; ++it){

@@ -6,6 +6,7 @@
 #define LO21_SCHOTTEN_TOTTEN_PIOCHE_H
 
 #include "JeuClan.h"
+#include "JeuTactique.h"
 #include <cstddef>
 
 class Pioche
@@ -14,7 +15,9 @@ class Pioche
     size_t m_nb;
 
 public:
-    Pioche();
+    Pioche(const JeuClan& jeuClan);
+    Pioche(const JeuTactique& jeuTactique);
+
     bool estVide() const { return m_nb==0; }
     size_t getNbCartes() const { return m_nb; }
     const Carte& piocher();
