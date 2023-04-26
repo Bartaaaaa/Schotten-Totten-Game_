@@ -9,10 +9,12 @@
 class CarteRuse : public CarteTactique {
 public:
     CarteRuse(const string& nom) : CarteTactique(nom)  {};
+    /* Todo faire ces methodes
     void jouer_ChasseurdeTete() const;
     void jouer_Stratege() const;
     void jouer_Banshee() const;
     void jouer_Traitre() const;
+     */
 };
 
 #endif //LO21_SCHOTTEN_TOTTEN_CARTERUSE_H

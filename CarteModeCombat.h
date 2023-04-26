@@ -9,7 +9,9 @@
 class CarteModeCombat : public CarteTactique {
 public:
     CarteModeCombat(const string& nom) : CarteTactique(nom)  {};
+    /*Todo faire ces methodes
     void jouer_ColinMaillard() const;
     void jouer_CombatdeBoue() const;
+     */
 };
 #endif //LO21_SCHOTTEN_TOTTEN_CARTEMODECOMBAT_H

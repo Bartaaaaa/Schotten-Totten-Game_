@@ -16,6 +16,8 @@ class Main {
     bool m_joker;
     int m_nbr_carte_tactique_joue;
 public:
+    friend class Joueur;
+
     explicit Main(int taille) : m_taille(taille), m_joker(false), m_nbr_carte_tactique_joue(0) {};
 
     int getTaille() const {
@@ -33,7 +35,7 @@ public:
     int getNbrCarteTactiqueJoue() const {
         return m_nbr_carte_tactique_joue;
     }
-    friend class Joueur;
+
 
 };
 

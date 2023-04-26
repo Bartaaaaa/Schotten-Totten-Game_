@@ -11,7 +11,7 @@
 
 class Pioche
 {
-    const Carte** cartes;
+    const Carte** m_cartes;
     size_t m_nb;
 
 public:

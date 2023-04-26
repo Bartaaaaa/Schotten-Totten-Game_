@@ -10,9 +10,11 @@
 class CarteTroupeElite : public CarteTactique, public CarteClan {
 public:
     CarteTroupeElite(const string& nom, Puissance puissance, Couleur couleur) : CarteTactique(nom), CarteClan( puissance, couleur)  {};
+    /* Todo faire ces methodes
     void jouer_Joker() const;
     void jouer_PorteBouclier() const;
     void jouer_Espion() const;
+     */
 };
 
 #endif //LO21_SCHOTTEN_TOTTEN_CARTETROUPEELITE_H

@@ -10,7 +10,7 @@
 #include "Borne.h"
 
 class Plateau {
-    Joueur *m_joueur1;
+    Joueur *m_joueur1; // Ou de type Joueur ?
     Joueur *m_joueur2;
     int m_joueur_actif;
     vector<Carte> m_defausse;

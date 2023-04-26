@@ -8,7 +8,7 @@
 
 class Joueur {
     Main *m_main;
-    bool m_ia;
+    bool m_ia; // ou const bool ?
 public:
     explicit Joueur(int taille, bool ia) :m_main(nullptr), m_ia(ia) {
         m_main = new Main(taille);

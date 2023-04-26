@@ -32,6 +32,14 @@ public :
     bool getBoue() const{
         return m_boue;
     }
+    /* Todo voir si on a besoin de ces getters
+    Combinaison& getCartesJ1() const{
+        return *m_cartesj1;
+    }
+    Combinaison& getCartesJ2() const{
+        return *m_cartesj2;
+    }
+     */
     int getRevendique() const{
         return m_revendique;
     }
@@ -53,6 +61,12 @@ public :
     void setDernierPose(int dernier_pose) {
         m_dernier_pose = dernier_pose;
     }
+
+    /*Todo faire ces methodes
+    set_cartesj1(in add : bool, in carte : CarteClan, in cote : int) : void
+    set_cartesj2(in add : bool, in carte : CarteClan, in cote : int) : void
+    check_exception(???) : ???
+     */
 };
 
 

@@ -9,20 +9,32 @@
 
 class Controleur {
     int m_gagnant;
-    bool m_tactique;
+    bool m_tactique; // ou const bool ?
     Pioche* m_pioche_clan;
     Pioche* m_pioche_tactique;
-    Plateau* m_plateau;
+    Plateau* m_plateau; // ou Plateau
     JeuClan m_jeu_clan;
     JeuTactique m_jeu_tactique;
 
 public:
-
     Controleur();
-
     ~Controleur();
-
-
+    int getGagnant() const { return m_gagnant; }
+    bool getTactique() const { return m_tactique; }
+    /*TODO verifier si on a besoin de ces getters
+    const Pioche& getPiocheClan() const { return *m_pioche_clan; }
+    const Pioche& getPiocheTactique() const { return *m_pioche_tactique; }
     const Plateau& getPlateau() const { return *m_plateau; }
+    JeuClan getJeuClan() const { return m_jeu_clan; }
+    JeuTactique getJeuTactique() const { return m_jeu_tactique; }
+     */
+    void setGagnant(int gagnant) { m_gagnant = gagnant; }
+    void setTactique(bool tactique) { m_tactique = tactique; }
+
+    /* Todo faire ces methodes:
+    jouer_tour() : void
+    check_fin_partie() : string
+    revendiquer_exception(???) : ???
+     */
 };
 #endif //LO21_SCHOTTEN_TOTTEN_CONTROLEUR_H
