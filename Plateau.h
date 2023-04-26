@@ -41,7 +41,14 @@ public:
         return m_bornes;
     }
 
+    void setJoueurActif(int joueurActif) {
+        m_joueur_actif = joueurActif;
+    }
+
+    void poser(int borne, int carte);
+
     Plateau(const Plateau&) = delete;
     Plateau& operator=(const Plateau&) = delete;
 };
+
 #endif //LO21_SCHOTTEN_TOTTEN_PLATEAU_H

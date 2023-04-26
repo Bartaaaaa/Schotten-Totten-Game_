@@ -16,6 +16,8 @@ class Borne{
     int m_dernier_pose;
 
 public :
+    friend class Plateau;
+
     Borne(int num, bool collin=false, bool boue=false, int revendique=0, int dernier_pose=0):
             m_num(num), m_collin(collin), m_boue(boue), m_revendique(revendique), m_dernier_pose(dernier_pose){
         m_cartesj1 = new Combinaison();
@@ -48,7 +50,7 @@ public :
     void setRevendique(int revendique){
         m_revendique = revendique;
     }
-    void setDernierPose(int dernier_pose){
+    void setDernierPose(int dernier_pose) {
         m_dernier_pose = dernier_pose;
     }
 };

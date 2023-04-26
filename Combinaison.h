@@ -10,15 +10,15 @@
 #include <vector>
 
 class Combinaison{
-    vector<CarteClan> m_cartes;
+    vector<Carte> m_cartes;
     int m_force_combi;
     int m_total_puissance;
 public :
-    Combinaison(vector<CarteClan> cartes, int force_combi, int total_puissance):
+    Combinaison(vector<Carte> cartes, int force_combi, int total_puissance):
             m_cartes(cartes), m_force_combi(force_combi), m_total_puissance(total_puissance){}
     Combinaison() = default; //on a besoin d'un constructeur sans arguments sinon on peut pas créer mcartes_j1 dans borne, à moins qu'on les créer autrepart.
 
-    vector<CarteClan> getCartes(){
+    vector<Carte> getCartes(){
         return m_cartes;
     }
     int getForceCombi() const{
@@ -26,6 +26,9 @@ public :
     }
     int getTotalPuissance() const{
         return m_total_puissance;
+    }
+    void ajouterCarte(Carte carte){
+        m_cartes.push_back(carte);
     }
 
 
