@@ -35,7 +35,7 @@ class JeuClan {
     }
 
 public:
-
+    friend class Controleur;
 
     static JeuClan & getJeuClan();
     static void libererJeuClan();

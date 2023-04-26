@@ -6,8 +6,8 @@
 
 Controleur::Controleur()
 {
-    m_pioche_clan = new Pioche();
-    m_pioche_tactique = new Pioche();
+    m_pioche_clan = new Pioche(m_jeu_clan);
+    m_pioche_tactique = new Pioche(m_jeu_tactique);
     m_plateau = new Plateau(6, false, false);
 }
 

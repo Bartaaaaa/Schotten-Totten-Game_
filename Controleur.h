@@ -13,6 +13,9 @@ class Controleur {
     Pioche* m_pioche_clan;
     Pioche* m_pioche_tactique;
     Plateau* m_plateau;
+    JeuClan m_jeu_clan;
+    JeuTactique m_jeu_tactique;
+
 public:
 
     Controleur();

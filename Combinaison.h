@@ -16,7 +16,7 @@ class Combinaison{
 public :
     Combinaison(vector<CarteClan> cartes, int force_combi, int total_puissance):
             m_cartes(cartes), m_force_combi(force_combi), m_total_puissance(total_puissance){}
-    Combinaison(); //on a besoin d'un constructeur sans arguments sinon on peut pas créer mcartes_j1 dans borne, à moins qu'on les créer autrepart.
+    Combinaison() = default; //on a besoin d'un constructeur sans arguments sinon on peut pas créer mcartes_j1 dans borne, à moins qu'on les créer autrepart.
 
     vector<CarteClan> getCartes(){
         return m_cartes;

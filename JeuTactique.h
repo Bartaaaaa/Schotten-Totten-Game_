@@ -38,7 +38,7 @@ class JeuTactique {
     }
 
 public:
-
+    friend class Controleur;
 
     static JeuTactique & getJeuTactique();
     static void libererJeuTactique();
