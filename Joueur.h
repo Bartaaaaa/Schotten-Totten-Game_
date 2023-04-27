@@ -9,6 +9,7 @@
 class Joueur {
     Main *m_main;
     bool m_ia; // ou const bool ?
+    bool Joker; //Savoir s'il a joué joker ou pas
 public:
     explicit Joueur(int taille, bool ia) :m_main(nullptr), m_ia(ia) {
         m_main = new Main(taille);
