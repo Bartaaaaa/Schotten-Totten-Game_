@@ -49,16 +49,16 @@ public:
         return CarteTroupeElite("PorteBouclier", puissance, couleur);  // Retourner l'instance de CarteTroupeElite créée
     }
     CarteTroupeElite jouer_Espion() {
-         Couleur couleur;
-         Puissance puissance = Puissance::sept;
-         cout << "Veuillez choisir une couleur :" << endl;
-         for (int i = 0; i < 6; i++) {  // Boucle pour afficher les choix de couleur possibles
-             cout << i+1 << ": " << static_cast<Couleur>(i) << endl;
-         }
-         int choix_couleur;
-         cin >> choix_couleur;
-         couleur = static_cast<Couleur>(choix_couleur-1);
-         return CarteTroupeElite("Espion", puissance, couleur);
+        Couleur couleur;
+        Puissance puissance = Puissance::sept;
+        cout << "Veuillez choisir une couleur :" << endl;
+        for (int i = 0; i < 6; i++) {  // Boucle pour afficher les choix de couleur possibles
+            cout << i+1 << ": " << static_cast<Couleur>(i) << endl;
+        }
+        int choix_couleur;
+        cin >> choix_couleur;
+        couleur = static_cast<Couleur>(choix_couleur-1);
+        return CarteTroupeElite("Espion", puissance, couleur);
     }
 
 };

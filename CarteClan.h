@@ -13,6 +13,7 @@
 class CarteClan : public Carte {
     Puissance m_puissance;
     Couleur m_couleur;
+
 public:
     CarteClan(Puissance puissance, Couleur couleur): m_puissance(puissance), m_couleur(couleur) {};
     Puissance getPuissance() const { return m_puissance; }
