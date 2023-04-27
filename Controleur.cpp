@@ -26,7 +26,7 @@ bool Controleur::check_fin_partie() {
     int sum2=0;
     int serie2=0;
     for(auto i=0; i<9; i++){
-        int j = m_plateau->m_bornes[i]->getRevendique();
+        int j = m_plateau->m_bornes[i].getRevendique();
         //printf("test");
         if(j==1){
             sum1++;
