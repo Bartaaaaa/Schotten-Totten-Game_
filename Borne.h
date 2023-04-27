@@ -18,8 +18,9 @@ class Borne{
 public :
     friend class Plateau;
 
-    Borne(int num, bool collin=false, bool boue=false, int revendique=0, int dernier_pose=0):
-            m_num(num), m_collin(collin), m_boue(boue), m_revendique(revendique), m_dernier_pose(dernier_pose){
+    explicit Borne(int num, bool collin=false, bool boue=false):
+            m_num(num), m_collin(collin), m_boue(boue), m_revendique(0), m_dernier_pose(0){
+        printf("Borne %d créée\n", m_num);
         m_cartesj1 = new Combinaison();
         m_cartesj2 = new Combinaison();
     }
@@ -55,7 +56,7 @@ public :
     void setBoue(bool boue){
         m_boue = boue;
     }
-    void setRevendique(int revendique){
+    void setRevendique(int revendique) {
         m_revendique = revendique;
     }
     void setDernierPose(int dernier_pose) {
