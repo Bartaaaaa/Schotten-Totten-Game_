@@ -20,7 +20,7 @@ public :
 
     explicit Borne(int num, bool collin=false, bool boue=false):
             m_num(num), m_collin(collin), m_boue(boue), m_revendique(0), m_dernier_pose(0){
-        printf("Borne %d créée\n", m_num);
+        printf("Borne %d cree\n", m_num);
         m_cartesj1 = new Combinaison();
         m_cartesj2 = new Combinaison();
     }
@@ -33,14 +33,14 @@ public :
     bool getBoue() const{
         return m_boue;
     }
-    /* Todo voir si on a besoin de ces getters
+
     Combinaison& getCartesJ1() const{
         return *m_cartesj1;
     }
     Combinaison& getCartesJ2() const{
         return *m_cartesj2;
     }
-     */
+
     int getRevendique() const{
         return m_revendique;
     }
@@ -63,11 +63,14 @@ public :
         m_dernier_pose = dernier_pose;
     }
 
-    /*Todo faire ces methodes
+    /*Todo faire ces methodes ?
     set_cartesj1(in add : bool, in carte : CarteClan, in cote : int) : void
     set_cartesj2(in add : bool, in carte : CarteClan, in cote : int) : void
     check_exception(???) : ???
      */
+    void ajout_carte_j1(Carte* carte){
+        m_cartesj1->ajouterCarte(carte);
+    }
 };
 
 

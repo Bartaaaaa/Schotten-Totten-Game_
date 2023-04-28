@@ -7,13 +7,18 @@
 #include<iostream>
 #include<string>
 #include"CarteException.h"
+#include <vector>
 
 using namespace std;
 
 class Carte {
 
 public:
+    // Necessaire pour utiliser dynamic_cast
+    virtual ~Carte() {};
 
 };
+
+void affichage_vecteur_carte(vector<Carte*> v);
 
 #endif //LO21_SCHOTTEN_TOTTEN_CARTE_H

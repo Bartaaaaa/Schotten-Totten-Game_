@@ -1,0 +1,3 @@
+C:/Users/hermo/CLionProjects/LO21-Schotten-totten/cmake-build-debug/CMakeFiles/LO21_Schotten_totten.dir
+C:/Users/hermo/CLionProjects/LO21-Schotten-totten/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/hermo/CLionProjects/LO21-Schotten-totten/cmake-build-debug/CMakeFiles/rebuild_cache.dir
