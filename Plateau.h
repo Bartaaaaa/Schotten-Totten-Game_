@@ -10,10 +10,10 @@
 #include "Borne.h"
 
 class Plateau {
-    Joueur *m_joueur1; // Ou de type Joueur ?
-    Joueur *m_joueur2;
+    Joueur * m_joueur1; // Ou de type Joueur ?
+    Joueur * m_joueur2;
     int m_joueur_actif;
-    vector<Carte> m_defausse;
+    vector<Carte*> m_defausse;
     Borne m_bornes[9] ;
 public:
     friend class Controleur;
@@ -23,11 +23,11 @@ public:
         m_joueur2 = new Joueur(taille, ia2);
     };
 
-    Joueur getJoueur1() const {
+    Joueur getJoueur1()   {  // const ou pas ?
         return *m_joueur1;
     }
 
-    Joueur getJoueur2() const {
+    Joueur getJoueur2()  { // const ou pas ?
         return *m_joueur2;
     }
 
@@ -35,7 +35,7 @@ public:
         return m_joueur_actif;
     }
 
-    vector<Carte> getDefausse() const {
+    vector<Carte*> getDefausse() const {
         return m_defausse;
     }
 

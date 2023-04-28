@@ -12,19 +12,22 @@
 
 class Main {
     int m_taille;
-    vector<Carte> m_cartes;
+    vector<Carte*> m_cartes;
     bool m_joker;
     int m_nbr_carte_tactique_joue;
 public:
     friend class Joueur;
 
-    explicit Main(int taille) : m_taille(taille), m_joker(false), m_nbr_carte_tactique_joue(0) {};
+    explicit Main(int taille) : m_taille(taille), m_cartes(taille), m_joker(false), m_nbr_carte_tactique_joue(0) {
+
+    };
 
     int getTaille() const {
+        // Ou retrun m_cartes.size() ?
         return m_taille;
     }
 
-    vector<Carte> getCartes() const {
+    vector<Carte*> getCartes() { // const ou pas ?
         return m_cartes;
     }
 
