@@ -10,15 +10,15 @@
 #include <vector>
 
 class Combinaison{
-    vector<Carte*> m_cartes;
+    vector<CarteClan*> m_cartes;
     int m_force_combi;
     int m_total_puissance;
 public :
-    Combinaison(vector<Carte*> cartes, int force_combi, int total_puissance):
+    Combinaison(vector<CarteClan*> cartes, int force_combi, int total_puissance):
             m_cartes(cartes), m_force_combi(force_combi), m_total_puissance(total_puissance){}
     Combinaison() = default; //on a besoin d'un constructeur sans arguments sinon on peut pas créer mcartes_j1 dans borne, à moins qu'on les créer autrepart.
 
-    vector<Carte*> getCartes(){
+    vector<CarteClan*> getCartes(){
         return m_cartes;
     }
     int getForceCombi() const{
@@ -36,10 +36,12 @@ public :
         m_total_puissance = total_puissance;
     }
 
+    int calculerForceCombi();// TO DO; Pb : si'il y a une Troupe d'élite, est-ce que cette fonction fige sa valeur et sa couleur sachant qu'il y a un risque de combat de Boue qui change la donne ? (en vrai ca sera rarement(ou jamais) le cas pour la Couleur mais pour la puissance c'est vraiment possible)
 
-    void ajouterCarte(CarteClan* carte){
+    void ajouterCarte(CarteClan* carte) {
         m_cartes.push_back(carte);
-        setTotalPuissance(getTotalPuissance() + (int) carte->getPuissance());
+        setTotalPuissance(getTotalPuissance() + (int)carte->getPuissance());
+        // TO DO : ajouter une appel a calculerForceCombi qi il y a 3 cartes ou plus dans la combinaison 
     }
 
 
