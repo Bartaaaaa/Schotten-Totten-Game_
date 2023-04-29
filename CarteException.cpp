@@ -15,12 +15,14 @@ string toString(Couleur c) {
         case Couleur::rouge: return "Rouge";
         case Couleur::violet: return "Violet";
         case Couleur::marron: return "Marron";
+        case Couleur::neutre: return "Neutre";
         default: throw CarteException("Couleur inconnue");
     }
 }
 
 string toString(Puissance p) {
     switch (p) {
+        case Puissance::zero: return "0";
         case Puissance::un: return "1";
         case Puissance::deux: return "2";
         case Puissance::trois: return "3";

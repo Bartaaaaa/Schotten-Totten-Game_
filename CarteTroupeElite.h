@@ -7,9 +7,12 @@
 #include "CarteTactique.h"
 #include "CarteClan.h"
 
-class CarteTroupeElite : public CarteTactique, public CarteClan {
+class CarteTroupeElite : public CarteClan {
+    string nom;
+
 public:
-    CarteTroupeElite(const string& nom, Puissance puissance, Couleur couleur) : CarteTactique(nom), CarteClan( puissance, couleur)  {};
+
+    CarteTroupeElite(const string& nom, Puissance puissance, Couleur couleur) : nom(nom), CarteClan( puissance, couleur)  {};
     CarteTroupeElite jouer_Joker() {
         Couleur couleur;
         Puissance puissance;  // Initialiser la puissance avec une valeur valide

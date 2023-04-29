@@ -47,7 +47,7 @@ public:
         m_joueur_actif = joueurActif;
     }
 
-    void poser(int borne, int carte);
+    void poser(Borne borne, CarteClan* carte);
 
     Plateau(const Plateau&) = delete;
     Plateau& operator=(const Plateau&) = delete;

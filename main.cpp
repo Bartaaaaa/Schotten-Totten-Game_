@@ -26,9 +26,9 @@ int main() {
 
     // On cree les cartes
     CarteClan* cclan = new CarteClan(Puissance::cinq, Couleur::rouge);
-    CarteTactique* ctactique = new CarteTactique("Test");
+    CarteTroupeElite* celite = new CarteTroupeElite("Test", Puissance::zero, Couleur::neutre);
     cartes1.push_back(cclan);
-    cartes1.push_back(ctactique);
+    cartes1.push_back(celite);
 
     //on va afficher les cartes du vecteur carte en verfiant quel methode on peut faire:
     affichage_vecteur_carte(cartes1);
@@ -51,7 +51,7 @@ int main() {
     cout << "  B1 Cartes J1 : " << b1.getCartesJ1().getCartes().size() << endl;
     b1.getCartesJ1().ajouterCarte(cclan);
     cout << "  B1 Cartes J1 apres ajout : " << b1.getCartesJ1().getCartes().size() << endl;
-    b1.ajout_carte_j1(ctactique);
+    b1.ajout_carte_j1(celite);
     cout << "  B1 Cartes J1 apres ajout : " << b1.getCartesJ1().getCartes().size() << endl;
     affichage_vecteur_carte(b1.getCartesJ1().getCartes());
 

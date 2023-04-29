@@ -4,17 +4,14 @@
 
 #include "Plateau.h"
 
-void Plateau::poser(int borne, int carte){
+void Plateau::poser(Borne borne, CarteClan* carte){
     if(m_joueur_actif == 1){
-        vector<Carte*> v = m_joueur1->getMain().getCartes();
-        Carte* c = v.at(carte);
-        m_bornes[borne+1].m_cartesj1->ajouterCarte(c);
-        v.erase(v.begin()+carte);
+        
+        borne.m_cartesj1->ajouterCarte(carte);
+        // TO DO : ajouter une fonction retirer carte avec cette cate dans la main du joueur
     }
     else{
-        vector<Carte*> v = m_joueur2->getMain().getCartes();
-        Carte* c = v.at(carte);
-        m_bornes[borne+1].m_cartesj2->ajouterCarte(c);
-        v.erase(v.begin()+carte);
+        borne.m_cartesj1->ajouterCarte(carte);
+        // TO DO : ajouter une fonction retirer carte avec cette cate dans la main du joueur
     }
 }

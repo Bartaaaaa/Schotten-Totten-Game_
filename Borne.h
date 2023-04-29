@@ -68,7 +68,7 @@ public :
     set_cartesj2(in add : bool, in carte : CarteClan, in cote : int) : void
     check_exception(???) : ???
      */
-    void ajout_carte_j1(Carte* carte){
+    void ajout_carte_j1(CarteClan* carte){
         m_cartesj1->ajouterCarte(carte);
     }
 };
