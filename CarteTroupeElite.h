@@ -13,19 +13,19 @@ public:
     CarteTroupeElite jouer_Joker() {
         Couleur couleur;
         Puissance puissance;  // Initialiser la puissance avec une valeur valide
-        cout << "Veuillez choisir une couleur :" << endl;
-        for (int i = 0; i < 6; i++) {  // Boucle pour afficher les choix de couleur possibles
-            cout << i+1 << ": " << static_cast<Couleur>(i) << endl;
-        }
-        int choix_couleur;
-        cin >> choix_couleur;
-        couleur = static_cast<Couleur>(choix_couleur-1);
-        while (puissance < Puissance::un || puissance > Puissance::neuf) {
-            cout << "Veuillez choisir une puissance entre 1 et 9 :" << endl;
-            int choix_puissance;
-            cin >> choix_puissance;
-            puissance = static_cast<Puissance>(choix_puissance);
-        }
+        //cout << "Veuillez choisir une couleur :" << endl;
+        //for (int i = 0; i < 6; i++) {  // Boucle pour afficher les choix de couleur possibles
+        //    cout << i+1 << ": " << static_cast<Couleur>(i) << endl;
+        //}
+        //int choix_couleur;
+        //cin >> choix_couleur;
+        couleur = Couleur::neutre;
+        //while (puissance < Puissance::un || puissance > Puissance::neuf) {
+        //    cout << "Veuillez choisir une puissance entre 1 et 9 :" << endl;
+        //    int choix_puissance;
+        //    cin >> choix_puissance;
+        puissance = static_cast<Puissance>(0);
+        //}
         return CarteTroupeElite("Joker", puissance, couleur);
     }
 
@@ -33,31 +33,31 @@ public:
     CarteTroupeElite jouer_PorteBouclier()  {
         Couleur couleur;
         Puissance puissance = Puissance::quatre;  // Initialiser la puissance avec une valeur valide
-        cout << "Veuillez choisir une couleur :" << endl;
-        for (int i = 0; i < 6; i++) {  // Boucle pour afficher les choix de couleur possibles
-            cout << i+1 << ": " << static_cast<Couleur>(i) << endl;
-        }
-        int choix_couleur;
-        cin >> choix_couleur;
-        couleur = static_cast<Couleur>(choix_couleur-1);
-        while (puissance < Puissance::un || puissance > Puissance::trois) {
+        //cout << "Veuillez choisir une couleur :" << endl;
+        //for (int i = 0; i < 6; i++) {  // Boucle pour afficher les choix de couleur possibles
+        //    cout << i+1 << ": " << static_cast<Couleur>(i) << endl;
+        //}
+        //int choix_couleur;
+        //cin >> choix_couleur;
+        couleur = Couleur::neutre;
+            /*while (puissance < Puissance::un || puissance > Puissance::trois) {
             cout << "Veuillez choisir une puissance entre 1 et 3 :" << endl;
             int choix_puissance;
-            cin >> choix_puissance;
-            puissance = static_cast<Puissance>(choix_puissance);
-        }
+            cin >> choix_puissance;*/
+            puissance = static_cast<Puissance>(0);
+        //}
         return CarteTroupeElite("PorteBouclier", puissance, couleur);  // Retourner l'instance de CarteTroupeElite créée
     }
     CarteTroupeElite jouer_Espion() {
         Couleur couleur;
         Puissance puissance = Puissance::sept;
-        cout << "Veuillez choisir une couleur :" << endl;
-        for (int i = 0; i < 6; i++) {  // Boucle pour afficher les choix de couleur possibles
-            cout << i+1 << ": " << static_cast<Couleur>(i) << endl;
-        }
-        int choix_couleur;
-        cin >> choix_couleur;
-        couleur = static_cast<Couleur>(choix_couleur-1);
+        //cout << "Veuillez choisir une couleur :" << endl;
+        //for (int i = 0; i < 6; i++) {  // Boucle pour afficher les choix de couleur possibles
+        //    cout << i+1 << ": " << static_cast<Couleur>(i) << endl;
+        //}
+        //int choix_couleur;
+        //cin >> choix_couleur;
+        couleur = Couleur::neutre;
         return CarteTroupeElite("Espion", puissance, couleur);
     }
 

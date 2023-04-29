@@ -19,8 +19,8 @@ public:
     string getInfo() const { return m_info; }
 };
 
-enum class Couleur { jaune, vert, violet, rouge, bleu, marron};
-enum class Puissance { un = 1, deux = 2, trois = 3, quatre = 4, cinq = 5, six = 6, sept = 7, huit = 8, neuf = 9};
+enum class Couleur { jaune, vert, violet, rouge, bleu, marron, neutre};
+enum class Puissance { zero = 0, un = 1, deux = 2, trois = 3, quatre = 4, cinq = 5, six = 6, sept = 7, huit = 8, neuf = 9};
 
 string toString(Couleur c);
 string toString(Puissance p);
