@@ -36,12 +36,13 @@ public :
         m_total_puissance = total_puissance;
     }
 
-    int calculerForceCombi();// TO DO; Pb : si'il y a une Troupe d'élite, est-ce que cette fonction fige sa valeur et sa couleur sachant qu'il y a un risque de combat de Boue qui change la donne ? (en vrai ca sera rarement(ou jamais) le cas pour la Couleur mais pour la puissance c'est vraiment possible)
+    int calculerForceCombi();// MARCHE PAS !!!!!  Ne fonctioone qu'en version classique, j'attends que les fonctions pour les modes de combat soient là 
+
 
     void ajouterCarte(CarteClan* carte) {
         m_cartes.push_back(carte);
-        setTotalPuissance(getTotalPuissance() + (int)carte->getPuissance());
-        // TO DO : ajouter une appel a calculerForceCombi qi il y a 3 cartes ou plus dans la combinaison 
+        setTotalPuissance(getTotalPuissance() + static_cast<int>(carte->getPuissance()));
+        // TO DO : ajouter une appel a calculerForceCombi si il y a 3 cartes ou plus dans la combinaison 
     }
 
 
