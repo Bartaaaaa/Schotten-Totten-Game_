@@ -39,6 +39,10 @@ public:
         return m_nbr_carte_tactique_joue;
     }
 
+    void ajouterCarte(Carte* carte) {
+        m_cartes.push_back(carte);
+    }
+
 
 };
 

@@ -27,22 +27,22 @@ public :
     int getTotalPuissance() const{
         return m_total_puissance;
     }
-
+/*
     void setForceCombi(int force_combi) {
 		m_force_combi = force_combi;
 	}
-
+*/
     void setTotalPuissance(int total_puissance){
         m_total_puissance = total_puissance;
     }
 
-    int calculerForceCombi();// MARCHE PAS !!!!!  Ne fonctioone qu'en version classique, j'attends que les fonctions pour les modes de combat soient là 
 
+    int calculerForceCombi(bool affichage = false);
 
     void ajouterCarte(CarteClan* carte) {
         m_cartes.push_back(carte);
         setTotalPuissance(getTotalPuissance() + static_cast<int>(carte->getPuissance()));
-        // TO DO : ajouter une appel a calculerForceCombi si il y a 3 cartes ou plus dans la combinaison 
+        // TODO : ajouter une appel a calculerForceCombi si il y a 3 cartes ou plus dans la combinaison
     }
 
 

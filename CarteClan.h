@@ -21,7 +21,7 @@ public:
 };
 
 ostream &operator<<(ostream &os, const CarteClan &carteClan);
-
+void affichage_vecteur_carteclan(vector<CarteClan*> v);
 
 
 #endif //LO21_SCHOTTEN_TOTTEN_CARTECLAN_H
