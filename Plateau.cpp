@@ -11,7 +11,7 @@ void Plateau::poser(Borne borne, CarteClan* carte){
         // TO DO : ajouter une fonction retirer carte avec cette cate dans la main du joueur
     }
     else{
-        borne.m_cartesj1->ajouterCarte(carte);
+        borne.m_cartesj2->ajouterCarte(carte);
         // TO DO : ajouter une fonction retirer carte avec cette cate dans la main du joueur
     }
 }

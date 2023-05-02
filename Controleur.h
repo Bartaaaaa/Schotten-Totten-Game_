@@ -31,7 +31,7 @@ public:
     const Plateau& getPlateau() const { return *m_plateau; }
     void setGagnant(int gagnant) { m_gagnant = gagnant; }
     void setTactique(bool tactique) { m_tactique = tactique; }
-
+    void JouerTour();
     /* Todo faire ces methodes:
     jouer_tour() : void
     check_fin_partie() : string
