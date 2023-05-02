@@ -58,7 +58,7 @@ int main() {
     p.getJoueur1().getMain().ajouterCarte(&cc1);
     p.getJoueur1().getMain().ajouterCarte(&cc2);
     affichage_vecteur_carte(p.getJoueur1().getMain().getCartes());
-    *
+    */
 
 
 
