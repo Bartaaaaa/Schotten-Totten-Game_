@@ -26,12 +26,12 @@ public:
 		}
     };
 
-    Joueur getJoueur1()   {  // const ou pas ?
-        return *m_joueur1;
+    Joueur* getJoueur1()   {  // const ou pas ?
+        return m_joueur1;
     }
 
-    Joueur getJoueur2()  { // const ou pas ?
-        return *m_joueur2;
+    Joueur* getJoueur2()  { // const ou pas ?
+        return m_joueur2;
     }
 
     int getJoueurActif() const {

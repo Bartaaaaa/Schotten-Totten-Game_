@@ -50,15 +50,19 @@ int main() {
     affichage_vecteur_carte(mainj1.getCartes());
 
 
-    /* TODO ne marche pas
+
     cout << "Plateau :" << endl;
     Plateau p(3, false,false);
     cout <<"P: joueur actif:"<<p.getJoueurActif() << endl;
 
-    p.getJoueur1().getMain().ajouterCarte(&cc1);
-    p.getJoueur1().getMain().ajouterCarte(&cc2);
-    affichage_vecteur_carte(p.getJoueur1().getMain().getCartes());
-    */
+    p.getJoueur1()->getMain()->ajouterCarte(&cc1);
+    p.getJoueur1()->getMain()->ajouterCarte(&cc2);
+    affichage_vecteur_carte(p.getJoueur1()->getMain()->getCartes());
+
+    p.poser(*p.getBornes(0), &cc1);
+    p.poser(*p.getBornes(0), &cc2);
+    affichage_vecteur_carte2(p.getBornes(0)->getCartesJ1()->getCartes());
+
 
 
 

@@ -20,5 +20,6 @@ public:
 };
 
 void affichage_vecteur_carte(vector<Carte*> v);
+void affichage_vecteur_carte2(vector<struct CarteClan *> v); //temporaire juste pour l'affichage dans le main
 
 #endif //LO21_SCHOTTEN_TOTTEN_CARTE_H

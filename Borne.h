@@ -20,7 +20,7 @@ public :
 
     explicit Borne(int num, bool collin=false, bool boue=false):
             m_num(num), m_collin(collin), m_boue(boue), m_revendique(0), m_dernier_pose(0){
-        printf("Borne %d cree\n", m_num);
+        //printf("Borne %d cree\n", m_num);
         m_cartesj1 = new Combinaison();
         m_cartesj2 = new Combinaison();
     }
@@ -34,11 +34,11 @@ public :
         return m_boue;
     }
 
-    Combinaison& getCartesJ1() const{
-        return *m_cartesj1;
+    Combinaison* getCartesJ1() const{
+        return m_cartesj1;
     }
-    Combinaison& getCartesJ2() const{
-        return *m_cartesj2;
+    Combinaison* getCartesJ2() const{
+        return m_cartesj2;
     }
 
     int getRevendique() const{
