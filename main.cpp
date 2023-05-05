@@ -49,19 +49,18 @@ int main() {
     mainj1.ajouterCarte(&cc2);
     affichage_vecteur_carte(mainj1.getCartes());
 
+    Controleur& c = Controleur::getControleur(false);
+    //c.setTactique(true);
+    cout <<"P: joueur actif:"<<c.getPlateau()->getJoueurActif() << endl;
 
+    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(&cc1);
+    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(&cc2);
+    affichage_vecteur_carte(c.getPlateau()->getJoueur1()->getMain()->getCartes());
 
-    cout << "Plateau :" << endl;
-    Plateau p(3, false,false);
-    cout <<"P: joueur actif:"<<p.getJoueurActif() << endl;
+    c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc1);
+    c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc2);
+    affichage_vecteur_carte2(c.getPlateau()->getBornes(0)->getCartesJ1()->getCartes());
 
-    p.getJoueur1()->getMain()->ajouterCarte(&cc1);
-    p.getJoueur1()->getMain()->ajouterCarte(&cc2);
-    affichage_vecteur_carte(p.getJoueur1()->getMain()->getCartes());
-
-    p.poser(*p.getBornes(0), &cc1);
-    p.poser(*p.getBornes(0), &cc2);
-    affichage_vecteur_carte2(p.getBornes(0)->getCartesJ1()->getCartes());
 
 
 

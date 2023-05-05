@@ -16,11 +16,28 @@ class Controleur {
     JeuClan m_jeu_clan;
     JeuTactique m_jeu_tactique;
 
-public:
     Controleur(bool m_tactique);
     ~Controleur();
+
+    struct Handler
+    {
+        Controleur* controleur;
+        Handler() : controleur(nullptr) {}
+        ~Handler() { delete controleur; }
+    };
+
+    static Handler handler;
+
+public:
+    Controleur(const Controleur& j) = delete;
+    Controleur& operator=(const Controleur& j) = delete;
+
+    static Controleur& getControleur(bool tactique);
+    static void libererControleur();
+
     int getGagnant() const { return m_gagnant; }
     bool getTactique() const { return m_tactique; }
+
     /*TODO verifier si on a besoin de ces getters
     const Pioche& getPiocheClan() const { return *m_pioche_clan; }
     const Pioche& getPiocheTactique() const { return *m_pioche_tactique; }
@@ -28,6 +45,7 @@ public:
     JeuClan getJeuClan() const { return m_jeu_clan; }
     JeuTactique getJeuTactique() const { return m_jeu_tactique; }
      */
+
     Plateau* getPlateau() const { return m_plateau; }
     void setGagnant(int gagnant) { m_gagnant = gagnant; }
     void setTactique(bool tactique) { m_tactique = tactique; }

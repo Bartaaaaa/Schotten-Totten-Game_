@@ -7,10 +7,15 @@
 Controleur::Controleur(bool tactique): m_tactique(tactique), m_gagnant(0)
 {
     m_pioche_clan = new Pioche(m_jeu_clan);
-    m_pioche_tactique = new Pioche(m_jeu_tactique);
-    printf("test");
-    m_plateau = new Plateau(6, false, false);
-    printf("test2");
+    if(tactique){
+        m_pioche_tactique = new Pioche(m_jeu_tactique);
+        printf("tactique\n");
+        m_plateau = new Plateau(7, false, false);
+    }
+    else{
+        m_plateau = new Plateau(6, false, false);
+        printf("classique\n");
+    }
 }
 
 Controleur::~Controleur()
@@ -19,6 +24,22 @@ Controleur::~Controleur()
     delete m_pioche_tactique;
     delete m_plateau;
 }
+
+Controleur& Controleur::getControleur(bool tactique)
+{
+    if (handler.controleur == nullptr)
+        handler.controleur = new Controleur(tactique);
+    return *handler.controleur;
+}
+
+void Controleur::libererControleur()
+{
+    delete handler.controleur;
+    handler.controleur =nullptr;
+}
+
+Controleur::Handler Controleur::handler = Handler();
+
 /*
 void Controleur::JouerTour(){
     cout << "Voulez vous revendiquer la borne ? 1 pour oui, 0 pour non" << endl;
