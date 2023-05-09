@@ -39,9 +39,57 @@ void Controleur::libererControleur()
 }
 
 Controleur::Handler Controleur::handler = Handler();
-
 /*
 void Controleur::JouerTour(){
+
+    cout << "Voici votre main :" << endl;
+    //m_plateau->m_joueur1->getMain()->afficher();
+    cout<<"Veuillez choisir la carte que vous voulez jouer"<<endl;
+    int choix_carte, nb_tac=0,nb_clan=0,nb_total=0;
+    cin>>choix_carte;
+    vector<Carte*> cartes = m_plateau->m_joueur1->getMain()->getCartes();
+    Carte* carte = cartes[choix_carte];
+    if ( carte  = dynamic_cast<CarteTactique *>(carte)) {
+        for (auto carte: cartes) {
+            if (carte = dynamic_cast<CarteTactique *>(carte)) {
+                nb_tac++;
+                nb_total++;
+            }}
+            if (nb_tac==0){
+                cout << "Vous n'avez plus de cartes tactiques !" << endl;
+                return;
+            }
+        }
+    else {
+        if (carte = dynamic_cast<CarteClan *>(carte)) {
+            for (auto carte: cartes) {
+                if (carte = dynamic_cast<CarteClan *>(carte)) {
+                    nb_clan++;
+                    nb_total++;
+                }}
+            if (nb_clan==0){
+                cout << "Vous n'avez plus de cartes clans !" << endl;
+                return;
+            }
+            if (nb_total ==0 ){
+                cout << "Vous n'avez plus de cartes !" << endl;
+                return; exit(0);
+            }
+        }
+    }
+
+    cout<<"Veuillez choisir la borne sur laquelle vous voulez jouer"<<endl;
+    int choix_borne;
+    cin>>choix_borne;
+
+
+    if (CarteClan* carte_clan = dynamic_cast<CarteClan*>(carte)) {
+        m_plateau->poser(*(m_plateau->getBornes(choix_borne)), carte_clan);
+    } else if (CarteTactique* carte_tactique = dynamic_cast<CarteTactique*>(carte)) {
+        m_plateau->poser(*(m_plateau->getBornes(choix_borne)), carte_tactique);
+    }
+
+    //m_plateau->m_joueur1->getMain().retirerCarte(choix_carte);
     cout << "Voulez vous revendiquer la borne ? 1 pour oui, 0 pour non" << endl;
     int choix_revendication;
     cin >> choix_revendication;
@@ -50,52 +98,27 @@ void Controleur::JouerTour(){
         cout << "Veuillez choisir la borne que vous voulez revendiquer" << endl;
         int choix_borne;
         cin >> choix_borne;
-        // TODO : Vérifie si la borne a déjà été revendiquée ou pas
-       // m_plateau->revendiquer(choix_borne);
-    }
-    cout<<"Veuillez choisir la carte que vous voulez jouer"<<endl;
-    int choix_carte;
-    cin>>choix_carte;
-    Carte * carte = choix_carte;
-    if (m_plateau.m_joueur_actif->getMain().getCarte(choix_carte)->estTactique()) {
-        if (!m_plateau.m_joueur_actif->getMain().possedeCarteTactique()) {
-            cout << "Vous n'avez plus de cartes tactiques !" << endl;
-            return;
-        }
-    } else {
-        if (!m_plateau.m_joueur_actif->getMain().possedeCarte()) {
-            cout << "Vous n'avez plus de cartes normales !" << endl;
+        while (m_plateau->m_bornes[choix_borne]->getRevendique()==2 || m_plateau->m_bornes[choix_borne]->getRevendique()==1) {
+            cout << "La borne a déjà été revendiquée, veuillez choisir une autre borne" << endl;
+            cin>> choix_borne;
             return;
         }
     }
-    // TODO : je veux que le if verifie si la carte est tactique ou pas
-    if (choix_carte) {
-    CarteClan* carte = m_plateau->m_joueur_actif->getMain().getCarte(choix_carte);}
-    else {
-        CarteTactique * carte = m_plateau->m_joueur_actif->getMain().getCarte(choix_carte);
-    }
-    cout<<"Veuillez choisir la borne sur laquelle vous voulez jouer"<<endl;
-    int choix_borne;
-    cin>>choix_borne;
-    // TODO : Vérifie si la borne a été revendiquée ou pas
-    Borne borne = m_plateau->m_bornes[choix_borne];
-        m_plateau->poser(borne, carte);
-    m_plateau->m_joueur_actif->getMain().retirerCarte(choix_carte);
     cout << "Veuillez choisir si vous voulez choisir une carte tactique ou normale :, 1 pour normale et n'importe qu'elle autre touche pour tactique" << endl;
     int choix_style;
     cin >> choix_style;
     if(choix_style==1){
-        if (!Pioche::estVide())
-        m_plateau->m_joueur_actif->piocher(m_pioche_clan);
+        if (!m_plateau->Pioche->estVide())
+        m_plateau->m_joueur1->piocher(m_pioche_clan);
     }
     else{
         if (!Pioche::estVide())
-        m_plateau->m_joueur_actif->piocher(m_pioche_tactique);
+        m_plateau->m_joueur1->piocher(m_pioche_tactique);
     }
-    m_plateau->m_joueur_actif->setMain();
+    m_plateau->m_joueur1->setMain();
 
-}
-*/
+} */
+
 bool Controleur::check_fin_partie() {
     int sum1=0;
     int serie1=0;
