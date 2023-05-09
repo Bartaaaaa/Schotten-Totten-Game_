@@ -16,6 +16,8 @@ class Controleur {
     JeuClan m_jeu_clan;
     JeuTactique m_jeu_tactique;
 
+    //vector<CarteClan *> m_carte_non_pose;
+
     Controleur(bool m_tactique);
     ~Controleur();
 
@@ -50,6 +52,7 @@ public:
     void setGagnant(int gagnant) { m_gagnant = gagnant; }
     void setTactique(bool tactique) { m_tactique = tactique; }
     void JouerTour();
+    void renvendiquer_borne(int num_borne);
     /* Todo faire ces methodes:
     jouer_tour() : void
     revendiquer_exception(???) : ???

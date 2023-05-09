@@ -152,3 +152,61 @@ bool Controleur::check_fin_partie() {
     return false;
 }
 
+void Controleur::renvendiquer_borne(int num_borne){
+    Borne * borne = m_plateau->getBornes(num_borne);
+    Combinaison* combi_j1 = borne->getCartesJ1();
+    Combinaison* combi_j2 = borne->getCartesJ2();
+    vector<CarteClan*> cartes_pose_j1 = combi_j1->getCartes();
+    vector<CarteClan*> cartes_pose_j2 = combi_j2->getCartes();
+
+    int joueur_qui_revendique = getPlateau()->getJoueurActif();
+
+    // affichage des valeurs:
+    std::cout << "Le joueur " << joueur_qui_revendique << " revendique la borne " << borne->getNum() << std::endl;
+    std::cout << "cartes pose j1 : " << std::endl;
+    affichage_vecteur_carteclan(cartes_pose_j1);
+    std::cout << "Force combi j1: " << combi_j1->getForceCombi() << std::endl;
+
+
+    std::cout << "cartes pose j2 : " << std::endl;
+    affichage_vecteur_carteclan(cartes_pose_j2);
+    std::cout << "Force combi j2: " << combi_j2->getForceCombi() << std::endl;
+
+    // on verifie que le joeur actif a tt les cartes dans sa borne
+
+
+    if (joueur_qui_revendique == 1){
+        if (cartes_pose_j1.size() == 3){
+            // si le joeur qui revendique a bien posé c'est trois cartes alors on verifie si il peut revendiquer
+            if (cartes_pose_j2.size() ==3){
+                // cas simple les 2 joueurs on posé leur 3 cartes
+                if (combi_j1->getForceCombi() >combi_j2->getForceCombi()){
+                    //cas ou J1 a une meilleur combinaison que J2
+                    std::cout << "J1 gagne la borne car il a une meuilleur combianison que J2" << std::endl;
+                    borne->setRevendique(1);
+                }
+                else if (combi_j1->getForceCombi() == combi_j2->getForceCombi()){
+                    // cas ou J1 et J2 ont la meme combinaison on verifie la somme des valeurs
+                        if (combi_j1->getTotalPuissance() > combi_j2->getTotalPuissance())
+                        {// J1 a bien une meuilleur main que J2
+                            std::cout << "J1 gagne la borne car meme niveau de combi mais somme des valeurs plus eleve que J2" << std::endl;
+                            borne->setRevendique(1);}
+                        else if(combi_j1->getTotalPuissance() == combi_j2->getTotalPuissance()){
+                            //TODO verifier que J1 a bien été le premier a poser la 3eme carte
+                            std::cout << "J1 gagne la borne car meme niveau de combi mais somme des valeurs plus eleve que J2" << std::endl;
+                            borne->setRevendique(1);
+                        }
+                        else{
+                            std::cout << "J1 perd et ne peut pas revendiquer la borne car meme niveau de combi mais somme des valeurs plus eleve pour J2 " << std::endl;
+                        }
+                }
+                else{
+                    std::cout << "J1 perd et ne peut pas revendiquer la borne car J2 a une meuilleur combianison que J1" << std::endl;
+                }
+            }
+        }
+
+
+    }
+}
+
