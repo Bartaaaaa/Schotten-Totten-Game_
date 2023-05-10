@@ -25,8 +25,8 @@ int Combinaison::calculerForceCombi()// MARCHE PAS !!!!! Ne fonctioone qu'en ver
 int Combinaison::calculerForceCombi(bool aff)
 {
     auto nbr_carte = m_cartes.size();
-    Couleur tab_coul[nbr_carte];
-    int tab_puis[nbr_carte];
+    Couleur tab_coul[4];
+    int tab_puis[4];
     for (auto i =0; i<nbr_carte; i++){
         tab_coul[i] = m_cartes[i]->getCouleur();
         tab_puis[i] = static_cast<int>(m_cartes[i]->getPuissance());
