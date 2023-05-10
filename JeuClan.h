@@ -13,7 +13,6 @@
 class JeuClan {
 
     const Carte* cartes[54];
-
     JeuClan();
     ~JeuClan();
     JeuClan(const JeuClan& j) = delete;
@@ -67,6 +66,7 @@ public:
     {
         return Iterator();
     }
+
 
 
 };

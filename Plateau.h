@@ -14,21 +14,24 @@ class Plateau {
     Joueur * m_joueur2;
     int m_joueur_actif;
     vector<Carte*> m_defausse;
-    Borne m_bornes[9] ;
+    Borne **m_bornes ;
 public:
     friend class Controleur;
 
-    Plateau(int taille, bool ia1, bool ia2) : m_joueur1(nullptr), m_joueur2(nullptr), m_joueur_actif(1), m_bornes{Borne(1), Borne(2), Borne(3), Borne(4), Borne(5), Borne(6), Borne(7), Borne(8), Borne(9)} {
+    Plateau(int taille, bool ia1, bool ia2) : m_joueur1(nullptr), m_joueur2(nullptr), m_joueur_actif(1), m_bornes{new Borne*[9]} {
         m_joueur1 = new Joueur(taille, ia1);
         m_joueur2 = new Joueur(taille, ia2);
+        for (int i = 0; i < 9; ++i) {
+			m_bornes[i] = new Borne(i+1);
+		}
     };
 
-    Joueur getJoueur1()   {  // const ou pas ?
-        return *m_joueur1;
+    Joueur* getJoueur1()   {  // const ou pas ?
+        return m_joueur1;
     }
 
-    Joueur getJoueur2()  { // const ou pas ?
-        return *m_joueur2;
+    Joueur* getJoueur2()  { // const ou pas ?
+        return m_joueur2;
     }
 
     int getJoueurActif() const {
@@ -39,7 +42,7 @@ public:
         return m_defausse;
     }
 
-    Borne getBornes(int i) const{
+    Borne* getBornes(int i) const{
         return m_bornes[i];
     }
 

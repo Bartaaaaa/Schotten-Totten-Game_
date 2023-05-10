@@ -17,3 +17,11 @@ void affichage_vecteur_carte(vector<Carte*> v) {
         }
     }
 }
+
+void affichage_vecteur_carte2(vector<CarteClan*> v) {   //temporaire juste pour l'affichage dans le main
+    for (auto carte: v) {
+        if (CarteClan *carte_clan = dynamic_cast<CarteClan *>(carte)) {
+            cout << "  CarteClan : " << carte_clan->getPuissance() << " " << carte_clan->getCouleur() << endl;
+        }
+    }
+}
