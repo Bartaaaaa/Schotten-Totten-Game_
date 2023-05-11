@@ -286,6 +286,30 @@ void Controleur::renvendiquer_borne(int num_borne){
 
 void Controleur::fin_de_partie(){
 
+    delete m_plateau->m_joueur1;
+    delete m_plateau->m_joueur2;
+
+
+    // Libérer la mémoire des objets membres des différentes classes
+    delete[] m_plateau->m_joueur1->getMain();
+    delete[] m_plateau->m_joueur2->getMain();
+
+    // Vider et supprimer les conteneurs de pointeurs
+    vector<Carte*> cartesMain1 = m_plateau->m_joueur1->getMain()->getCartes();
+    for (int i = 0; i < cartesMain1.size(); i++) {
+        delete cartesMain1[i];
+    }
+    cartesMain1.clear();
+
+    vector<Carte*> cartesMain2 = m_plateau->m_joueur2->getMain()->getCartes();
+    for (int i = 0; i < cartesMain2.size(); i++) {
+        delete cartesMain2[i];
+    }
+    cartesMain2.clear();
+    for (int i=0;i<9;i++){
+        delete m_plateau->m_bornes[i];
+    }
+    delete m_plateau;
 }
 
 
