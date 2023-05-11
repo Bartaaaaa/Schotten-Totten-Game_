@@ -12,7 +12,7 @@
             m_cartes[i++] = &it.currentItem();
 
 
-        // shuffle (très naif)
+        // shuffle (un peu naif)
         for(size_t it=0; it<2*m_nb ; ++it){
             size_t a = rand() % m_nb,  b = rand() % m_nb; // on tire deux positions entre 0 et nb
             const Carte * tmp = m_cartes[a];

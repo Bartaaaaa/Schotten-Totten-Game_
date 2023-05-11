@@ -39,7 +39,7 @@ public:
 
     int getGagnant() const { return m_gagnant; }
     bool getTactique() const { return m_tactique; }
-
+    void fin_de_partie();
     /*TODO verifier si on a besoin de ces getters
     const Pioche& getPiocheClan() const { return *m_pioche_clan; }
     const Pioche& getPiocheTactique() const { return *m_pioche_tactique; }
