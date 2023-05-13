@@ -223,25 +223,6 @@ void Controleur::JouerTour(){
 
 
 }
-/* utilisation des pioches
-   JeuClan& jc = JeuClan::getJeuClan();
-   JeuTactique& jt = JeuTactique::getJeuTactique();
-   Pioche pc(jc);
-   Pioche pt(jt);
-   cout <<"taille pioche clan : "<<pc.getNbCartes()<<"\n";
-   cout <<"taille pioche tactique : "<<pt.getNbCartes()<<"\n";
-   const CarteClan& cc=dynamic_cast<const CarteClan&>(pc.piocher());
-   const CarteTactique& ct=dynamic_cast<const CarteTactique&>(pt.piocher());
-   cout <<"puissance carte clan : "<<cc.getPuissance()<<"\n";
-   cout <<"couleur carte clan : "<<cc.getCouleur()<<"\n";
-   cout<<"carte tactique : "<<ct.getNom()<<"\n";
-   auto& cc2=pc.piocherCarteClan();
-   auto& ct2=pt.piocherCarteTactique();
-   cout <<"puissance carte clan 2 : "<<cc2.getPuissance()<<"\n";
-   cout <<"couleur carte clan 2 : "<<cc2.getCouleur()<<"\n";
-   cout<<"carte tactique 2 : "<<ct2.getNom()<<"\n";
-   cout <<"taille pioche clan : "<<pc.getNbCartes()<<"\n";
-   cout <<"taille pioche tactique : "<<pt.getNbCartes()<<"\n";*/
 
 bool Controleur::check_fin_partie() {
     int sum1=0;
