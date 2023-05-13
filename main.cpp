@@ -60,7 +60,7 @@ int main() {
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(&cc4);
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(&cc5);
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(&cc6);
-
+    c.JouerTour();
 
     //affichage_vecteur_carte(c.getPlateau()->getJoueur1()->getMain()->getCartes());
     //affichage_vecteur_carte(c.getPlateau()->getJoueur2()->getMain()->getCartes());
