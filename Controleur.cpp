@@ -348,7 +348,6 @@ void Controleur::renvendiquer_borne_pleine_non_tactique(int num_borne){
 
 
     }
-}
 
 void Controleur::fin_de_partie(){
 

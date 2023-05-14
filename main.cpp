@@ -36,6 +36,8 @@ int main() {
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(&cc5);
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(&cc6);
 
+
+
     c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc1);
     c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc2);
     c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc3);
@@ -61,6 +63,14 @@ int main() {
 
 
 
+    //test pioche
+    int i = 0;
+    while (c.getPiocheClan()->estVide() == false){
+        auto ci= c.getPiocheClan()->piocherCarteClan();
+        cout << i << ci.getPuissance()  << endl;
+        i++;
+    }
+    cout << "nb cartes piochee: " << i << endl;
 
 
 
