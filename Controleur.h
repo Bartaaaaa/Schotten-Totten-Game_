@@ -53,6 +53,8 @@ public:
     void setTactique(bool tactique) { m_tactique = tactique; }
     void JouerTour();
     void renvendiquer_borne(int num_borne);
+    void renvendiquer_borne_pleine_non_tactique(int num_borne);
+
     /* Todo faire ces methodes:
     jouer_tour() : void
     revendiquer_exception(???) : ???

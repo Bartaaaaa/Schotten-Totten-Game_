@@ -23,34 +23,9 @@ int main() {
 
 
     CarteClan cc1(Puissance::cinq, Couleur::rouge), cc2(Puissance::six, Couleur::rouge),  cc3(Puissance::sept, Couleur::rouge);
-/*    Combinaison c1;
-    c1.ajouterCarte(&cc2);
-    c1.ajouterCarte(&cc1);
-    c1.ajouterCarte(&cc3);
-
-    affichage_vecteur_carteclan(c1.getCartes());
-    cout << "Combinaison 1 : " << c1.calculerForceCombi(true) << endl;
-    cout << "Combinaison 1 : " << c1.getForceCombi() << endl;*/
-
     CarteClan cc4(Puissance::cinq, Couleur::rouge), cc5(Puissance::six, Couleur::rouge),  cc6(Puissance::sept, Couleur::vert);
-/*    Combinaison c2;
-    c2.ajouterCarte(&cc4);
-    c2.ajouterCarte(&cc5);
-    c2.ajouterCarte(&cc6);
-
-    affichage_vecteur_carteclan(c2.getCartes());
-    cout << "Combinaison 2 : " << c2.calculerForceCombi(true) << endl;
-    cout << "Combinaison 2 : " << c2.getForceCombi() << endl;
-
-
-    cout << "Main joueur" << endl;
-    Main mainj1(3);
-    mainj1.ajouterCarte(&cc1);
-    mainj1.ajouterCarte(&cc2);
-    affichage_vecteur_carte(mainj1.getCartes());*/
 
     Controleur& c = Controleur::getControleur(false);
-    //c.setTactique(true);
     cout <<"P: joueur actif:"<<c.getPlateau()->getJoueurActif() << endl;
 
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(&cc1);
@@ -60,10 +35,6 @@ int main() {
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(&cc4);
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(&cc5);
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(&cc6);
-    c.JouerTour();
-
-    //affichage_vecteur_carte(c.getPlateau()->getJoueur1()->getMain()->getCartes());
-    //affichage_vecteur_carte(c.getPlateau()->getJoueur2()->getMain()->getCartes());
 
     c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc1);
     c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc2);
@@ -80,6 +51,8 @@ int main() {
     affichage_vecteur_carteclan(c.getPlateau()->getBornes(0)->getCartesJ1()->getCartes());
     cout<<"force combi j2 borne 0: "<<c.getPlateau()->getBornes(0)->getCartesJ2()->getForceCombi()<<endl;
     c.getPlateau()->setJoueurActif(1);
+
+    //TODO getForceCombi ne marche pas  depuis le controleur
 
 
     // 0 : somme, 1: suite, 2: couleur, 3: brelan, 4: suite couleur
