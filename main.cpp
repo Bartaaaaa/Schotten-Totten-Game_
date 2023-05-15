@@ -67,7 +67,7 @@ int main() {
     int i = 0;
     while (c.getPiocheClan()->estVide() == false){
         auto ci= c.getPiocheClan()->piocherCarteClan();
-        cout << i << ci.getPuissance()  << endl;
+        cout << "carte numero"<< i <<" : " << ci.getPuissance()  << endl;
         i++;
     }
     cout << "nb cartes piochee: " << i << endl;
