@@ -58,9 +58,29 @@ public :
     int calculerForceCombi(bool affichage = false);
 
     void ajouterCarte(CarteClan* carte) {
-        m_cartes.push_back(carte);
-        setTotalPuissance(getTotalPuissance() + static_cast<int>(carte->getPuissance()));
-        // TODO : ajouter un appel a calculerForceCombi si il y a 3 cartes ou plus dans la combinaison
+        if (m_boue) {
+            if (m_cartes.size() == 4)
+                throw std::invalid_argument("Vous ne pouvez pas ajouter plus de 4 cartes dans une combinaison");
+            else
+            {
+                m_cartes.push_back(carte);
+                setTotalPuissance(getTotalPuissance() + static_cast<int>(carte->getPuissance()));
+            }
+        }
+        else
+        {
+            if (m_cartes.size() == 3)
+                throw std::invalid_argument("Vous ne pouvez pas ajouter plus de 3 cartes dans une combinaison sans combat de boue");
+            else
+            {
+                m_cartes.push_back(carte);
+                setTotalPuissance(getTotalPuissance() + static_cast<int>(carte->getPuissance()));
+            }
+        }
+        if (m_collin)
+            m_force_combi = 0;
+        else
+            m_force_combi = calculerForceCombi();
     }
 
 
