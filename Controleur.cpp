@@ -187,23 +187,28 @@ void Controleur::JouerTour(){
     cin >> choix_style;
     JeuClan& jc = JeuClan::getJeuClan();
     JeuTactique& jt = JeuTactique::getJeuTactique();
+
     Pioche pc(jc);
     Pioche pt(jt);
     Controleur& c = Controleur::getControleur(false);
+    auto ci= c.getPiocheClan()->piocherCarteClan();
     cout <<"taille pioche clan : "<<pc.getNbCartes()<<"\n";
     cout <<"taille pioche tactique : "<<pt.getNbCartes()<<"\n";
     if(0<pc.getNbCartes() && choix_style==1 ){
-        const CarteClan & c1 = dynamic_cast<const CarteClan&>(pc.piocher());
-        c.getPlateau()->getJoueur2()->getMain()->ajouterCarte((Carte *) &c1);
-        cout << "Vous avez pioché la carte : Puissance :" << c1.getPuissance() << " Couleur :  " << c1.getCouleur()<< endl;
+        const CarteClan& c1 = dynamic_cast<const CarteClan&>(pc.piocher());
+        CarteClan* nonConstC1 = const_cast<CarteClan*>(&c1);
+        c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(nonConstC1);
+        cout << "Vous avez pioche la carte : Puissance :" << c1.getPuissance() << " Couleur : " << c1.getCouleur() << endl;
+
     }
     else if (0<pt.getNbCartes() && choix_style!=1 ){
-            const CarteTactique& ct =dynamic_cast<const CarteTactique&>(pt.piocher());
-            c.getPlateau()->getJoueur2()->getMain()->ajouterCarte((CarteTactique*)&ct);
-            cout << "Vous avez pioché la carte : Nom :" << ct.getNom() << endl;
+        const CarteTactique& ct = dynamic_cast<const CarteTactique&>(pt.piocher());
+        CarteTactique* nonConstCT = const_cast<CarteTactique*>(&ct);
+        c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(nonConstCT);
+        cout << "Vous avez pioche la carte : Nom :" << ct.getNom() << endl;
     }
-
-    cout << "Votre main est maintenant compose de : " << endl;
+    //Affichage de la main du joueur 1
+    cout << "Votre main est maintenant composee de : " << endl;
     vector<Carte*> cartesMain1 = m_plateau->m_joueur1->getMain()->getCartes();
     for (int i = 0; i < cartesMain1.size(); i++) {
         CarteClan* carteClan = dynamic_cast<CarteClan*>(cartesMain1[i]);
