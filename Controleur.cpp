@@ -50,20 +50,10 @@ void clean(void)
 void Controleur::JouerTour(){
 
     cout << "Voici votre main :" << endl;
+    m_plateau->afficherMainJoueur(1);
     vector<Carte*> cartesMain = m_plateau->m_joueur1->getMain()->getCartes();
-    for (int i = 0; i < cartesMain.size(); i++) {
-        CarteClan* carteClan = dynamic_cast<CarteClan*>(cartesMain[i]);
-        if (carteClan != nullptr) {
-            cout << i << " : Puissance = " << carteClan->getPuissance() << " et Couleur : "<< carteClan->getCouleur()<< endl;
-        }else {
-            CarteTactique* carteTactique = dynamic_cast<CarteTactique*>(cartesMain[i]);
-            if (carteTactique != nullptr) {
-                cout << i << " : CarteTactique - Nom = " << carteTactique->getNom() << endl;
-            }
-        }
 
-    }
-    cout<<"Veuillez choisir la carte que vous voulez jouer"<<endl;
+    cout<<"Veuillez choisir la carte que vous voulez jouer (son id) :"<<endl;
     int choix_carte, nb_tac=0,nb_clan=0,nb_total=0;
     cin>>choix_carte; clean();
     while(choix_carte>cartesMain.size() || choix_carte<0){
@@ -209,23 +199,9 @@ void Controleur::JouerTour(){
     }
     //Affichage de la main du joueur 1
     cout << "Votre main est maintenant composee de : " << endl;
-    vector<Carte*> cartesMain1 = m_plateau->m_joueur1->getMain()->getCartes();
-    for (int i = 0; i < cartesMain1.size(); i++) {
-        CarteClan* carteClan = dynamic_cast<CarteClan*>(cartesMain1[i]);
-        if (carteClan != nullptr) {
-            cout << i << " : Puissance = " << carteClan->getPuissance() << " et Couleur : "<< carteClan->getCouleur()<< endl;
-        }else {
-            CarteTactique* carteTactique = dynamic_cast<CarteTactique*>(cartesMain1[i]);
-            if (carteTactique != nullptr) {
-                cout << i << " : CarteTactique - Nom = " << carteTactique->getNom() << endl;
-            }
-        }
-
-
-    }
+    m_plateau->afficherMainJoueur(1);
     cout <<"taille pioche clan : "<<pc.getNbCartes()<<"\n";
     cout <<"taille pioche tactique : "<<pt.getNbCartes()<<"\n";
-
 
 }
 

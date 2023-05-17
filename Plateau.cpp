@@ -28,13 +28,17 @@ void Plateau::afficherMainJoueur(int joueur) {
     vector<Carte*> main = joueurcourant->getMain()->getCartes();
 
     cout << "Main du joueur " << joueur << ":\n";
+    int i=0;
     for (const auto& carte : main) {
         if (CarteClan* carteClan = dynamic_cast<CarteClan*>(carte)) {
-            cout << "| " << carteClan->getPuissance() << " " << carteClan->getCouleur() << " |";
+            cout <<"Id : "<<i<<  "| " << carteClan->getPuissance() << " " << carteClan->getCouleur() << " |";
+            i++;
         } else if (CarteTactique* carteTactique = dynamic_cast<CarteTactique*>(carte)) {
-            cout << "| " << carteTactique->getNom() << " |";
+            cout <<"Id : "<< i<< "| " << carteTactique->getNom() << " |";
+            i++;
         }
     }
+    cout << endl;
 }
 
 void Plateau::afficherDosMain(int joueur) {
