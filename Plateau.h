@@ -8,6 +8,7 @@
 #include "Joueur.h"
 #include "Carte.h"
 #include "Borne.h"
+#include "CarteTactique.h"
 
 class Plateau {
     Joueur * m_joueur1; // Ou de type Joueur ?
@@ -51,6 +52,9 @@ public:
     }
 
     void poser(Borne borne, CarteClan* carte);
+
+    void afficherMainJoueur(int joueur);
+    void afficherDosMain(int joueur);
 
     Plateau(const Plateau&) = delete;
     Plateau& operator=(const Plateau&) = delete;

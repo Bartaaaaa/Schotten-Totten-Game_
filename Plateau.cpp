@@ -22,3 +22,31 @@ void Plateau::poser(Borne borne, CarteClan* carte){
         // TODO : ajouter une fonction retirer carte avec cette cate dans la main du joueur
     }
 }
+
+void Plateau::afficherMainJoueur(int joueur) {
+    Joueur* joueurcourant= (joueur==1) ? m_joueur1 : m_joueur2;
+    vector<Carte*> main = joueurcourant->getMain()->getCartes();
+
+    cout << "Main du joueur " << joueur << ":\n";
+    for (const auto& carte : main) {
+        if (CarteClan* carteClan = dynamic_cast<CarteClan*>(carte)) {
+            cout << "| " << carteClan->getPuissance() << " " << carteClan->getCouleur() << " |";
+        } else if (CarteTactique* carteTactique = dynamic_cast<CarteTactique*>(carte)) {
+            cout << "| " << carteTactique->getNom() << " |";
+        }
+    }
+}
+
+void Plateau::afficherDosMain(int joueur) {
+    Joueur* joueurcourant= (joueur==1) ? m_joueur1 : m_joueur2;
+    vector<Carte*> main = joueurcourant->getMain()->getCartes();
+
+    cout << "Main du joueur " << joueur << ":\n";
+    for (const auto& carte : main) {
+        if (CarteClan* carteClan = dynamic_cast<CarteClan*>(carte)) {
+            cout << "| clan |";
+        } else if (CarteTactique* carteTactique = dynamic_cast<CarteTactique*>(carte)) {
+            cout << "| tactique |";
+        }
+    }
+}
