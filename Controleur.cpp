@@ -171,7 +171,7 @@ void Controleur::JouerTour(){
             }i++;
         check_fin_partie();
     }
-
+    //ok
     cout << "Veuillez choisir si vous voulez choisir une carte tactique ou normale :, 1 pour normale et n'importe qu'elle autre chiffre pour tactique" << endl;
     int choix_style;
     cin >> choix_style;
