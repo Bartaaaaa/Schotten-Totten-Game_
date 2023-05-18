@@ -175,24 +175,19 @@ void Controleur::JouerTour(){
     cout << "Veuillez choisir si vous voulez choisir une carte tactique ou normale :, 1 pour normale et n'importe qu'elle autre chiffre pour tactique" << endl;
     int choix_style;
     cin >> choix_style;
-    JeuClan& jc = JeuClan::getJeuClan();
-    JeuTactique& jt = JeuTactique::getJeuTactique();
-
-    Pioche pc(jc);
-    Pioche pt(jt);
     Controleur& c = Controleur::getControleur(false);
     auto ci= c.getPiocheClan()->piocherCarteClan();
-    cout <<"taille pioche clan : "<<pc.getNbCartes()<<"\n";
-    cout <<"taille pioche tactique : "<<pt.getNbCartes()<<"\n";
-    if(0<pc.getNbCartes() && choix_style==1 ){
-        const CarteClan& c1 = dynamic_cast<const CarteClan&>(pc.piocher());
+    cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
+    cout <<"taille pioche tactique : "<<getPiocheTactique()->getNbCartes()<<"\n";
+    if(0<getPiocheClan()->getNbCartes() && choix_style==1 ){
+        const CarteClan& c1 = dynamic_cast<const CarteClan&>(getPiocheClan()->piocher());
         CarteClan* nonConstC1 = const_cast<CarteClan*>(&c1);
         c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(nonConstC1);
         cout << "Vous avez pioche la carte : Puissance :" << c1.getPuissance() << " Couleur : " << c1.getCouleur() << endl;
 
     }
-    else if (0<pt.getNbCartes() && choix_style!=1 ){
-        const CarteTactique& ct = dynamic_cast<const CarteTactique&>(pt.piocher());
+    else if (0<getPiocheTactique()->getNbCartes() && choix_style!=1 ){
+        const CarteTactique& ct = dynamic_cast<const CarteTactique&>(getPiocheTactique()->piocher());
         CarteTactique* nonConstCT = const_cast<CarteTactique*>(&ct);
         c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(nonConstCT);
         cout << "Vous avez pioche la carte : Nom :" << ct.getNom() << endl;
@@ -200,8 +195,8 @@ void Controleur::JouerTour(){
     //Affichage de la main du joueur 1
     cout << "Votre main est maintenant composee de : " << endl;
     m_plateau->afficherMainJoueur(1);
-    cout <<"taille pioche clan : "<<pc.getNbCartes()<<"\n";
-    cout <<"taille pioche tactique : "<<pt.getNbCartes()<<"\n";
+    cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
+    cout <<"taille pioche tactique : "<<getPiocheTactique()->getNbCartes()<<"\n";
 
 }
 
