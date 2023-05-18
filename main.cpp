@@ -80,6 +80,8 @@ int main() {
     c.getPlateau()->poser(*c.getPlateau()->getBornes(2), &ci);
     affichage_vecteur_carteclan(c.getPlateau()->getBornes(2)->getCartesJ1()->getCartes());
 
+    cout <<"\n test joueur tour clasique"<<endl;
+    c.JouerTourClassique();
 
 
 

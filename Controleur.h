@@ -52,6 +52,7 @@ public:
     void setGagnant(int gagnant) { m_gagnant = gagnant; }
     void setTactique(bool tactique) { m_tactique = tactique; }
     void JouerTour();
+    void JouerTourClassique();
     Pioche* getPiocheClan() const { return m_pioche_clan; }
     Pioche* getPiocheTactique() const { return m_pioche_tactique; }
     void renvendiquer_borne(int num_borne);
