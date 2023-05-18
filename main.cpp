@@ -54,7 +54,7 @@ int main() {
     cout<<"force combi j2 borne 0: "<<c.getPlateau()->getBornes(0)->getCartesJ2()->getForceCombi()<<endl;
     c.getPlateau()->setJoueurActif(1);
 
-    //TODO getForceCombi ne marche pas  depuis le controleur
+    //TODO getForceCombi ne marche pas  depuis le controleur (mais marche depuis le plateau)
 
 
     // 0 : somme, 1: suite, 2: couleur, 3: brelan, 4: suite couleur
@@ -63,14 +63,25 @@ int main() {
 
 
 
-    //test pioche
-    int i = 0;
-    while (c.getPiocheClan()->estVide() == false){
-        auto ci= c.getPiocheClan()->piocherCarteClan();
-        cout << "carte numero"<< i <<" : " << ci.getPuissance()  << endl;
-        i++;
-    }
-    cout << "nb cartes piochee: " << i << endl;
+    cout <<"\n\n\n TEST Pioche CarteClan + mettre dans la main "<<endl;
+
+    cout << "Main J1: "<<endl;
+    affichage_vecteur_carte(c.getPlateau()->getJoueur1()->getMain()->getCartes());
+    auto ci= c.getPiocheClan()->piocherCarteClan();
+    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(&ci);
+    cout <<"Carte piochee: "<< ci.getPuissance()<<" "<< ci.getCouleur() <<endl;
+    cout << "Main J1: "<<endl;
+    affichage_vecteur_carte(c.getPlateau()->getJoueur1()->getMain()->getCartes());
+
+    // Test on bose cette carte sur la borne 2:
+
+    affichage_vecteur_carteclan(c.getPlateau()->getBornes(2)->getCartesJ1()->getCartes());
+    cout << "On pose la carte piochee sur la borne 2: "<<endl;
+    c.getPlateau()->poser(*c.getPlateau()->getBornes(2), &ci);
+    affichage_vecteur_carteclan(c.getPlateau()->getBornes(2)->getCartesJ1()->getCartes());
+
+    cout <<"\n test joueur tour clasique"<<endl;
+    c.JouerTourClassique();
 
 
 

@@ -31,6 +31,10 @@ public:
         return m_cartes;
     }
 
+    Carte* getCarte(int i) const {
+        return m_cartes[i];
+    }
+
     bool getJoker() const {
         return m_joker;
     }
