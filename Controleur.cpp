@@ -210,11 +210,14 @@ void Controleur::JouerTourClassique(){
     cin >> choix_carte;
 
     //TODO : ici ne marche pas
-    /*Carte* carteChoisie = m_plateau->getJoueur1()->getMain()->getCarte(choix_carte);
+    Carte* carteChoisie = m_plateau->getJoueur1()->getMain()->getCarte(choix_carte);
 
     CarteClan* carteClanChoisie = dynamic_cast<CarteClan*>(carteChoisie);
-    cout << "Vous avez choisi la carte : Puissance :" << carteClanChoisie->getPuissance() << " Couleur : " << carteClanChoisie->getCouleur() << endl;
-    */
+    if(carteClanChoisie!=nullptr)
+        cout << "Vous avez choisi la carte : Puissance :" << carteClanChoisie->getPuissance() << " Couleur : " << carteClanChoisie->getCouleur() << endl;
+    else
+        cout << "Vous avez choisi la mauvaise carte" << endl;
+
 
     //affichage borne
     for(auto i =1; i<4;i++){
@@ -229,7 +232,7 @@ void Controleur::JouerTourClassique(){
 
     affichage_vecteur_carteclan(m_plateau->getBornes(2)->getCartesJ1()->getCartes());
     cout << "On pose la carte piochee sur la borne "<< choix_borne << " :"<<endl;
-    //m_plateau->poser(*m_plateau->getBornes(choix_borne),carteClanChoisie );
+    m_plateau->poser(*m_plateau->getBornes(choix_borne),carteClanChoisie );
     cout << "Borne " << choix_borne << " :" << endl;
     affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());
 

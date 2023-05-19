@@ -18,7 +18,7 @@ class Main {
 public:
     friend class Joueur;
 
-    explicit Main(int taille) : m_taille(taille), m_cartes(taille), m_joker(false), m_nbr_carte_tactique_joue(0) {
+    explicit Main(int taille) : m_taille(0), m_cartes(0), m_joker(false), m_nbr_carte_tactique_joue(0) {
 
     };
 
