@@ -26,6 +26,10 @@ public:
         // Ou retrun m_cartes.size() ?
         return m_taille;
     }
+    void supprimerCarte(int indice) {
+        m_cartes.erase(m_cartes.begin() + indice);
+        m_taille = m_cartes.size();
+    }
 
     vector<Carte*> getCartes() { // const ou pas ?
         return m_cartes;
