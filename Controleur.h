@@ -13,12 +13,12 @@ class Controleur {
     Pioche* m_pioche_clan;
     Pioche* m_pioche_tactique;
     Plateau* m_plateau; // ou Plateau
-    JeuClan m_jeu_clan;
-    JeuTactique m_jeu_tactique;
+    JeuClan& m_jeu_clan;
+    JeuTactique& m_jeu_tactique;
 
     //vector<CarteClan *> m_carte_non_pose;
 
-    Controleur(bool m_tactique);
+    explicit Controleur(bool m_tactique);
     ~Controleur();
 
     struct Handler

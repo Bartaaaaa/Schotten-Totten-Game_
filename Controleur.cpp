@@ -4,7 +4,7 @@
 
 #include "Controleur.h"
 #include "CarteTroupeElite.h"
-Controleur::Controleur(bool tactique): m_tactique(tactique), m_gagnant(0)
+Controleur::Controleur(bool tactique): m_tactique(tactique), m_gagnant(0), m_jeu_clan(JeuClan::getJeuClan()), m_jeu_tactique(JeuTactique::getJeuTactique())
 {
     m_pioche_clan = new Pioche(m_jeu_clan);
     if(tactique){
