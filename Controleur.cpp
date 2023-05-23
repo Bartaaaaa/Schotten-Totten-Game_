@@ -54,6 +54,7 @@ void Controleur::Afficher_Borne1(){
         cout <<"|";
     }
     cout << endl;
+
 }
 void Controleur::Afficher_Borne2(){
     for(auto i =1; i<9;i++){
