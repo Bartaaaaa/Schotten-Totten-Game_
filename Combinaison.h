@@ -24,6 +24,7 @@ public :
         return m_cartes;
     }
 
+
     int getForceCombi() const{
         return m_force_combi;
     }
