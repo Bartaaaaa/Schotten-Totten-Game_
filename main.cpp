@@ -21,7 +21,7 @@ using namespace std;
 
 int main() {
 
-
+/*
     CarteClan cc1(Puissance::cinq, Couleur::rouge), cc2(Puissance::six, Couleur::rouge),  cc3(Puissance::sept, Couleur::rouge);
     CarteClan cc4(Puissance::cinq, Couleur::rouge), cc5(Puissance::six, Couleur::rouge),  cc6(Puissance::sept, Couleur::vert);
 
@@ -59,7 +59,7 @@ int main() {
     // 0 : somme, 1: suite, 2: couleur, 3: brelan, 4: suite couleur
 
     //c.renvendiquer_borne(0);
-
+    */
 
     /*
     //test pioche
@@ -72,6 +72,8 @@ int main() {
     cout << "nb cartes piochee: " << i << endl;
 
     */
+    Controleur& c = Controleur::getControleur(false);
+    c.debut_de_partie_classique();
 
     return 0;
 }

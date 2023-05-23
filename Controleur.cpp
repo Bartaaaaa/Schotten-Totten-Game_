@@ -474,5 +474,27 @@ void Controleur::fin_de_partie(){
     delete m_plateau;
 }
 
+void Controleur::debut_de_partie_classique() {
+    // Ajout des 6 cartes dans la main du joueur 1
+    for (int i = 0; i < 6; i++) {
+        auto carte = getPiocheClan()->piocher();
+        m_plateau->m_joueur1->getMain()->ajouterCarte(&carte);
+    }
+
+    // Ajout des 6 cartes dans la main du joueur 2
+    for (int i = 0; i < 6; i++) {
+        auto carte = getPiocheClan()->piocher();
+        m_plateau->m_joueur2->getMain()->ajouterCarte(&carte);
+        cout << m_plateau->m_joueur2->getMain()->getCartes().size()<< endl;
+    }
+
+    // Affichage des mains des joueurs
+    std::cout << "Main du joueur 1 : " << std::endl;
+    affichage_vecteur_carte(m_plateau->m_joueur1->getMain()->getCartes());
+    std::cout << "Main du joueur 2 : " << std::endl;
+    affichage_vecteur_carte(m_plateau->m_joueur2->getMain()->getCartes());
+
+}
+
 
 

@@ -58,6 +58,8 @@ public:
     void renvendiquer_borne(int num_borne);
     void renvendiquer_borne_pleine_non_tactique(int num_borne);
 
+    void debut_de_partie_classique();
+
     /* Todo faire ces methodes:
     jouer_tour() : void
     revendiquer_exception(???) : ???
