@@ -14,6 +14,7 @@ using namespace std;
 class Carte {
 
 public:
+
     // Necessaire pour utiliser dynamic_cast
     virtual ~Carte() {};
 

@@ -23,6 +23,7 @@ public :
     vector<CarteClan*> getCartes(){
         return m_cartes;
     }
+
     int getForceCombi() const{
         return m_force_combi;
     }
@@ -57,7 +58,7 @@ public :
 
     int calculerForceCombi(bool affichage = false);
 
-    void ajouterCarte(CarteClan* carte) {
+    void ajouterCarte( CarteClan* carte) {
         if (m_boue) {
             if (m_cartes.size() == 4)
                 throw std::invalid_argument("Vous ne pouvez pas ajouter plus de 4 cartes dans une combinaison");

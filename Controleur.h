@@ -47,11 +47,14 @@ public:
     JeuClan getJeuClan() const { return m_jeu_clan; }
     JeuTactique getJeuTactique() const { return m_jeu_tactique; }
      */
-
+    void Afficher_Borne1();
+    void Afficher_Borne2();
     Plateau* getPlateau() const { return m_plateau; }
     void setGagnant(int gagnant) { m_gagnant = gagnant; }
     void setTactique(bool tactique) { m_tactique = tactique; }
-    void JouerTour();
+    void JouerTour1();
+    void JouerTour2();
+    void JouerTourIA();
     void JouerTourClassique();
     Pioche* getPiocheClan() const { return m_pioche_clan; }
     Pioche* getPiocheTactique() const { return m_pioche_tactique; }
