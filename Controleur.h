@@ -13,12 +13,12 @@ class Controleur {
     Pioche* m_pioche_clan;
     Pioche* m_pioche_tactique;
     Plateau* m_plateau; // ou Plateau
-    JeuClan m_jeu_clan;
-    JeuTactique m_jeu_tactique;
+    JeuClan& m_jeu_clan;
+    JeuTactique& m_jeu_tactique;
 
     //vector<CarteClan *> m_carte_non_pose;
 
-    Controleur(bool m_tactique);
+    explicit Controleur(bool m_tactique);
     ~Controleur();
 
     struct Handler
@@ -47,16 +47,21 @@ public:
     JeuClan getJeuClan() const { return m_jeu_clan; }
     JeuTactique getJeuTactique() const { return m_jeu_tactique; }
      */
-
+    void Afficher_Borne1();
+    void Afficher_Borne2();
     Plateau* getPlateau() const { return m_plateau; }
     void setGagnant(int gagnant) { m_gagnant = gagnant; }
     void setTactique(bool tactique) { m_tactique = tactique; }
-    void JouerTour();
+    void JouerTour1();
+    void JouerTour2();
+    void JouerTourIA();
     void JouerTourClassique();
     Pioche* getPiocheClan() const { return m_pioche_clan; }
     Pioche* getPiocheTactique() const { return m_pioche_tactique; }
     void renvendiquer_borne(int num_borne);
     void renvendiquer_borne_pleine_non_tactique(int num_borne);
+
+    void debut_de_partie_classique();
 
     /* Todo faire ces methodes:
     jouer_tour() : void

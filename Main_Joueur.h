@@ -18,13 +18,17 @@ class Main {
 public:
     friend class Joueur;
 
-    explicit Main(int taille) : m_taille(taille), m_cartes(taille), m_joker(false), m_nbr_carte_tactique_joue(0) {
+    explicit Main(int taille) : m_taille(0), m_cartes(0), m_joker(false), m_nbr_carte_tactique_joue(0) {
 
     };
 
     int getTaille() const {
         // Ou retrun m_cartes.size() ?
         return m_taille;
+    }
+    void supprimerCarte(int indice) {
+        m_cartes.erase(m_cartes.begin() + indice);
+        m_taille = m_cartes.size();
     }
 
     vector<Carte*> getCartes() { // const ou pas ?

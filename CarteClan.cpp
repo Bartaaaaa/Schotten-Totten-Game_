@@ -14,5 +14,5 @@ void affichage_vecteur_carteclan(vector<CarteClan*> v){
     for (auto carte: v) {
         cout << " " << carte->getPuissance()<< " "<< carte->getCouleur();
     }
-    cout << endl;
+
 }
