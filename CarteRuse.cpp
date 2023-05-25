@@ -76,11 +76,28 @@ void CarteRuse::Jouer_ChasseurdeTete() {
             int choix_defausse1,choix_defausse2;
             cin >> choix_defausse1;
             cin >> choix_defausse2;
-
             //TODO : faire appel à la méthode qui met les cartes de la main dans la pioche
-
-
     }
+}
 
+
+void CarteRuse::jouer_Traitre(){
+        cout << "Vous avez joué la carte Traître" << endl;
+        cout << "Veuillez choisir une borne non revendiquée de l'adversaire qui comporte au moins une carte :" << endl;
+        int choix_borne;
+        cin >> choix_borne;
+        auto cartesBornes = Controleur::getControleur(false).getPlateau()->getBornes(choix_borne)->getCartesJ1()->getCartes();
+        for (int i=0; i<cartesBornes.size();i++){
+            cout <<"id :" <<i<<" " << cartesBornes[i]->getCouleur() << " " << cartesBornes[i]->getPuissance() << endl;
+        }
+        cout<< "Quelle carte souhaitée vous retirer de la borne << choix_borne << ?" << endl;
+        //TODO : stocker les infos sur la carte avant de la supprimer
+        int choix_carte;
+        cin >> choix_carte;
+        //TODO : faire appel à la méthode qui supprime la carte de la borne adversaire
+        cout << "Sur quelle borne souhaitez vous jouer votre carte ?" << endl;
+        int choix_borne2;
+        cin >> choix_borne2;
+        Controleur::getControleur(false).getPlateau()->getBornes(choix_borne2)->getCartesJ1()->getCartes();
 
 }
