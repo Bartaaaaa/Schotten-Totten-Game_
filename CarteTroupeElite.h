@@ -31,6 +31,9 @@ public:
         //}
         return CarteTroupeElite("Joker", puissance, couleur);
     }
+    string getNom() const {
+        return nom;
+    }
 
 
     CarteTroupeElite jouer_PorteBouclier()  {

@@ -20,6 +20,8 @@ public:
 
     bool estVide() const { return m_nb==0; }
     size_t getNbCartes() const { return m_nb; }
+    const CarteClan& piocherCarteClan();
+    const CarteTactique& piocherCarteTactique();
     const Carte& piocher();
     ~Pioche();
 

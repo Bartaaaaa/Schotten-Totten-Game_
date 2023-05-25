@@ -15,8 +15,8 @@ public:
         m_main = new Main(taille);
     };
 
-    Main getMain()  { // const ou pas ?
-        return *m_main;
+    Main* getMain()  { // const ou pas ?
+        return m_main;
     }
 
     bool getIa() const {

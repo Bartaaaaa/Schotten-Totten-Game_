@@ -16,11 +16,30 @@ class Controleur {
     JeuClan m_jeu_clan;
     JeuTactique m_jeu_tactique;
 
-public:
+    //vector<CarteClan *> m_carte_non_pose;
+
     Controleur(bool m_tactique);
     ~Controleur();
+
+    struct Handler
+    {
+        Controleur* controleur;
+        Handler() : controleur(nullptr) {}
+        ~Handler() { delete controleur; }
+    };
+
+    static Handler handler;
+
+public:
+    Controleur(const Controleur& j) = delete;
+    Controleur& operator=(const Controleur& j) = delete;
+
+    static Controleur& getControleur(bool tactique);
+    static void libererControleur();
+
     int getGagnant() const { return m_gagnant; }
     bool getTactique() const { return m_tactique; }
+    void fin_de_partie();
     /*TODO verifier si on a besoin de ces getters
     const Pioche& getPiocheClan() const { return *m_pioche_clan; }
     const Pioche& getPiocheTactique() const { return *m_pioche_tactique; }
@@ -28,15 +47,22 @@ public:
     JeuClan getJeuClan() const { return m_jeu_clan; }
     JeuTactique getJeuTactique() const { return m_jeu_tactique; }
      */
-    const Plateau& getPlateau() const { return *m_plateau; }
+
+    Plateau* getPlateau() const { return m_plateau; }
     void setGagnant(int gagnant) { m_gagnant = gagnant; }
     void setTactique(bool tactique) { m_tactique = tactique; }
     void JouerTour();
+    void JouerTourClassique();
+    Pioche* getPiocheClan() const { return m_pioche_clan; }
+    Pioche* getPiocheTactique() const { return m_pioche_tactique; }
+    void renvendiquer_borne(int num_borne);
+    void renvendiquer_borne_pleine_non_tactique(int num_borne);
+
     /* Todo faire ces methodes:
     jouer_tour() : void
-    check_fin_partie() : string
     revendiquer_exception(???) : ???
      */
+    void test();
 
     bool check_fin_partie();
 };
