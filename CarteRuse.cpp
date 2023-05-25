@@ -81,6 +81,7 @@ void CarteRuse::Jouer_ChasseurdeTete() {
 }
 
 
+
 void CarteRuse::jouer_Traitre(){
         cout << "Vous avez joué la carte Traître" << endl;
         cout << "Veuillez choisir une borne non revendiquée de l'adversaire qui comporte au moins une carte :" << endl;
