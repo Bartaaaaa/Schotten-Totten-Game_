@@ -20,8 +20,31 @@
 using namespace std;
 
 int main() {
-
-
+    /*
+    cout << "Bienvenue dans Schotten-Totten haha ! bienvenue bienvnue dans ce superbe jeu, je suis bob lennon et voici le jeu" << endl;
+    cout << "Plusieurs options s'offrent à vous , veillez en choisir une haha ! " << endl;
+    cout << "1- Jouer une partie contre un autre joueur haha !" << endl;
+    cout << "2- Jouer une partie contre une IA haha !" << endl;
+    cout << "3- Quitter le jeu haha !" << endl;
+    int choix;
+    cin >> choix;
+    switch(choix) {
+        case 1:
+            cout << "Vous avez choisi de jouer contre un autre joueur haha !" << endl;
+            //JoeurTour1();
+            break;
+        case 2:
+            cout << "Vous avez choisi de jouer contre une IA haha !" << endl;
+            break;
+        case 3:
+            cout << "Vous avez choisi de quitter le jeu haha !" << endl;
+            break;
+        default:
+            cout << "Vous n'avez pas choisi une option valide, veuillez recommencer haha !" << endl;
+            break;
+    }
+    */
+/*
     CarteClan cc1(Puissance::cinq, Couleur::rouge), cc2(Puissance::six, Couleur::rouge),  cc3(Puissance::sept, Couleur::rouge);
     CarteClan cc4(Puissance::cinq, Couleur::rouge), cc5(Puissance::six, Couleur::rouge),  cc6(Puissance::sept, Couleur::vert);
 
@@ -36,7 +59,7 @@ int main() {
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(&cc5);
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(&cc6);
 
-    c.JouerTour();
+    c.JouerTour1();
     c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc1);
     c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc2);
     c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc3);
@@ -70,8 +93,9 @@ int main() {
         i++;
     }
     cout << "nb cartes piochee: " << i << endl;
-
-    */
+*/
+    Controleur& c = Controleur::getControleur(false);
+    c.debut_de_partie_classique();
 
     return 0;
 }
