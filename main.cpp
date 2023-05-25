@@ -21,7 +21,6 @@ using namespace std;
 
 int main() {
     /*
-     *
     cout << "Bienvenue dans Schotten-Totten haha ! bienvenue bienvnue dans ce superbe jeu, je suis bob lennon et voici le jeu" << endl;
     cout << "Plusieurs options s'offrent à vous , veillez en choisir une haha ! " << endl;
     cout << "1- Jouer une partie contre un autre joueur haha !" << endl;
