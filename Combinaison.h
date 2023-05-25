@@ -16,10 +16,15 @@ class Combinaison{
     bool m_boue, m_collin;
 
 public :
-    Combinaison(vector<CarteClan*> cartes, int force_combi, int total_puissance):
-            m_cartes(cartes), m_force_combi(force_combi), m_total_puissance(total_puissance), m_collin(false), m_boue(false){}
-    Combinaison() = default; //on a besoin d'un constructeur sans arguments sinon on peut pas créer mcartes_j1 dans borne, à moins qu'on les créer autrepart.
+    Combinaison() : m_cartes({}), m_force_combi(0), m_total_puissance(0), m_collin(false), m_boue(false) {}
 
+    Combinaison(vector<CarteClan*> cartes):
+        m_cartes({}), m_force_combi(0), m_total_puissance(0), m_collin(false), m_boue(false) {
+        for (auto carte : cartes) {
+			ajouterCarte(carte);
+		}
+    }
+  
     vector<CarteClan*> getCartes(){
         return m_cartes;
     }
@@ -74,7 +79,9 @@ public :
             else
             {
                 m_cartes.push_back(carte);
+                cout << getTotalPuissance() + static_cast<int>(carte->getPuissance()) << endl;
                 setTotalPuissance(getTotalPuissance() + static_cast<int>(carte->getPuissance()));
+
             }
         }
         if (m_collin)
