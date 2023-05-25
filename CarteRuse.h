@@ -9,8 +9,9 @@
 class CarteRuse : public CarteTactique {
 public:
     CarteRuse(const string& nom) : CarteTactique(nom)  {};
+
+    static void Jouer_ChasseurdeTete() ;
     /* Todo faire ces methodes
-    void jouer_ChasseurdeTete() const;
     void jouer_Stratege() const;
     void jouer_Banshee() const;
     void jouer_Traitre() const;
