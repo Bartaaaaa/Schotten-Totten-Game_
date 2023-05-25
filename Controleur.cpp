@@ -56,7 +56,6 @@ void Controleur::Afficher_Borne1(){
     cout << endl;
 
 }
-
 void Controleur::Afficher_Borne2(){
     for(auto i =1; i<9;i++){
         cout << "|B" << i <<":";
@@ -659,22 +658,18 @@ void Controleur::fin_de_partie(){
 void Controleur::debut_de_partie_classique() {
     // Ajout des 6 cartes dans la main du joueur 1
     for (int i = 0; i < 6; i++) {
-        auto carte = getPiocheClan()->piocher();
-        m_plateau->m_joueur1->getMain()->ajouterCarte(&carte);
+        CarteClan *ci = new CarteClan(getPiocheClan()->piocherCarteClan());
+        m_plateau->m_joueur1->getMain()->ajouterCarte(ci);
     }
-
     // Ajout des 6 cartes dans la main du joueur 2
     for (int i = 0; i < 6; i++) {
-        auto carte = getPiocheClan()->piocher();
-        m_plateau->m_joueur2->getMain()->ajouterCarte(&carte);
-        cout << m_plateau->m_joueur2->getMain()->getCartes().size()<< endl;
+        CarteClan* ci = new CarteClan(getPiocheClan()->piocherCarteClan());
+        m_plateau->m_joueur2->getMain()->ajouterCarte(ci);
     }
 
     // Affichage des mains des joueurs
-    std::cout << "Main du joueur 1 : " << std::endl;
-    affichage_vecteur_carte(m_plateau->m_joueur1->getMain()->getCartes());
-    std::cout << "Main du joueur 2 : " << std::endl;
-    affichage_vecteur_carte(m_plateau->m_joueur2->getMain()->getCartes());
+    m_plateau->afficherMainJoueur(1);
+    m_plateau->afficherMainJoueur(2);
 
 }
 
