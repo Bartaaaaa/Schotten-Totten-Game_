@@ -79,7 +79,7 @@ int main() {
 
     //TODO getForceCombi ne marche pas  depuis le controleur
 
-
+    //test
     // 0 : somme, 1: suite, 2: couleur, 3: brelan, 4: suite couleur
 
     //c.renvendiquer_borne(0);
