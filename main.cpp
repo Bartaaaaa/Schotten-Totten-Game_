@@ -95,7 +95,17 @@ int main() {
     cout << "nb cartes piochee: " << i << endl;
 */
     Controleur& c = Controleur::getControleur(false);
+    affichage_vecteur_carteclan(c.getCarteNonPose());
     c.debut_de_partie_classique();
+    c.JouerTour1();
+    c.JouerTour1();
+    c.JouerTour1();
+    c.renvendiquer_borne_non_pleine_non_tactique(1);
+
 
     return 0;
 }
+/*
+
+
+ */

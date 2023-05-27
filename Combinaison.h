@@ -80,7 +80,7 @@ public :
             else
             {
                 m_cartes.push_back(carte);
-                cout << getTotalPuissance() + static_cast<int>(carte->getPuissance()) << endl;
+                //cout << getTotalPuissance() + static_cast<int>(carte->getPuissance()) << endl;
                 setTotalPuissance(getTotalPuissance() + static_cast<int>(carte->getPuissance()));
 
             }
