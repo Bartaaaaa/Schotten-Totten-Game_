@@ -6,6 +6,8 @@
 #define LO21_SCHOTTEN_TOTTEN_CONTROLEUR_H
 #include "Plateau.h"
 #include "Pioche.h"
+#include "JeuClan.h"
+#include "CarteClan.h"
 
 class Controleur {
     int m_gagnant;
@@ -49,6 +51,7 @@ public:
      */
 
     vector<CarteClan *> getCarteNonPose() const { return m_carte_non_pose; }
+    void afficherCartesNonPose() const;
 
     void Afficher_Borne1();
     void Afficher_Borne2();

@@ -4,10 +4,8 @@
 
 #include "Controleur.h"
 #include "CarteTroupeElite.h"
-Controleur::Controleur(bool tactique): m_tactique(tactique), m_gagnant(0), m_jeu_clan(JeuClan::getJeuClan()), m_jeu_tactique(JeuTactique::getJeuTactique()), m_carte_non_pose(5)
+Controleur::Controleur(bool tactique): m_tactique(tactique), m_gagnant(0), m_jeu_clan(JeuClan::getJeuClan()), m_jeu_tactique(JeuTactique::getJeuTactique()), m_carte_non_pose(m_jeu_clan.getNbCartes())
 {
-    // TODO modifier m_carte_non_pose
-
     m_pioche_clan = new Pioche(m_jeu_clan);
     if(tactique){
         m_pioche_tactique = new Pioche(m_jeu_tactique);
@@ -18,12 +16,14 @@ Controleur::Controleur(bool tactique): m_tactique(tactique), m_gagnant(0), m_jeu
         m_plateau = new Plateau(6, false, false);
         printf("classique\n");
     }
-    // TODO modifier m_carte_non_pose
-    m_carte_non_pose[0] = new CarteClan(Puissance::trois, Couleur::bleu);
-    m_carte_non_pose[1] = new CarteClan(Puissance::quatre, Couleur::bleu);
-    m_carte_non_pose[2] = new CarteClan(Puissance::cinq, Couleur::bleu);
-    m_carte_non_pose[3] = new CarteClan(Puissance::cinq, Couleur::vert);
-    m_carte_non_pose[4] = new CarteClan(Puissance::cinq, Couleur::rouge);
+
+    size_t i=0;
+    JeuClan::Iterator it=m_jeu_clan.getIterator();
+    while (!it.isDone()){
+        m_carte_non_pose[i]= new CarteClan(static_cast<const CarteClan&>(it.currentItem()));
+        it.next();
+        i++;
+    }
 }
 
 Controleur::~Controleur()
@@ -31,6 +31,9 @@ Controleur::~Controleur()
     delete m_pioche_clan;
     delete m_pioche_tactique;
     delete m_plateau;
+    for(int i=0; i<m_carte_non_pose.size(); i++){
+        delete m_carte_non_pose[i];
+    }
 }
 
 Controleur& Controleur::getControleur(bool tactique)
@@ -71,6 +74,19 @@ void Controleur::Afficher_Borne2(){
         cout <<"|"<< endl;
     }
     cout << endl;
+}
+
+void Controleur::afficherCartesNonPose() const
+{
+    std::cout << "Cartes non posées : " << std::endl;
+    for (int i = 0; i < m_carte_non_pose.size(); ++i)
+    {
+        std::cout << "Carte " << i + 1 << ": ";
+        if (m_carte_non_pose[i] != nullptr)
+            std::cout << m_carte_non_pose[i]->getCouleur() << " "<< m_carte_non_pose[i]->getPuissance()<< std::endl;
+        else
+            std::cout << "Aucune carte" << std::endl;
+    }
 }
 void Controleur::JouerTour1(){
 
@@ -827,18 +843,22 @@ void Controleur::fin_de_partie(){
 void Controleur::debut_de_partie_classique() {
     // Ajout des 6 cartes dans la main du joueur 1
     for (int i = 0; i < 6; i++) {
-        CarteClan *ci = new CarteClan(getPiocheClan()->piocherCarteClan());
-        m_plateau->m_joueur1->getMain()->ajouterCarte(ci);
+        auto carte = getPiocheClan()->piocher();
+        m_plateau->m_joueur1->getMain()->ajouterCarte(&carte);
     }
+
     // Ajout des 6 cartes dans la main du joueur 2
     for (int i = 0; i < 6; i++) {
-        CarteClan* ci = new CarteClan(getPiocheClan()->piocherCarteClan());
-        m_plateau->m_joueur2->getMain()->ajouterCarte(ci);
+        auto carte = getPiocheClan()->piocher();
+        m_plateau->m_joueur2->getMain()->ajouterCarte(&carte);
+        cout << m_plateau->m_joueur2->getMain()->getCartes().size()<< endl;
     }
 
     // Affichage des mains des joueurs
-    m_plateau->afficherMainJoueur(1);
-    m_plateau->afficherMainJoueur(2);
+    std::cout << "Main du joueur 1 : " << std::endl;
+    affichage_vecteur_carte(m_plateau->m_joueur1->getMain()->getCartes());
+    std::cout << "Main du joueur 2 : " << std::endl;
+    affichage_vecteur_carte(m_plateau->m_joueur2->getMain()->getCartes());
     cout << "Fin de la phase de pioche" << endl<<endl;
 }
 
