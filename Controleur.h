@@ -77,5 +77,7 @@ public:
     void test();
 
     bool check_fin_partie();
+    void supprimer_carte_pose_v1(CarteClan *carte);
+    void supprimer_carte_pose_v2(CarteClan *carte);
 };
 #endif //LO21_SCHOTTEN_TOTTEN_CONTROLEUR_H

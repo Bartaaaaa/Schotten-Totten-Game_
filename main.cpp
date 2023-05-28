@@ -95,17 +95,26 @@ int main() {
     cout << "nb cartes piochee: " << i << endl;
 */
     Controleur& c = Controleur::getControleur(false);
-    affichage_vecteur_carteclan(c.getCarteNonPose());
+    //affichage_vecteur_carteclan(c.getCarteNonPose());
+    c.afficherCartesNonPose();
+
+    cout<< "Il y a " << c.getCarteNonPose().size() << " cartes non posees" << endl;
+    auto test = c.getPiocheClan()->piocherCarteClan();
+    cout << "carte piochee: " << test.getCouleur() << " "<< test.getPuissance() << endl;
+    // TODO ne marche pas car la creation des cartes dans m_cartesposé crée des nouvelles adresses
+    c.supprimer_carte_pose_v1(&test);
+    cout<< "\nV1 Il y a " << c.getCarteNonPose().size() << " cartes non posees" << endl;
+    c.supprimer_carte_pose_v2(&test);
+    cout<< "\nV2 Il y a " << c.getCarteNonPose().size() << " cartes non posees" << endl;
+    c.afficherCartesNonPose();
+
+    /*
     c.debut_de_partie_classique();
     c.JouerTour1();
     c.JouerTour1();
     c.JouerTour1();
     c.renvendiquer_borne_non_pleine_non_tactique(1);
 
-
+*/
     return 0;
 }
-/*
-
-
- */

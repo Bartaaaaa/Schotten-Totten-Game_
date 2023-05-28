@@ -843,24 +843,37 @@ void Controleur::fin_de_partie(){
 void Controleur::debut_de_partie_classique() {
     // Ajout des 6 cartes dans la main du joueur 1
     for (int i = 0; i < 6; i++) {
-        auto carte = getPiocheClan()->piocher();
-        m_plateau->m_joueur1->getMain()->ajouterCarte(&carte);
+        CarteClan *ci = new CarteClan(getPiocheClan()->piocherCarteClan());
+        m_plateau->m_joueur1->getMain()->ajouterCarte(ci);
     }
 
     // Ajout des 6 cartes dans la main du joueur 2
     for (int i = 0; i < 6; i++) {
-        auto carte = getPiocheClan()->piocher();
-        m_plateau->m_joueur2->getMain()->ajouterCarte(&carte);
-        cout << m_plateau->m_joueur2->getMain()->getCartes().size()<< endl;
+        CarteClan *ci = new CarteClan(getPiocheClan()->piocherCarteClan());
+        m_plateau->m_joueur2->getMain()->ajouterCarte(ci);
     }
 
     // Affichage des mains des joueurs
-    std::cout << "Main du joueur 1 : " << std::endl;
-    affichage_vecteur_carte(m_plateau->m_joueur1->getMain()->getCartes());
-    std::cout << "Main du joueur 2 : " << std::endl;
-    affichage_vecteur_carte(m_plateau->m_joueur2->getMain()->getCartes());
+    m_plateau->afficherMainJoueur(1);
+    m_plateau->afficherMainJoueur(2);
     cout << "Fin de la phase de pioche" << endl<<endl;
 }
 
+void Controleur::supprimer_carte_pose_v1(CarteClan *carte) {
+    for (int i = 0; i < m_carte_non_pose.size(); i++) {
+        if (m_carte_non_pose[i] == carte) {
+            m_carte_non_pose.erase(m_carte_non_pose.begin() + i);
+        }
+    }
+}
+void Controleur::supprimer_carte_pose_v2(CarteClan *carte) {
+    auto p = carte->getPuissance();
+    auto c = carte->getCouleur();
+    for (int i = 0; i < m_carte_non_pose.size(); i++) {
+        if (m_carte_non_pose[i]->getPuissance() == p && m_carte_non_pose[i]->getCouleur() == c) {
+            m_carte_non_pose.erase(m_carte_non_pose.begin() + i);
+        }
+    }
+}
 
 
