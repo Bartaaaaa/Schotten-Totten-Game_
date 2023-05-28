@@ -16,6 +16,8 @@
 #include "Main_Joueur.h"
 
 #include <typeinfo>
+#include <stdlib.h>
+
 
 using namespace std;
 
@@ -42,60 +44,10 @@ int main() {
         default:
             cout << "Vous n'avez pas choisi une option valide, veuillez recommencer haha !" << endl;
             break;
-    }
-    */
-/*
-    CarteClan cc1(Puissance::cinq, Couleur::rouge), cc2(Puissance::six, Couleur::rouge),  cc3(Puissance::sept, Couleur::rouge);
-    CarteClan cc4(Puissance::cinq, Couleur::rouge), cc5(Puissance::six, Couleur::rouge),  cc6(Puissance::sept, Couleur::vert);
+    }*/
 
     Controleur& c = Controleur::getControleur(false);
-    cout <<"P: joueur actif:"<<c.getPlateau()->getJoueurActif() << endl;
-
-    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(&cc1);
-    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(&cc2);
-    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(&cc3);
-
-    c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(&cc4);
-    c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(&cc5);
-    c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(&cc6);
-
-    c.JouerTour1();
-    c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc1);
-    c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc2);
-    c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc3);
-    // J1 a donc une suite couleur 5,6,7 rouge (foce de combi = 4)
-    c.getPlateau()->setJoueurActif(2);
-
-    c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc4);
-    c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc5);
-    c.getPlateau()->poser(*c.getPlateau()->getBornes(0), &cc6);
-    // J2 a donc une suite 5 Rouge 6 Rouge 7 Vert (force de combi = 1)
-    affichage_vecteur_carteclan(c.getPlateau()->getBornes(0)->getCartesJ1()->getCartes());
-    cout<<"force combi j1 borne 0: "<<c.getPlateau()->getBornes(0)->getCartesJ1()->getForceCombi()<<endl;
-    affichage_vecteur_carteclan(c.getPlateau()->getBornes(0)->getCartesJ1()->getCartes());
-    cout<<"force combi j2 borne 0: "<<c.getPlateau()->getBornes(0)->getCartesJ2()->getForceCombi()<<endl;
-    c.getPlateau()->setJoueurActif(1);
-
-    //TODO getForceCombi ne marche pas  depuis le controleur
-
-    //test
-    // 0 : somme, 1: suite, 2: couleur, 3: brelan, 4: suite couleur
-
-    //c.renvendiquer_borne(0);
-
-
     /*
-    //test pioche
-    int i = 0;
-    while (c.getPiocheClan()->estVide() == false){
-        auto ci= c.getPiocheClan()->piocherCarteClan();
-        cout << "carte numero"<< i <<" : " << ci.getPuissance()  << endl;
-        i++;
-    }
-    cout << "nb cartes piochee: " << i << endl;
-*/
-    Controleur& c = Controleur::getControleur(false);
-    //affichage_vecteur_carteclan(c.getCarteNonPose());
     c.afficherCartesNonPose();
 
     cout<< "Il y a " << c.getCarteNonPose().size() << " cartes non posees" << endl;
@@ -107,14 +59,15 @@ int main() {
     c.supprimer_carte_pose_v2(&test);
     cout<< "\nV2 Il y a " << c.getCarteNonPose().size() << " cartes non posees" << endl;
     c.afficherCartesNonPose();
-
-    /*
+    */
+    system ("CLS");
+    cout << "Il y a plus rien" << endl;
     c.debut_de_partie_classique();
-    c.JouerTour1();
-    c.JouerTour1();
-    c.JouerTour1();
-    c.renvendiquer_borne_non_pleine_non_tactique(1);
+    system ("CLS");
+    c.JouerTourClassique1();
+    c.JouerTourClassique1();
+    c.JouerTourClassique1();
+    c.revendiquer_borne(1);
 
-*/
     return 0;
 }

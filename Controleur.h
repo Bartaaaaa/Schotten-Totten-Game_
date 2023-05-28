@@ -8,6 +8,7 @@
 #include "Pioche.h"
 #include "JeuClan.h"
 #include "CarteClan.h"
+#include <stdlib.h>
 
 class Controleur {
     int m_gagnant;
@@ -64,9 +65,9 @@ public:
     void JouerTourClassique();
     Pioche* getPiocheClan() const { return m_pioche_clan; }
     Pioche* getPiocheTactique() const { return m_pioche_tactique; }
-    void renvendiquer_borne(int num_borne);
-    void renvendiquer_borne_pleine_non_tactique(int num_borne);
-    void renvendiquer_borne_non_pleine_non_tactique(int num_borne );
+    void revendiquer_borne(int num_borne);
+    void revendiquer_borne_pleine_non_tactique(int num_borne);
+    void revendiquer_borne_non_pleine_non_tactique(int num_borne );
 
     void debut_de_partie_classique();
 
@@ -79,5 +80,6 @@ public:
     bool check_fin_partie();
     void supprimer_carte_pose_v1(CarteClan *carte);
     void supprimer_carte_pose_v2(CarteClan *carte);
+    void JouerTourClassique1();
 };
 #endif //LO21_SCHOTTEN_TOTTEN_CONTROLEUR_H

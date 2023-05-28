@@ -159,7 +159,7 @@ void Controleur::JouerTour1(){
         cout << "Veuillez choisir une borne :" << endl;
         int choix_borne;
         cin >> choix_borne;
-        affichage_vecteur_carteclan(m_plateau->getBornes(2)->getCartesJ1()->getCartes());cout <<endl;
+        affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());cout <<endl;
         cout << "On pose la carte piochee sur la borne "<< choix_borne << " :"<<endl;
         m_plateau->poser(*m_plateau->getBornes(choix_borne),carteClanChoisie );
         cout << "Borne " << choix_borne << " :" << endl;
@@ -183,7 +183,7 @@ void Controleur::JouerTour1(){
         cout << "Veuillez choisir une borne :" << endl;
         int choix_borne;
         cin >> choix_borne;
-        //affichage_vecteur_carteTactique(m_plateau->getBornes(2)->getCartesJ1()->getCartes());
+        //affichage_vecteur_carteTactique(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());
         cout << "On pose la carte piochee sur la borne "<< choix_borne << " :"<<endl;
         m_plateau->poser(*m_plateau->getBornes(choix_borne),*carteTactiquechoisie );
         cout << "Borne " << choix_borne << " :" << endl;
@@ -374,7 +374,7 @@ void Controleur::JouerTour2(){
         cout << "Veuillez choisir une borne :" << endl;
         int choix_borne;
         cin >> choix_borne;
-        affichage_vecteur_carteclan(m_plateau->getBornes(2)->getCartesJ2()->getCartes());cout <<endl;
+        affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes());cout <<endl;
         cout << "On pose la carte piochee sur la borne "<< choix_borne << " :"<<endl;
         m_plateau->poser(*m_plateau->getBornes(choix_borne),carteClanChoisie );
         cout << "Borne " << choix_borne << " :" << endl;
@@ -510,7 +510,7 @@ void Controleur::JouerTourClassique(){
     int choix_borne;
     cin >> choix_borne;
 
-    affichage_vecteur_carteclan(m_plateau->getBornes(2)->getCartesJ1()->getCartes());
+    affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());
     cout << "On pose la carte piochee sur la borne "<< choix_borne << " :"<<endl;
     m_plateau->poser(*m_plateau->getBornes(choix_borne),carteClanChoisie );
     cout << "Borne " << choix_borne << " :" << endl;
@@ -560,21 +560,21 @@ bool Controleur::check_fin_partie() {
     return false;
 }
 
-void Controleur::renvendiquer_borne(int num_borne) {
+void Controleur::revendiquer_borne(int num_borne) {
     if (getTactique()){
 
     }
     else {
         if ((m_plateau->getBornes(num_borne)->getCartesJ1()->getCartes().size()==3) && (m_plateau->getBornes(num_borne)->getCartesJ2()->getCartes().size()==3)){
-            renvendiquer_borne_pleine_non_tactique(num_borne);
+            revendiquer_borne_pleine_non_tactique(num_borne);
         }
         else if (((m_plateau->getBornes(num_borne)->getCartesJ1()->getCartes().size()==3) && (m_plateau->getBornes(num_borne)->getCartesJ2()->getCartes().size()<3))
             || ((m_plateau->getBornes(num_borne)->getCartesJ1()->getCartes().size()<3) && (m_plateau->getBornes(num_borne)->getCartesJ2()->getCartes().size()==3))){
-            renvendiquer_borne_non_pleine_non_tactique(num_borne);
+            revendiquer_borne_non_pleine_non_tactique(num_borne);
         }
     }
 }
-void Controleur::renvendiquer_borne_pleine_non_tactique(int num_borne){
+void Controleur::revendiquer_borne_pleine_non_tactique(int num_borne){
     Borne * borne = m_plateau->getBornes(num_borne);
     Combinaison* combi_j1 = borne->getCartesJ1();
     Combinaison* combi_j2 = borne->getCartesJ2();
@@ -651,7 +651,7 @@ void Controleur::renvendiquer_borne_pleine_non_tactique(int num_borne){
 
     }
 }
-void Controleur::renvendiquer_borne_non_pleine_non_tactique(int num_borne ) {
+void Controleur::revendiquer_borne_non_pleine_non_tactique(int num_borne ) {
 
     Borne *borne = m_plateau->getBornes(num_borne);
     Combinaison *combi_j1 = borne->getCartesJ1();
@@ -874,6 +874,60 @@ void Controleur::supprimer_carte_pose_v2(CarteClan *carte) {
             m_carte_non_pose.erase(m_carte_non_pose.begin() + i);
         }
     }
+}
+
+void Controleur::JouerTourClassique1(){
+    system ("CLS");
+    cout << "Voici votre main :" << endl;
+    m_plateau->afficherMainJoueur(1);
+    vector<Carte*> cartesMain = m_plateau->m_joueur1->getMain()->getCartes();
+
+    cout<<"Veuillez choisir la carte que vous voulez jouer (son id) :"<<endl;
+    int choix_carte, nb_tac=0,nb_clan=0,nb_total=0;
+    cin>>choix_carte; clean();
+    while(choix_carte>cartesMain.size() || choix_carte<0){
+        cout<<"Vous n'avez pas cette carte, resaisissez une que vous avez :"<<endl;
+        cin>>choix_carte;
+    }
+    vector<Carte*> cartes = m_plateau->m_joueur1->getMain()->getCartes();
+    Carte* carte = cartes[choix_carte];
+    if (auto carte_choisie = dynamic_cast<CarteClan *>(carte)) {
+        for (auto carte: cartes) {
+            nb_clan++;
+            nb_total++;
+        }
+        if (nb_clan==0){
+            cout << "Vous n'avez plus de cartes clans !" << endl;
+            return;
+        }
+        if (nb_total ==0 ){
+            cout << "Vous n'avez plus de cartes !" << endl;
+            return; exit(0);
+            }
+
+        system ("CLS");
+        cout << "Carte choisie : " << carte_choisie->getCouleur() << " " << carte_choisie->getPuissance() << endl;
+        Afficher_Borne1();
+        //Choix de la borne
+        cout << "Veuillez choisir une borne :" << endl;
+        int choix_borne;
+        cin >> choix_borne;
+        affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());cout <<endl;
+        cout << "On pose la carte piochee sur la borne "<< choix_borne << " :"<<endl;
+        m_plateau->poser(*m_plateau->getBornes(choix_borne),carte_choisie);
+        cout << "Borne " << choix_borne << " :" << endl;
+        affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());cout <<endl;
+        m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
+
+    }
+    system ("CLS");
+    CarteClan* ci = new CarteClan(getPiocheClan()->piocherCarteClan());
+    m_plateau->getJoueur1()->getMain()->ajouterCarte(ci);
+    cout <<"Carte piochee : "<< ci->getPuissance() <<" "<< ci->getCouleur() << endl;
+    m_plateau->afficherMainJoueur(1);
+    Afficher_Borne1();
+    cout << "\nFIN DU TOUR" << endl;
+
 }
 
 
