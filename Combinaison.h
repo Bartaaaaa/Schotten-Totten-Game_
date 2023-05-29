@@ -24,7 +24,7 @@ public :
 			ajouterCarte(carte);
 		}
     }
-  
+
     vector<CarteClan*> getCartes(){
         return m_cartes;
     }

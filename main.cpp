@@ -64,10 +64,11 @@ int main() {
     cout << "Il y a plus rien" << endl;
     c.debut_de_partie_classique();
     system ("CLS");
-    c.JouerTourClassique1();
-    c.JouerTourClassique1();
-    c.JouerTourClassique1();
-    c.revendiquer_borne(1);
+    c.JouerTour1();
+    //c.JouerTourClassique1();
+    //c.JouerTourClassique1();
+    //c.JouerTourClassique1();
+    //c.revendiquer_borne(1);
 
     return 0;
 }

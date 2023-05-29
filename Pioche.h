@@ -17,7 +17,17 @@ class Pioche
 public:
     Pioche(const JeuClan& jeuClan);
     Pioche(const JeuTactique& jeuTactique);
+    void push_back(const Carte* carte) {
+        const Carte** temp = new const Carte*[m_nb + 1];
+        for (size_t i = 0; i < m_nb; ++i) {
+            temp[i] = m_cartes[i];
+        }
+        temp[m_nb] = carte;
 
+        delete[] m_cartes;
+        m_cartes = temp;
+        ++m_nb;
+    }
     bool estVide() const { return m_nb==0; }
     size_t getNbCartes() const { return m_nb; }
     const CarteClan& piocherCarteClan();

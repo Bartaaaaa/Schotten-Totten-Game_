@@ -5,6 +5,64 @@
 #include "CarteRuse.h"
 #include "Controleur.h"
 
+void Supp_PushCarteClanTactique(){
+    int carte1;
+    cin >> carte1;
+    int carte1s = carte1;
+
+    vector<Carte*> cartesMain = Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->getCartes();
+    while(carte1>cartesMain.size() || carte1<0){
+        cout<<"Vous n'avez pas cette carte, resaisissez une que vous avez :"<<endl;
+        cin>>carte1;
+    }
+    int  nb_tac=0,nb_clan=0,nb_total=0;
+    Carte* carte = cartesMain[carte1];
+
+    /*if ( carte  = dynamic_cast<CarteTactique *>(carte)) {
+        for (auto carte: cartesMain) {
+            nb_tac++;
+            nb_total++;
+        }
+        if (nb_tac==0){
+            cout << "Vous n'avez plus de cartes tactiques !" << endl;
+        }
+        Carte* carte1 = Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->getCarte(carte1s);
+        CarteTactique* carteClanChoisie = dynamic_cast<CarteTactique*>(carte1);
+        if(carteClanChoisie!=nullptr) {
+            cout << "Vous avez choisi la carte : Nom :" << carteClanChoisie->getNom() << endl;
+            Controleur::getControleur(true).getPiocheTactique()->push_back(carte1);
+            Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->supprimerCarte(carte1s);
+    }}*/
+    int a=0;
+    if (a==1) cout<<"lacaca";
+   else {
+        if (carte = dynamic_cast<CarteClan *>(carte)) {
+            for (auto carte: cartesMain) {
+
+                nb_clan++;
+                nb_total++;
+            }
+            if (nb_clan==0){
+                cout << "Vous n'avez plus de cartes clans !" << endl;
+            }
+            if (nb_total ==0 ){
+                cout << "Vous n'avez plus de cartes !" << endl;
+                return; exit(0);
+            }
+            Carte* carte1t = Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->getCarte(carte1s);
+            CarteClan* carteClanChoisie = dynamic_cast<CarteClan*>(carte1t);
+            if(carteClanChoisie!=nullptr) {
+                cout << "Vous avez choisi la carte : Puissance :" << carteClanChoisie->getPuissance()<< " Couleur : " << carteClanChoisie->getCouleur() << endl;
+                Controleur::getControleur(false).getPiocheClan()->push_back(carte1t);
+                Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->supprimerCarte(carte1s);
+            }
+        }
+    }
+}
+
+
+
+
 void CarteRuse::Jouer_ChasseurdeTete() {
     cout << "Vous avez joué la carte Chasseur de Tête" << endl;
     cout  << "Veuillez choisir le nombre de carte Clan que vous voulez piocher :" << endl;
@@ -13,11 +71,7 @@ void CarteRuse::Jouer_ChasseurdeTete() {
     while (nbCarteClan>3 || nbCarteClan<0){
         cout << "Vous ne pouvez pas piocher plus ou moins de 3 cartes" << endl;
         cout  << "Veuillez d'abord choisir le nombre de carte Clan que vous voulez piocher :" << endl;
-        int nbCarteClan;
         cin >> nbCarteClan;
-        cout << "Veuillez choisir le nombre de carte Tactique que vous voulez piocher :" << endl;
-        int nbCarteTactique;
-        cin >> nbCarteTactique;
     }
     switch(nbCarteClan){
         case 0 : {
@@ -30,6 +84,8 @@ void CarteRuse::Jouer_ChasseurdeTete() {
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(ct01);
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(ct02);
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(ct03);
+
+
             break;}
         case 1:{
             CarteClan* c11 = new CarteClan(Controleur::getControleur(false).getPiocheClan()->piocherCarteClan());
@@ -41,6 +97,7 @@ void CarteRuse::Jouer_ChasseurdeTete() {
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(c11);
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(ct11);
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(ct12);
+
             break;}
         case 2: {
             CarteClan *c21 = new CarteClan(Controleur::getControleur(false).getPiocheClan()->piocherCarteClan());
@@ -55,6 +112,7 @@ void CarteRuse::Jouer_ChasseurdeTete() {
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(c21);
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(c22);
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(ct21);
+
         }
         case 3: {
             CarteClan* c31 = new CarteClan(Controleur::getControleur(false).getPiocheClan()->piocherCarteClan());
@@ -69,15 +127,17 @@ void CarteRuse::Jouer_ChasseurdeTete() {
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(c31);
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(c32);
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(c33);
+
         }
-            cout << "Voici votre main après avoir joué la carte Chasseur de tête :" << endl;
-            Controleur::getControleur(false).getPlateau()->afficherMainJoueur(1);
-            cout << "Veuillez choisir deux cartes à défausser :" << endl;
-            int choix_defausse1,choix_defausse2;
-            cin >> choix_defausse1;
-            cin >> choix_defausse2;
-            //TODO : faire appel à la méthode qui met les cartes de la main dans la pioche
+
     }
+    cout << "Vous allez maintenant devoir choisir deux cartes que vous allez supprimer de votre main" << endl;
+    cout << "Voici votre main actuelle :" << endl;
+    Controleur::getControleur(false).getPlateau()->afficherMainJoueur(1);
+    Supp_PushCarteClanTactique();
+    cout << "Voici votre main actuelle :" << endl;
+    Controleur::getControleur(false).getPlateau()->afficherMainJoueur(1);
+    Supp_PushCarteClanTactique();
 }
 
 
