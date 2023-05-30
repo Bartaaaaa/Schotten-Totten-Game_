@@ -13,8 +13,8 @@ public:
     static void Jouer_ChasseurdeTete() ;
 
     static void Jouer_Stratege() ;
-    static void jouer_Banshee() ;
-    static void jouer_Traitre() ;
+    static void Jouer_Banshee() ;
+    static void Jouer_Traitre() ;
 
 };
 
