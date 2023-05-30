@@ -11,9 +11,9 @@ public:
     CarteRuse(const string& nom) : CarteTactique(nom)  {};
 
     static void Jouer_ChasseurdeTete() ;
-    /* Todo faire ces methodes
-    void jouer_Stratege() const;
-    void jouer_Banshee() const; */
+
+    static void Jouer_Stratege() ;
+    static void jouer_Banshee() ;
     static void jouer_Traitre() ;
 
 };

@@ -64,6 +64,7 @@ int main() {
     cout << "Il y a plus rien" << endl;
     c.debut_de_partie_classique();
     system ("CLS");
+
     c.JouerTour1();
     //c.JouerTourClassique1();
     //c.JouerTourClassique1();

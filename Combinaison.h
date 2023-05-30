@@ -24,7 +24,9 @@ public :
 			ajouterCarte(carte);
 		}
     }
-
+    void supprimerCarte_Borne(int indice){
+        m_cartes.erase(m_cartes.begin() + indice);
+    }
     vector<CarteClan*> getCartes(){
         return m_cartes;
     }
@@ -62,6 +64,7 @@ public :
     }
 
     int calculerForceCombi(bool affichage = false);
+
 
     void ajouterCarte( CarteClan* carte) {
         if (m_boue) {

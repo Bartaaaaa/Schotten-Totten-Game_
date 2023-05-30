@@ -157,7 +157,7 @@ void Controleur::JouerTour1(){
     else {
 
     }
-
+    CarteRuse::Jouer_Stratege();
     cout << "Voulez vous revendiquer une borne ? 1 pour oui, 0 pour non :" << endl;
     int choix_revendication;
     cin >> choix_revendication;
