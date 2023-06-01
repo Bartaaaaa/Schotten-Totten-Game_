@@ -46,7 +46,7 @@ int main() {
             break;
     }*/
 
-    Controleur& c = Controleur::getControleur(false);
+    Controleur& c = Controleur::getControleur(true);
     /*
     c.afficherCartesNonPose();
 
@@ -64,8 +64,10 @@ int main() {
     cout << "Il y a plus rien" << endl;
     c.debut_de_partie_classique();
     system ("CLS");
+    for (int i = 0; i<10;i++){
+    c.JouerTourIAClassique();}
 
-    c.JouerTour1();
+    // c.JouerTour1();
     //c.JouerTourClassique1();
     //c.JouerTourClassique1();
     //c.JouerTourClassique1();

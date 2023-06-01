@@ -61,6 +61,7 @@ public:
     void setTactique(bool tactique) { m_tactique = tactique; }
     void JouerTour1();
     void JouerTour2();
+    void JouerTourIAClassique();
     void JouerTourIA();
     void JouerTourClassique();
     Pioche* getPiocheClan() const { return m_pioche_clan; }
