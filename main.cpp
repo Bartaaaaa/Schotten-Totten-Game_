@@ -46,7 +46,7 @@ int main() {
             break;
     }*/
 
-    Controleur& c = Controleur::getControleur(true);
+    //Controleur& c = Controleur::getControleur(false);
     /*
     c.afficherCartesNonPose();
 
@@ -59,19 +59,28 @@ int main() {
     c.supprimer_carte_pose_v2(&test);
     cout<< "\nV2 Il y a " << c.getCarteNonPose().size() << " cartes non posees" << endl;
     c.afficherCartesNonPose();
-    */
+
+
     system ("CLS");
     cout << "Il y a plus rien" << endl;
     c.debut_de_partie_classique();
     system ("CLS");
-    for (int i = 0; i<10;i++){
-    c.JouerTourIAClassique();}
 
-    // c.JouerTour1();
+    c.JouerTour1();
+    */
     //c.JouerTourClassique1();
     //c.JouerTourClassique1();
     //c.JouerTourClassique1();
     //c.revendiquer_borne(1);
+
+    /*Controleur& c = Controleur::getControleur(true);
+    auto test_c = c.getPiocheTactique()->piocherCarteTactique();
+    cout << test_c.getNom() << endl;
+    */
+
+    vector<CarteClan *> r = gen_vect_joker();
+    affichage_vecteur_carteclan(r);
+
 
     return 0;
 }
