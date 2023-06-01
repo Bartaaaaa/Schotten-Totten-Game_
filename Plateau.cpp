@@ -3,6 +3,7 @@
 //
 
 #include "Plateau.h"
+#include "Controleur.h"
 
 void Plateau::poser(Borne borne, CarteClan* carte){
     if(m_joueur_actif == 1){
@@ -19,6 +20,7 @@ void Plateau::poser(Borne borne, CarteClan* carte){
         borne.m_cartesj2->ajouterCarte(carte);
         // TODO : ajouter une fonction retirer carte avec cette cate dans la main du joueur
     }
+    Controleur::getControleur(true).supprimer_carte_pose_v2(carte);
 }
 
 void Plateau::afficherMainJoueur(int joueur) {

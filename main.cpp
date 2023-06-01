@@ -17,6 +17,7 @@
 
 #include <typeinfo>
 #include <stdlib.h>
+#include <unistd.h>
 
 
 using namespace std;
@@ -46,40 +47,27 @@ int main() {
             break;
     }*/
 
-    //Controleur& c = Controleur::getControleur(false);
-    /*
-    c.afficherCartesNonPose();
-
-    cout<< "Il y a " << c.getCarteNonPose().size() << " cartes non posees" << endl;
-    auto test = c.getPiocheClan()->piocherCarteClan();
-    cout << "carte piochee: " << test.getCouleur() << " "<< test.getPuissance() << endl;
-    // TODO ne marche pas car la creation des cartes dans m_cartesposé crée des nouvelles adresses
-    c.supprimer_carte_pose_v1(&test);
-    cout<< "\nV1 Il y a " << c.getCarteNonPose().size() << " cartes non posees" << endl;
-    c.supprimer_carte_pose_v2(&test);
-    cout<< "\nV2 Il y a " << c.getCarteNonPose().size() << " cartes non posees" << endl;
-    c.afficherCartesNonPose();
-
-
-    system ("CLS");
-    cout << "Il y a plus rien" << endl;
+    //TODO test retirer carte poser de m_carte_pose OK
+    Controleur& c = Controleur::getControleur(false);
     c.debut_de_partie_classique();
-    system ("CLS");
+    c.afficherCartesNonPose();
+    c.JouerTourClassique1();
+    c.JouerTourClassique1();
+    c.afficherCartesNonPose();
+    c.revendiquer_borne(1);
+   // on arrete une seconde ici avec la fonction sleep pour cela on include unistd.h du namespace
+    sleep(1);
 
-    c.JouerTour1();
-    */
+    c.JouerTourClassique1();
+    c.revendiquer_borne(1);
+
+
     //c.JouerTourClassique1();
     //c.JouerTourClassique1();
     //c.JouerTourClassique1();
     //c.revendiquer_borne(1);
 
-    /*Controleur& c = Controleur::getControleur(true);
-    auto test_c = c.getPiocheTactique()->piocherCarteTactique();
-    cout << test_c.getNom() << endl;
-    */
 
-    vector<CarteClan *> r = gen_vect_joker();
-    affichage_vecteur_carteclan(r);
 
 
     return 0;

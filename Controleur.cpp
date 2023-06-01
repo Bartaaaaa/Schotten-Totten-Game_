@@ -738,6 +738,14 @@ bool Controleur::check_fin_partie() {
             }
             serie1=0;
         }
+        if (sum1 == 5){
+            m_gagnant=1;
+            return true;
+        }
+        else if (sum2 == 5){
+            m_gagnant=2;
+            return true;
+        }
     }
     return false;
 }
@@ -754,7 +762,9 @@ void Controleur::revendiquer_borne(int num_borne) {
             || ((m_plateau->getBornes(num_borne)->getCartesJ1()->getCartes().size()<3) && (m_plateau->getBornes(num_borne)->getCartesJ2()->getCartes().size()==3))){
             revendiquer_borne_non_pleine_non_tactique(num_borne);
         }
+        else {cout << "On ne peut pas revendiquer cette borne pour le moment" << endl;}
     }
+
 }
 void Controleur::revendiquer_borne_pleine_non_tactique(int num_borne){
     Borne * borne = m_plateau->getBornes(num_borne);
