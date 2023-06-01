@@ -463,6 +463,7 @@ void Controleur::JouerTourIAClassique(){
         affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());cout <<endl;
         m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
     }
+
     int count_cartes = 0;
 
     for (int i=0 ;i <8;i++) {
