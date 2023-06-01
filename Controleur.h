@@ -81,5 +81,8 @@ public:
     void supprimer_carte_pose_v1(CarteClan *carte);
     void supprimer_carte_pose_v2(CarteClan *carte);
     void JouerTourClassique1();
+
 };
+vector<CarteClan *> gen_vect_joker();
+
 #endif //LO21_SCHOTTEN_TOTTEN_CONTROLEUR_H

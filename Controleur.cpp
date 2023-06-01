@@ -624,6 +624,7 @@ void Controleur::revendiquer_borne_non_pleine_non_tactique(int num_borne ) {
                         combi_temp->ajouterCarte(cartes_pose_j2[0]);
                         combi_temp->ajouterCarte(cartes_pose_j2[1]);
                         combi_temp->ajouterCarte(a1);
+                        // TODO marche mais peut mieux faire on peut verifier le couleur et armee et pas enlever de m_cartepose
                         if (cartes_pose_j2[0] != cartes_pose_j2[1] && cartes_pose_j2[0] != a1 &&
                             cartes_pose_j2[1] != a1) {
                             if (combi_temp->getForceCombi() > max) {
@@ -867,5 +868,15 @@ void Controleur::JouerTourClassique1(){
     cout << "\nFIN DU TOUR" << endl;
 
 }
+
+vector<CarteClan *> gen_vect_joker(){
+    vector<CarteClan *> res;
+    for (auto c : Couleurs)
+        for (auto p : Puissances)
+            res.push_back( new CarteClan(p, c));
+    return res;
+
+}
+
 
 
