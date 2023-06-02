@@ -1123,6 +1123,7 @@ void Controleur::JouerTourClassique1(){
 
 }
 
+// Joker tt les cartes
 vector<CarteClan *> gen_vect_joker(){
     vector<CarteClan *> res;
     for (auto c : Couleurs)
@@ -1132,5 +1133,51 @@ vector<CarteClan *> gen_vect_joker(){
 
 }
 
+//Espion 7 de nimporte quel couleur
+vector<CarteClan *> gen_vect_espion(){
+    vector<CarteClan *> res;
+    for (auto c : Couleurs)
+        res.push_back( new CarteClan(Puissance::sept, c));
+    return res;
 
+}
+// Porte bou
+vector<CarteClan *> gen_vect_portebou(){
+    vector<CarteClan *> res;
+    for (auto c : Couleurs){
+        res.push_back( new CarteClan(Puissance::un, c));
+        res.push_back( new CarteClan(Puissance::deux, c));
+        res.push_back( new CarteClan(Puissance::trois, c));
+    }
+    return res;
 
+}
+
+bool il_y_a_joker(vector<CarteClan *> v){
+    for (auto c:v){
+        if(auto carte =  dynamic_cast<CarteTroupeElite *>(c)){
+            if (carte->getNom()=="Joker")
+                return true;
+        }
+    }
+    return false;
+}
+
+bool il_y_a_espion(vector<CarteClan *> v){
+    for (auto c:v){
+        if(auto carte =  dynamic_cast<CarteTroupeElite *>(c)){
+            if (carte->getNom()=="Espion")
+                return true;
+        }
+    }
+    return false;
+}
+bool il_y_a_portebou(vector<CarteClan *> v){
+    for (auto c:v){
+        if(auto carte =  dynamic_cast<CarteTroupeElite *>(c)){
+            if (carte->getNom()=="Porte_Bouclier")
+                return true;
+        }
+    }
+    return false;
+}

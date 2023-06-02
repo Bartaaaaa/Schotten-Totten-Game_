@@ -47,7 +47,8 @@ int main() {
             break;
     }*/
 
-    //TODO test retirer carte poser de m_carte_pose OK
+/*    //TODO test retirer carte poser de m_carte_pose OK
+
     Controleur& c = Controleur::getControleur(false);
     c.debut_de_partie_classique();
     c.afficherCartesNonPose();
@@ -59,7 +60,7 @@ int main() {
     sleep(1);
 
     c.JouerTourClassique1();
-    c.revendiquer_borne(1);
+    c.revendiquer_borne(1);*/
 
 
     //c.JouerTourClassique1();
@@ -67,6 +68,12 @@ int main() {
     //c.JouerTourClassique1();
     //c.revendiquer_borne(1);
 
+    Controleur& c = Controleur::getControleur(true);
+    while(!c.getPiocheTactique()->estVide()) {
+        auto t = c.getPiocheTactique()->piocherCarteTactique();
+        cout << t.getNom() << endl;
+
+    }
 
 
 

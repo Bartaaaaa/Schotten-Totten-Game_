@@ -86,5 +86,11 @@ public:
 
 };
 vector<CarteClan *> gen_vect_joker();
+vector<CarteClan *> gen_vect_espion();
+vector<CarteClan *> gen_vect_portebou();
+
+bool il_y_a_joker(vector<CarteClan *> v);
+bool il_y_a_espion(vector<CarteClan *> v);
+bool il_y_a_portebou(vector<CarteClan *> v);
 
 #endif //LO21_SCHOTTEN_TOTTEN_CONTROLEUR_H

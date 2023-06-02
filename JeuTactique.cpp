@@ -9,12 +9,12 @@
 JeuTactique::JeuTactique()
 {
     size_t i = 0;
-    /*
-    m_cartes[i++]= new CarteTroupeElite("Joker", 1, 1);
-    m_cartes[i++]= new CarteTroupeElite("Joker", 1, 1);
-    m_cartes[i++]= new CarteTroupeElite("Espion", 7, 1);
-    m_cartes[i++]= new CarteTroupeElite("Porte_Bouclier", 1, 1);
-    */
+
+/*    cartes[i++]= new CarteTroupeElite("Joker", Puissance::zero, Couleur::neutre);
+    cartes[i++]= new CarteTroupeElite("Joker", Puissance::zero, Couleur::neutre);
+    cartes[i++]= new CarteTroupeElite("Espion",Puissance::zero, Couleur::neutre);
+    cartes[i++]= new CarteTroupeElite("Porte_Bouclier", Puissance::zero, Couleur::neutre);*/
+
     cartes[i++]= new CarteModeCombat("Colin Maillard");
     cartes[i++]= new CarteModeCombat("Combat de Boue");
 
