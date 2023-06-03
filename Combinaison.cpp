@@ -77,31 +77,19 @@ int Combinaison::calculerForceCombi(bool aff)
 
     }
     else if (nbr_carte == 4) {
-        if ((tab_coul[0] == tab_coul[1] && tab_coul[1] == tab_coul[2] && tab_puis[0] + 1 == tab_puis[1] && tab_puis[1] + 1 == tab_puis[2]) ||
-            (tab_coul[1] == tab_coul[2] && tab_coul[2] == tab_coul[3] && tab_puis[1] + 1 == tab_puis[2] && tab_puis[2] + 1 == tab_puis[3]) ||
-            (tab_coul[0] == tab_coul[2] && tab_coul[2] == tab_coul[3] && tab_puis[0] + 1 == tab_puis[2] && tab_puis[2] + 1 == tab_puis[3]) ||
-            (tab_coul[0] == tab_coul[1] && tab_coul[1] == tab_coul[3] && tab_puis[0] + 1 == tab_puis[1] && tab_puis[1] + 1 == tab_puis[3])) {
+        if (tab_coul[0] == tab_coul[1] && tab_coul[1] == tab_coul[2] && tab_coul[2] == tab_coul[3] && tab_puis[0] + 1 == tab_puis[1] && tab_puis[1] + 1 == tab_puis[2] && tab_puis[2] + 1 == tab_puis[3]){
             m_force_combi = 4;
             return 4;
         }
-        if ((tab_puis[0] == tab_puis[1] && tab_puis[1] == tab_puis[2]) ||
-            (tab_puis[1] == tab_puis[2] && tab_puis[2] == tab_puis[3]) ||
-            (tab_puis[0] == tab_puis[2] && tab_puis[2] == tab_puis[3]) ||
-            (tab_puis[0] == tab_puis[1] && tab_puis[1] == tab_puis[3])) {
+        if (tab_puis[0] == tab_puis[1] && tab_puis[1] == tab_puis[2] && tab_puis[2] == tab_puis[3]){
             m_force_combi = 3;
             return 3;
         }
-        if ((tab_coul[0] == tab_coul[1] && tab_coul[1] == tab_coul[2]) ||
-            (tab_coul[1] == tab_coul[2] && tab_coul[2] == tab_coul[3]) ||
-            (tab_coul[0] == tab_coul[2] && tab_coul[2] == tab_coul[3]) ||
-            (tab_coul[0] == tab_coul[1] && tab_coul[1] == tab_coul[3])) {
+        if (tab_coul[0] == tab_coul[1] && tab_coul[1] == tab_coul[2] && tab_coul[2] == tab_coul[3]){
             m_force_combi = 2;
             return 2;
         }
-        if ((tab_puis[0] + 1 == tab_puis[1] && tab_puis[1] + 1 == tab_puis[2]) ||
-            (tab_puis[1] + 1 == tab_puis[2] && tab_puis[2] + 1 == tab_puis[3]) ||
-            (tab_puis[0] + 1 == tab_puis[2] && tab_puis[2] + 1 == tab_puis[3]) ||
-            (tab_puis[0] + 1 == tab_puis[1] && tab_puis[1] + 1 == tab_puis[3])) {
+        if (tab_puis[0] + 1 == tab_puis[1] && tab_puis[1] + 1 == tab_puis[2] && tab_puis[2] + 1 == tab_puis[3]){
             m_force_combi = 1;
             return 1;
         }

@@ -14,14 +14,16 @@ class Combinaison{
     int m_force_combi;
     int m_total_puissance;
     bool m_boue, m_collin;
+    int m_premier_complet; 
 
 public :
-    Combinaison() : m_cartes({}), m_force_combi(0), m_total_puissance(0), m_collin(false), m_boue(false) {}
+    Combinaison() : m_cartes({}), m_force_combi(0), m_total_puissance(0), m_collin(false), m_boue(false), m_premier_complet(0){}
 
     Combinaison(vector<CarteClan*> cartes):
-        m_cartes({}), m_force_combi(0), m_total_puissance(0), m_collin(false), m_boue(false) {
+        m_cartes({}), m_force_combi(0), m_total_puissance(0), m_collin(false), m_boue(false), m_premier_complet(0) {
         for (auto carte : cartes) {
 			ajouterCarte(carte);
+
 		}
     }
     void supprimerCarte_Borne(int indice){
@@ -53,6 +55,7 @@ public :
 
     void setBoue(bool boue) {
 		m_boue = boue;
+        setPremierComplet(0);
 	}
 
     bool getCollin(){
@@ -61,6 +64,14 @@ public :
 
     void setCollin(bool collin) {
         m_collin = collin;
+    }
+
+    int getPremierComplet() const {
+		return m_premier_complet;
+	}
+
+    void setPremierComplet(int premier_complet) {
+        m_premier_complet = premier_complet;
     }
 
     int calculerForceCombi(bool affichage = false);
@@ -74,6 +85,10 @@ public :
             {
                 m_cartes.push_back(carte);
                 setTotalPuissance(getTotalPuissance() + static_cast<int>(carte->getPuissance()));
+                if (m_cartes.size() == 4) {
+                   // TODO : setPremierComplet(joueur actif);
+					
+                }
             }
         }
         else
@@ -85,7 +100,10 @@ public :
                 m_cartes.push_back(carte);
                 //cout << getTotalPuissance() + static_cast<int>(carte->getPuissance()) << endl;
                 setTotalPuissance(getTotalPuissance() + static_cast<int>(carte->getPuissance()));
+                if (m_cartes.size() == 3) {
+                    // TODO : setPremierComplet(joueur actif);
 
+                }
             }
         }
         if (m_collin)
