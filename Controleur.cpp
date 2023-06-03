@@ -750,7 +750,7 @@ bool Controleur::check_fin_partie() {
     return false;
 }
 
-void Controleur::revendiquer_borne(int num_borne) {
+/*void Controleur::revendiquer_borne(int num_borne) {
     if (getTactique()){
 
     }
@@ -1004,7 +1004,597 @@ void Controleur::revendiquer_borne_non_pleine_non_tactique(int num_borne ) {
         }
     }
     // TODO faire J2
+}*/
+
+void Controleur::revendiquer_borne(int num_borne) {
+
+    Borne *borne = m_plateau->getBornes(num_borne);
+    Combinaison *combi_j1 = borne->getCartesJ1();
+    Combinaison *combi_j2 = borne->getCartesJ2();
+    vector<CarteClan *> cartes_pose_j1 = combi_j1->getCartes();
+    vector<CarteClan *> cartes_pose_j2 = combi_j2->getCartes();
+
+    int joueur_qui_revendique = getPlateau()->getJoueurActif();
+    if (joueur_qui_revendique == 1){
+        if(combi_j1->getBoue() == 0){
+            if (cartes_pose_j1.size() !=3){
+                cout << "J1 n'a pas pose 3 cartes, il ne peut pas revendiquer la borne" << endl;
+                return;
+            }
+        }
+        else{
+            if (cartes_pose_j1.size() !=4){
+                cout << "J1 n'a pas pose 4 cartes, il ne peut pas revendiquer la borne" << endl;
+                return;
+            }
+        }
+    }
+    else{
+        if(combi_j2->getBoue() == 0){
+            if (cartes_pose_j2.size() !=3){
+                cout << "J2 n'a pas pose 3 cartes, il ne peut pas revendiquer la borne" << endl;
+                return;
+            }
+        }
+        else{
+            if (cartes_pose_j2.size() !=4){
+                cout << "J2 n'a pas pose 4 cartes, il ne peut pas revendiquer la borne" << endl;
+                return;
+            }
+        }
+    }
+
+    if (joueur_qui_revendique == 1) {
+        cout << "J1 revendique la borne "<< num_borne << endl;
+        if (il_y_a_joker(cartes_pose_j1) || il_y_a_portebou(cartes_pose_j1) || il_y_a_espion(cartes_pose_j1)) {
+            for (auto c: cartes_pose_j1) {
+                if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
+                    auto nom = t->getNom();
+                    if (nom == "Joker") {
+                        t->jouer_Joker();
+                    } else if (nom == "Espion") {
+                        t->jouer_Espion();
+                    } else if (nom == "Porte_Bouclier") {
+                        t->jouer_PorteBouclier();
+                    }
+                }
+            }
+        }
+        int tab_troupe_tac[4] = {0, 0, 0, 0};
+        if (il_y_a_joker(cartes_pose_j2) || il_y_a_portebou(cartes_pose_j2) || il_y_a_espion(cartes_pose_j2)) {
+            // J2 a posé des carte troupe d'elite mais J1 revendique : on teste tt les valeurs possible que peuvent prendre les cartes de J2
+            size_t i = 0;
+            for (auto c: cartes_pose_j2) {
+                if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
+                    auto nom = t->getNom();
+                    if (nom == "Joker") {
+                        tab_troupe_tac[i] = 1;
+                    } else if (nom == "Espion") {
+                        tab_troupe_tac[i] = 2;
+                    } else if (nom == "Porte_Bouclier") {
+                        tab_troupe_tac[i] = 3;
+                    }
+                }
+                i++;
+            }
+        }
+        if (combi_j1->getBoue() == 0) {
+            vector<CarteClan *> cartes_a1 = m_carte_non_pose;
+            vector<CarteClan *> cartes_a2 = m_carte_non_pose;
+            vector<CarteClan *> cartes_a3 = m_carte_non_pose;
+            cout << cartes_pose_j2.size() <<endl;
+            if (cartes_pose_j2.size()) {
+                for (auto i = 0; i < cartes_pose_j2.size() - 1; i++)
+                    switch (i) {
+                        case (0): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a1.clear();
+                                    cartes_a1.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a1.clear();
+                                    cartes_a1 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a1.clear();
+                                    cartes_a1 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a1.clear();
+                                    cartes_a1 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        case (1): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a2.clear();
+                                    cartes_a2.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a2.clear();
+                                    cartes_a2 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a2.clear();
+                                    cartes_a2 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a2.clear();
+                                    cartes_a2 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        case (2): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a3.clear();
+                                    cartes_a3.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a3.clear();
+                                    cartes_a3 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a3.clear();
+                                    cartes_a3 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a3.clear();
+                                    cartes_a3 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+            }
+
+            for (auto a1: cartes_a1) {
+                for (auto a2: cartes_a2) {
+                    for (auto a3: cartes_a3) {
+                        Combinaison *combi_temp = new Combinaison();
+                        combi_temp->ajouterCarte(a1);
+                        combi_temp->ajouterCarte(a2);
+                        combi_temp->ajouterCarte(a3);
+                        if (qui_gagne(combi_j1, combi_temp) == 2) {
+                            // J2 gagne
+                            cout << "\nJ2 peut gagner: " << endl;
+                            cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << endl;
+                            delete combi_temp;
+                            return;
+                        }
+                    }
+                }
+            }
+            cout << "J2 ne peut pas gagner" << endl;
+            borne->setRevendique(1);
+            return;
+        } else {
+            vector<CarteClan *> cartes_a1 = m_carte_non_pose;
+            vector<CarteClan *> cartes_a2 = m_carte_non_pose;
+            vector<CarteClan *> cartes_a3 = m_carte_non_pose;
+            vector<CarteClan *> cartes_a4 = m_carte_non_pose;
+            if (cartes_pose_j2.size()) {
+                for (auto i = 0; i < cartes_pose_j2.size() - 1; i++)
+                    switch (i) {
+                        case (0): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a1.clear();
+                                    cartes_a1.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a1.clear();
+                                    cartes_a1 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a1.clear();
+                                    cartes_a1 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a1.clear();
+                                    cartes_a1 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        case (1): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a2.clear();
+                                    cartes_a2.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a2.clear();
+                                    cartes_a2 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a2.clear();
+                                    cartes_a2 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a2.clear();
+                                    cartes_a2 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        case (2): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a3.clear();
+                                    cartes_a3.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a3.clear();
+                                    cartes_a3 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a3.clear();
+                                    cartes_a3 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a3.clear();
+                                    cartes_a3 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        case (3): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a4.clear();
+                                    cartes_a4.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a4.clear();
+                                    cartes_a4 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a4.clear();
+                                    cartes_a4 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a4.clear();
+                                    cartes_a4 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+            }
+            for (auto a1: cartes_a1) {
+                for (auto a2: cartes_a2) {
+                    for (auto a3: cartes_a3) {
+                        for (auto a3: cartes_a3) {
+                            Combinaison *combi_temp = new Combinaison();
+                            combi_temp->ajouterCarte(a1);
+                            combi_temp->ajouterCarte(a2);
+                            combi_temp->ajouterCarte(a3);
+                            if (qui_gagne(combi_j1, combi_temp) == 2) {
+                                // J2 gagne
+                                cout << "J2 peut gagner" << endl;
+                                cout << a1 << " " << a2 << " " << a3 << endl;
+                                delete combi_temp;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+            cout << "J2 ne peut pas gagner" << endl;
+            borne->setRevendique(1);
+            return;
+        }
+    }
+    else {
+        // J2 revendique
+        cout << "J2 revendique la borne "<< num_borne << endl;
+        if(il_y_a_joker(cartes_pose_j2) || il_y_a_espion(cartes_pose_j2) || il_y_a_portebou(cartes_pose_j2)){
+            for (auto c: cartes_pose_j2) {
+                if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
+                    auto nom = t->getNom();
+                    if (nom == "Joker") {
+                        t->jouer_Joker();
+                    } else if (nom == "Espion") {
+                        t->jouer_Espion();
+                    } else if (nom == "Porte_Bouclier") {
+                        t->jouer_PorteBouclier();
+                    }
+                }
+            }
+
+        }
+        int tab_troupe_tac[4] = {0, 0, 0, 0};
+        if (il_y_a_joker(cartes_pose_j1) || il_y_a_portebou(cartes_pose_j1) || il_y_a_espion(cartes_pose_j1)) {
+            size_t i = 0;
+            for (auto c: cartes_pose_j1) {
+                if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
+                    auto nom = t->getNom();
+                    if (nom == "Joker") {
+                        tab_troupe_tac[i] = 1;
+                    } else if (nom == "Espion") {
+                        tab_troupe_tac[i] = 2;
+                    } else if (nom == "Porte_Bouclier") {
+                        tab_troupe_tac[i] = 3;
+                    }
+                }
+                i++;
+            }
+        }
+        if (combi_j2->getBoue() == 0) {
+            vector<CarteClan *> cartes_a1 = m_carte_non_pose;
+            vector<CarteClan *> cartes_a2 = m_carte_non_pose;
+            vector<CarteClan *> cartes_a3 = m_carte_non_pose;
+            cout << cartes_pose_j1.size() <<endl;
+            if (cartes_pose_j1.size()) {
+                for (auto i = 0; i < cartes_pose_j1.size() - 1; i++)
+                    switch (i) {
+                        case (0): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a1.clear();
+                                    cartes_a1.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a1.clear();
+                                    cartes_a1 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a1.clear();
+                                    cartes_a1 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a1.clear();
+                                    cartes_a1 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        case (1): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a2.clear();
+                                    cartes_a2.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a2.clear();
+                                    cartes_a2 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a2.clear();
+                                    cartes_a2 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a2.clear();
+                                    cartes_a2 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        case (2): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a3.clear();
+                                    cartes_a3.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a3.clear();
+                                    cartes_a3 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a3.clear();
+                                    cartes_a3 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a3.clear();
+                                    cartes_a3 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+            }
+
+            for (auto a1: cartes_a1) {
+                for (auto a2: cartes_a2) {
+                    for (auto a3: cartes_a3) {
+                        Combinaison *combi_temp = new Combinaison();
+                        combi_temp->ajouterCarte(a1);
+                        combi_temp->ajouterCarte(a2);
+                        combi_temp->ajouterCarte(a3);
+                        if (qui_gagne(combi_j2, combi_temp) == 2) {
+                            // J2 gagne
+                            cout << "\nJ1 peut gagner: " << endl;
+                            cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << endl;
+                            delete combi_temp;
+                            return;
+                        }
+                    }
+                }
+            }
+            cout << "J1 ne peut pas gagner" << endl;
+            borne->setRevendique(2);
+            return;
+        } else {
+            vector<CarteClan *> cartes_a1 = m_carte_non_pose;
+            vector<CarteClan *> cartes_a2 = m_carte_non_pose;
+            vector<CarteClan *> cartes_a3 = m_carte_non_pose;
+            vector<CarteClan *> cartes_a4 = m_carte_non_pose;
+            if (cartes_pose_j1.size()) {
+                for (auto i = 0; i < cartes_pose_j1.size() - 1; i++)
+                    switch (i) {
+                        case (0): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a1.clear();
+                                    cartes_a1.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a1.clear();
+                                    cartes_a1 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a1.clear();
+                                    cartes_a1 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a1.clear();
+                                    cartes_a1 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        case (1): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a2.clear();
+                                    cartes_a2.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a2.clear();
+                                    cartes_a2 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a2.clear();
+                                    cartes_a2 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a2.clear();
+                                    cartes_a2 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        case (2): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a3.clear();
+                                    cartes_a3.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a3.clear();
+                                    cartes_a3 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a3.clear();
+                                    cartes_a3 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a3.clear();
+                                    cartes_a3 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        case (3): {
+                            switch (tab_troupe_tac[i]) {
+                                case (0): {
+                                    cartes_a4.clear();
+                                    cartes_a4.push_back(cartes_pose_j2[i]);
+                                    break;
+                                }
+                                case (1): {
+                                    cartes_a4.clear();
+                                    cartes_a4 = gen_vect_joker();
+                                    break;
+                                }
+                                case (2): {
+                                    cartes_a4.clear();
+                                    cartes_a4 = gen_vect_espion();
+                                    break;
+                                }
+                                case (3): {
+                                    cartes_a4.clear();
+                                    cartes_a4 = gen_vect_portebou();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+            }
+            for (auto a1: cartes_a1) {
+                for (auto a2: cartes_a2) {
+                    for (auto a3: cartes_a3) {
+                        for (auto a3: cartes_a3) {
+                            Combinaison *combi_temp = new Combinaison();
+                            combi_temp->ajouterCarte(a1);
+                            combi_temp->ajouterCarte(a2);
+                            combi_temp->ajouterCarte(a3);
+                            if (qui_gagne(combi_j2, combi_temp) == 2) {
+                                // J2 gagne
+                                cout << "J1 peut gagner" << endl;
+                                cout << a1 << " " << a2 << " " << a3 << endl;
+                                delete combi_temp;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+            cout << "J1 ne peut pas gagner" << endl;
+            borne->setRevendique(1);
+            return;
+        }
+    }
 }
+
 void Controleur::fin_de_partie(){
 
     delete m_plateau->m_joueur1;
@@ -1180,4 +1770,18 @@ bool il_y_a_portebou(vector<CarteClan *> v){
         }
     }
     return false;
+}
+
+int qui_gagne(Combinaison * combi1, Combinaison * combi2){
+    // on regarde dabord  getForceCombi() puis getTotalPuissance() puis TODO le dernier a poser
+    if (combi1->getForceCombi()>combi2->getForceCombi())
+        return 1;
+    else if (combi1->getForceCombi()<combi2->getForceCombi())
+        return 2;
+    else if (combi1->getTotalPuissance()>combi2->getTotalPuissance())
+        return 1;
+    else if (combi1->getTotalPuissance()<combi2->getTotalPuissance())
+        return 2;
+    else
+        return 0;
 }

@@ -47,33 +47,27 @@ int main() {
             break;
     }*/
 
-/*    //TODO test retirer carte poser de m_carte_pose OK
-
-    Controleur& c = Controleur::getControleur(false);
-    c.debut_de_partie_classique();
-    c.afficherCartesNonPose();
-    c.JouerTourClassique1();
-    c.JouerTourClassique1();
-    c.afficherCartesNonPose();
-    c.revendiquer_borne(1);
-   // on arrete une seconde ici avec la fonction sleep pour cela on include unistd.h du namespace
-    sleep(1);
-
-    c.JouerTourClassique1();
-    c.revendiquer_borne(1);*/
-
-
-    //c.JouerTourClassique1();
-    //c.JouerTourClassique1();
-    //c.JouerTourClassique1();
-    //c.revendiquer_borne(1);
-
     Controleur& c = Controleur::getControleur(true);
-    while(!c.getPiocheTactique()->estVide()) {
-        auto t = c.getPiocheTactique()->piocherCarteTactique();
-        cout << t.getNom() << endl;
+    c.getPlateau()->getBornes(1);
 
-    }
+    c.getPlateau()->getBornes(1)->setBoue(true);
+    c.getPlateau()->getBornes(1)->getCartesJ1()->ajouterCarte(new CarteClan(Puissance::un, Couleur::bleu));
+    c.getPlateau()->getBornes(1)->getCartesJ1()->ajouterCarte(new CarteTroupeElite("Joker", Puissance::zero, Couleur::neutre));
+    c.getPlateau()->getBornes(1)->getCartesJ1()->ajouterCarte(new CarteClan(Puissance::trois, Couleur::bleu));
+
+
+    /*c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));
+    c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan( Puissance::quatre, Couleur::rouge));
+    */
+
+    c.revendiquer_borne(1);
+    sleep(5);
+
+    auto k = new CarteTroupeElite("Joker", Puissance::zero, Couleur::neutre);
+    cout << k->getNom() << " "<< k->getPuissance() << " " << k->getCouleur() << endl;
+    k->jouer_Joker();
+    cout << k->getNom() << " "<< k->getPuissance() << " " << k->getCouleur() << endl;
+
 
 
 

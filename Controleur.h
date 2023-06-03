@@ -68,15 +68,14 @@ public:
     Pioche* getPiocheClan() const { return m_pioche_clan; }
     Pioche* getPiocheTactique() const { return m_pioche_tactique; }
     void revendiquer_borne(int num_borne);
-    void revendiquer_borne_pleine_non_tactique(int num_borne);
+/*    void revendiquer_borne_pleine_non_tactique(int num_borne);
     void revendiquer_borne_non_pleine_non_tactique(int num_borne );
+
+    void revendiquer_borne_pleine_tactique(int num_borne);
+    void revendiquer_borne_non_pleine_tactique(int num_borne);*/
 
     void debut_de_partie_classique();
 
-    /* Todo faire ces methodes:
-    jouer_tour() : void
-    revendiquer_exception(???) : ???
-     */
     void test();
 
     bool check_fin_partie();
@@ -85,6 +84,7 @@ public:
     void JouerTourClassique1();
 
 };
+int qui_gagne(Combinaison * combi1, Combinaison * combi2);
 vector<CarteClan *> gen_vect_joker();
 vector<CarteClan *> gen_vect_espion();
 vector<CarteClan *> gen_vect_portebou();
