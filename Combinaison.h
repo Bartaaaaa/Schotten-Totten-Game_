@@ -8,6 +8,7 @@
 #include<iostream>
 #include<string>
 #include <vector>
+#include "Controleur.h"
 
 class Combinaison{
     vector<CarteClan*> m_cartes;
@@ -86,7 +87,8 @@ public :
                 m_cartes.push_back(carte);
                 setTotalPuissance(getTotalPuissance() + static_cast<int>(carte->getPuissance()));
                 if (m_cartes.size() == 4) {
-                   // TODO : setPremierComplet(joueur actif);
+                    Controleur& c = Controleur::getControleur(true);
+                    setPremierComplet(c.getPlateau()->getJoueurActif());
 					
                 }
             }
@@ -101,8 +103,8 @@ public :
                 //cout << getTotalPuissance() + static_cast<int>(carte->getPuissance()) << endl;
                 setTotalPuissance(getTotalPuissance() + static_cast<int>(carte->getPuissance()));
                 if (m_cartes.size() == 3) {
-                    // TODO : setPremierComplet(joueur actif);
-
+                    Controleur& c = Controleur::getControleur(true);
+                    setPremierComplet(c.getPlateau()->getJoueurActif());
                 }
             }
         }
