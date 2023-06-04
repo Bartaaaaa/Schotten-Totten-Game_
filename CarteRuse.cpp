@@ -5,6 +5,9 @@
 #include "CarteRuse.h"
 #include "Controleur.h"
 #include "Main_Joueur.h"
+#include <random>
+
+
 
 void Supp_PushCarteClanTactique(){
     int carte1;
