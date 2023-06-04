@@ -86,11 +86,7 @@ public :
             {
                 m_cartes.push_back(carte);
                 setTotalPuissance(getTotalPuissance() + static_cast<int>(carte->getPuissance()));
-                if (m_cartes.size() == 4) {
-                    Controleur& c = Controleur::getControleur(true);
-                    setPremierComplet(c.getPlateau()->getJoueurActif());
-					
-                }
+                
             }
         }
         else
@@ -102,10 +98,7 @@ public :
                 m_cartes.push_back(carte);
                 //cout << getTotalPuissance() + static_cast<int>(carte->getPuissance()) << endl;
                 setTotalPuissance(getTotalPuissance() + static_cast<int>(carte->getPuissance()));
-                if (m_cartes.size() == 3) {
-                    Controleur& c = Controleur::getControleur(true);
-                    setPremierComplet(c.getPlateau()->getJoueurActif());
-                }
+                
             }
         }
         if (m_collin)
