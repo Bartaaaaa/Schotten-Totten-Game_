@@ -10,6 +10,7 @@
 #include "CarteClan.h"
 #include <stdlib.h>
 
+
 class Controleur {
     int m_gagnant;
     bool m_tactique; // ou const bool ?
