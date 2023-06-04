@@ -18,6 +18,19 @@ public:
     void jouer_CombatdeBoue(Borne b) const {
         b.setBoue(true);
     }
+
+    void afficherCarte()const override{
+        if(getNom()=="Colin Maillard"){
+            cout<< "| Col Mail |";
+        }
+        else if(getNom()=="Combat de Boue"){
+            cout<< "| Cbt Boue |";
+        }
+    }
+
+    void afficherDosCarte()const override {
+        cout << "| Tactique |";
+    }
 		
 };
 #endif //LO21_SCHOTTEN_TOTTEN_CARTEMODECOMBAT_H
