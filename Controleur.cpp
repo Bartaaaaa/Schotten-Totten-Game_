@@ -1743,6 +1743,6 @@ int qui_gagne(Combinaison * combi1, Combinaison * combi2){
         return 1;
     else if (combi1->getTotalPuissance()<combi2->getTotalPuissance())
         return 2;
-    else
-        return 0;
+    else 
+        return combi1->getPremierComplet();
 }
