@@ -17,7 +17,12 @@ public:
 
     // Necessaire pour utiliser dynamic_cast
     virtual ~Carte() {};
-
+    virtual void afficherCarte()const{
+        cout<<"Carte vide";
+    };
+    virtual void afficherDosCarte()const{
+        cout<<"Dos Carte vide";
+    };
 };
 
 void affichage_vecteur_carte(vector<Carte*> v);

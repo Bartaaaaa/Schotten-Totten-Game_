@@ -16,6 +16,25 @@ public:
     static void Jouer_Banshee() ;
     static void Jouer_Traitre() ;
 
+    void afficherCarte()const override{
+        if(getNom()=="Chasseur de Tete"){
+            cout<< "| Chas Tete |";
+        }
+        else if(getNom()=="Stratege"){
+            cout<< "| Stratege |";
+        }
+        else if(getNom()=="Banshee"){
+            cout<< "|  Banshee |";
+        }
+        else if(getNom()=="Traitre"){
+            cout<< "|  Traitre |";
+        }
+
+    }
+
+    void afficherDosCarte()const override {
+        cout << "| Tactique |";
+    }
 };
 
 #endif //LO21_SCHOTTEN_TOTTEN_CARTERUSE_H

@@ -76,6 +76,24 @@ public:
         return *this;
     }
 
+    void afficherCarte() const override {
+        if(getNom()=="Joker"){
+            cout << "|    Joker |";
+        }
+        else if(getNom()=="Porte Bouclier"){
+            cout << "| Prte bou |";
+        }
+        else if(getNom()=="Espion"){
+            cout << "|   Espion |";
+        }
+        else{
+            cout << "|    " << getNom() << "    |";
+        }
+    }
+
+    void afficherDosCarte() const override {
+        cout << "| Tactique |";
+    }
 };
 
 #endif //LO21_SCHOTTEN_TOTTEN_CARTETROUPEELITE_H
