@@ -3,6 +3,7 @@
 //
 
 #include "Combinaison.h"
+#include "Controleur.h"
 /*
 int Combinaison::calculerForceCombi()// MARCHE PAS !!!!! Ne fonctioone qu'en version classique, j'attends que les fonctions pour les modes de combat soient l�
 {

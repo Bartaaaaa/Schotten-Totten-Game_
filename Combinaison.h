@@ -8,7 +8,6 @@
 #include<iostream>
 #include<string>
 #include <vector>
-#include "Controleur.h"
 
 class Combinaison{
     vector<CarteClan*> m_cartes;
