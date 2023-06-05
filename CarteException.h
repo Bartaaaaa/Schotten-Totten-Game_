@@ -15,7 +15,7 @@ class CarteException {
 private:
     string m_info;
 public:
-    CarteException(const string& i) : m_info(i) {}
+    CarteException(const string& i) : m_info(i) { cout<< m_info << endl;}
     string getInfo() const { return m_info; }
 };
 
