@@ -55,6 +55,8 @@ public:
 
     void afficherMainJoueur(int joueur);
     void afficherDosMain(int joueur);
+    void afficherBornes(int joueur);
+    void afficherPlateau(int pointdevue);
 
     Plateau(const Plateau&) = delete;
     Plateau& operator=(const Plateau&) = delete;
