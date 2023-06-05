@@ -32,6 +32,7 @@ public:
     size_t getNbCartes() const { return m_nb; }
     const CarteClan& piocherCarteClan();
     const CarteTactique& piocherCarteTactique();
+    const CarteTroupeElite& piocherCarteTroupeElite();
     const Carte& piocher();
     ~Pioche();
 

@@ -47,7 +47,7 @@ int main() {
             break;
     }*/
 
-    //Controleur& c = Controleur::getControleur(true);
+/*    //Controleur& c = Controleur::getControleur(true);
     Controleur& c = Controleur::getControleur(false);
     c.getPlateau()->getBornes(1);
 
@@ -62,9 +62,9 @@ int main() {
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::sept, Couleur::rouge));
 
 
-    /*c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));
+    *//*c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));
     c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan( Puissance::quatre, Couleur::rouge));
-    */
+    *//*
     for (int i = 0; i < 5; i++) {
 
         c.JouerTourIAClassique();
@@ -76,7 +76,19 @@ int main() {
     auto k = new CarteTroupeElite("Joker", Puissance::zero, Couleur::neutre);
     cout << k->getNom() << " "<< k->getPuissance() << " " << k->getCouleur() << endl;
     //k->jouer_Joker();
-    cout << k->getNom() << " "<< k->getPuissance() << " " << k->getCouleur() << endl;
+    cout << k->getNom() << " "<< k->getPuissance() << " " << k->getCouleur() << endl;*/
+
+    Controleur& c = Controleur::getControleur(true);
+    cout << "il ya "<<c.getPiocheTactique()->getNbCartes()<< endl;
+    for (auto i =0; i<4; i++) {
+        auto a = c.getPiocheTactique()->piocherCarteTroupeElite();
+        cout<< a.getNom() << endl;
+
+    }
+    while ( ! c.getPiocheTactique()->estVide()) {
+        auto a = c.getPiocheTactique()->piocherCarteTactique();
+        cout << a.getNom()<<endl;
+    }
 
 
 

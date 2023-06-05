@@ -27,14 +27,6 @@
         for (auto it = jeuTactique.getIterator(); !it.isDone(); it.next()) {
             m_cartes[i++] = &it.currentItem();
         }
-
-        // shuffle (très naif)
-        for(size_t it=0; it<2*m_nb ; ++it){
-            size_t a = rand() % m_nb,  b = rand() % m_nb; // on tire deux positions entre 0 et nb
-            const Carte * tmp = m_cartes[a];
-            m_cartes[a]=m_cartes[b];
-            m_cartes[b]=tmp;
-        }
     }
 
     const Carte& Pioche::piocher() {
@@ -83,6 +75,19 @@
         }
         return *cartetactique;
     }
+    const CarteTroupeElite& Pioche::piocherCarteTroupeElite(){
+        if(estVide()){
+            throw CarteException("La pioche est vide.");
+        }
+        m_nb--;
+        const Carte*carte=m_cartes[getNbCartes()];
+        const CarteTroupeElite* c = dynamic_cast<const CarteTroupeElite*>(carte);
+        if(!c){
+            throw CarteException("La carte piochee n'est pas une carte ELITE");
+        }
+        return *c;
+    }
+
 
     Pioche::~Pioche()
     {
