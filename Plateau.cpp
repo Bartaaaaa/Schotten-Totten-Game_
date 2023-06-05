@@ -69,7 +69,7 @@ void Plateau::afficherBornes(int joueur) {
     for(int c=0; c<4; c++){
         for(int i=0; i<9; i++){
             if(joueuradverse==1){
-                if(m_bornes[i]->getCartesJ1()->getCartes()[c]){
+                if(m_bornes[i]->getCartesJ1()->getCartes().size()>c){
                     m_bornes[i]->getCartesJ1()->getCartes()[c]->afficherCarte();
                 }
                 else{
@@ -77,7 +77,7 @@ void Plateau::afficherBornes(int joueur) {
                 }
             }
             else{
-                if(m_bornes[i]->getCartesJ2()->getCartes()[c]){
+                if(m_bornes[i]->getCartesJ2()->getCartes().size()>c){
                     m_bornes[i]->getCartesJ2()->getCartes()[c]->afficherCarte();
                 }
                 else{
@@ -127,7 +127,7 @@ void Plateau::afficherBornes(int joueur) {
     for(int c=0; c<4; c++){
         for(int i=0; i<9; i++){
             if(joueur == 1){
-                if(m_bornes[i]->getCartesJ1()->getCartes()[c]){
+                if(m_bornes[i]->getCartesJ1()->getCartes().size()>c){
                     m_bornes[i]->getCartesJ1()->getCartes()[c]->afficherCarte();
                 }
                 else{
@@ -135,7 +135,7 @@ void Plateau::afficherBornes(int joueur) {
                 }
             }
             else{
-                if(m_bornes[i]->getCartesJ2()->getCartes()[c]){
+                if(m_bornes[i]->getCartesJ2()->getCartes().size()>c){
                     m_bornes[i]->getCartesJ2()->getCartes()[c]->afficherCarte();
                 }
                 else{
