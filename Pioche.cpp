@@ -95,19 +95,18 @@
     }
 
     int Pioche::quandjepiochejefaisattention(){
-        auto carte= m_cartes[m_nb];
-        cout << "m_nb : " << m_nb << "\n";
+        auto carte= m_cartes[m_nb-1];
         if (auto c1 = dynamic_cast<const CarteTactique*>(carte))
         {
             return 1;
         }
-        else if (auto c2 =dynamic_cast<const CarteClan*>(carte))
+        else if (auto c2 =dynamic_cast<const CarteTroupeElite*>(carte))
         {
-            return 2; // surement pas utiles mais a voir
+            return 2;
         }
-        else if (auto c3 = dynamic_cast<const CarteTroupeElite*>(carte))
+        else if (auto c3 = dynamic_cast<const CarteClan*>(carte))
         {
-            return 3;
+            return 3;// surement pas utiles mais a voir
 
         }
         return 0;

@@ -79,7 +79,7 @@ int main() {
     cout << k->getNom() << " "<< k->getPuissance() << " " << k->getCouleur() << endl;*/
 
 
-    Controleur& c = Controleur::getControleur(true);
+/*    Controleur& c = Controleur::getControleur(true);
     cout << "il ya "<<c.getPiocheTactique()->getNbCartes()<< endl;
     for (auto i =0; i<4; i++) {
         auto a = c.getPiocheTactique()->piocherCarteTroupeElite();
@@ -89,10 +89,10 @@ int main() {
     while ( ! c.getPiocheTactique()->estVide()) {
         auto a = c.getPiocheTactique()->piocherCarteTactique();
         cout << a.getNom()<<endl;
-    }
+    }*/
 
-/*
-    TODO pk ca marche pas
+
+    //TODO sucer Nathan
     Controleur& c = Controleur::getControleur(true);
     cout << "il ya "<<c.getPiocheTactique()->getNbCartes()<< endl;
     cout << "attention : " << c.getPiocheTactique()->quandjepiochejefaisattention()<< endl;
@@ -104,14 +104,14 @@ int main() {
             break;
         }
 
-        case 3: {
+        case 2: {
             cout << "pioche troupe elite" << endl;
             auto b = c.getPiocheTactique()->piocherCarteTroupeElite();
             cout << b.getNom() << endl;
             break;
         }
+    }
 
-    }*/
 
 
 
