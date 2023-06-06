@@ -33,6 +33,7 @@ public:
     const CarteClan& piocherCarteClan();
     const CarteTactique& piocherCarteTactique();
     const CarteTroupeElite& piocherCarteTroupeElite();
+    int quandjepiochejefaisattention();
     const Carte& piocher();
     ~Pioche();
 

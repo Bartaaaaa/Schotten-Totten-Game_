@@ -94,6 +94,24 @@
         delete [] m_cartes;
     }
 
+    int Pioche::quandjepiochejefaisattention(){
+        auto carte= m_cartes[m_nb];
+        cout << "m_nb : " << m_nb << "\n";
+        if (auto c1 = dynamic_cast<const CarteTactique*>(carte))
+        {
+            return 1;
+        }
+        else if (auto c2 =dynamic_cast<const CarteClan*>(carte))
+        {
+            return 2; // surement pas utiles mais a voir
+        }
+        else if (auto c3 = dynamic_cast<const CarteTroupeElite*>(carte))
+        {
+            return 3;
+
+        }
+        return 0;
+    }
     /* utilisation des pioches
     JeuClan& jc = JeuClan::getJeuClan();
     JeuTactique& jt = JeuTactique::getJeuTactique();

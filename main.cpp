@@ -78,6 +78,7 @@ int main() {
     //k->jouer_Joker();
     cout << k->getNom() << " "<< k->getPuissance() << " " << k->getCouleur() << endl;*/
 
+
     Controleur& c = Controleur::getControleur(true);
     cout << "il ya "<<c.getPiocheTactique()->getNbCartes()<< endl;
     for (auto i =0; i<4; i++) {
@@ -89,6 +90,28 @@ int main() {
         auto a = c.getPiocheTactique()->piocherCarteTactique();
         cout << a.getNom()<<endl;
     }
+
+/*
+    TODO pk ca marche pas
+    Controleur& c = Controleur::getControleur(true);
+    cout << "il ya "<<c.getPiocheTactique()->getNbCartes()<< endl;
+    cout << "attention : " << c.getPiocheTactique()->quandjepiochejefaisattention()<< endl;
+    switch (c.getPiocheTactique()->quandjepiochejefaisattention()) {
+        case 1: {
+            cout << "pioche tactique" << endl;
+            auto a = c.getPiocheTactique()->piocherCarteTactique();
+            cout << a.getNom() << endl;
+            break;
+        }
+
+        case 3: {
+            cout << "pioche troupe elite" << endl;
+            auto b = c.getPiocheTactique()->piocherCarteTroupeElite();
+            cout << b.getNom() << endl;
+            break;
+        }
+
+    }*/
 
 
 
