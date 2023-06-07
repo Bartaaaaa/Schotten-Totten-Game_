@@ -65,7 +65,7 @@ public:
 
     void JouerTourIAClassique();
     void JouerTourIA();
-    void JouerTourClassique();
+
     Pioche* getPiocheClan() const { return m_pioche_clan; }
     Pioche* getPiocheTactique() const { return m_pioche_tactique; }
     void revendiquer_borne(int num_borne);

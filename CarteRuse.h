@@ -11,10 +11,13 @@ public:
     CarteRuse(const string& nom) : CarteTactique(nom)  {};
 
     static void Jouer_ChasseurdeTete() ;
-
     static void Jouer_Stratege() ;
     static void Jouer_Banshee() ;
     static void Jouer_Traitre() ;
+    static void Jouer_ChasseurdeTeteIA() ;
+    static void Jouer_StrategeIA() ;
+    static void Jouer_BansheeIA() ;
+    static void Jouer_TraitreIA() ;
 
     void afficherCarte()const override{
         if(getNom()=="Chasseur de Tete"){

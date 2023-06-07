@@ -47,32 +47,36 @@ int main() {
             break;
     }*/
 
-/*    //Controleur& c = Controleur::getControleur(true);
-    Controleur& c = Controleur::getControleur(false);
+   //Controleur& c = Controleur::getControleur(true);
+    Controleur& c = Controleur::getControleur(true);
     c.getPlateau()->getBornes(1);
 
     //c.getPlateau()->getBornes(1)->setBoue(true);
     c.getPlateau()->getBornes(1)->getCartesJ1()->ajouterCarte(new CarteClan(Puissance::un, Couleur::bleu));
-   // c.getPlateau()->getBornes(1)->getCartesJ1()->ajouterCarte(new CarteTroupeElite("Joker", Puissance::zero, Couleur::neutre));
+   //c.getPlateau()->getBornes(1)->getCartesJ1()->ajouterCarte(new CarteTroupeElite("Joker", Puissance::zero, Couleur::neutre));
     c.getPlateau()->getBornes(1)->getCartesJ1()->ajouterCarte(new CarteClan(Puissance::trois, Couleur::bleu));
     c.getPlateau()->getBornes(1)->getCartesJ1()->ajouterCarte(new CarteClan(Puissance::quatre, Couleur::bleu));
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::quatre, Couleur::rouge));
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::neuf, Couleur::violet));
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::huit, Couleur::rouge));
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::sept, Couleur::rouge));
+    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::six, Couleur::rouge));
+    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::cinq, Couleur::rouge));
+    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::quatre, Couleur::rouge));
+    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::trois, Couleur::rouge));
 
 
-    *//*c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));
+    c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));
     c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan( Puissance::quatre, Couleur::rouge));
-    *//*
+   /*
     for (int i = 0; i < 5; i++) {
 
         c.JouerTourIAClassique();
     }
-
+*/
    // c.revendiquer_borne(1);
     //sleep(5);
-
+/*
     auto k = new CarteTroupeElite("Joker", Puissance::zero, Couleur::neutre);
     cout << k->getNom() << " "<< k->getPuissance() << " " << k->getCouleur() << endl;
     //k->jouer_Joker();
@@ -91,9 +95,11 @@ int main() {
         cout << a.getNom()<<endl;
     }*/
 
-
+    c.JouerTour1(); c.JouerTour1(); c.JouerTour1();
+    c.JouerTour1(); c.JouerTour1(); c.JouerTour1();
+    c.JouerTour1(); c.JouerTour1(); c.JouerTour1();
     //TODO sucer Nathan
-    Controleur& c = Controleur::getControleur(true);
+
     cout << "il ya "<<c.getPiocheTactique()->getNbCartes()<< endl;
     cout << "attention : " << c.getPiocheTactique()->quandjepiochejefaisattention()<< endl;
     switch (c.getPiocheTactique()->quandjepiochejefaisattention()) {
