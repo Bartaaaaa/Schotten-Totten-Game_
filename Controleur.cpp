@@ -1034,14 +1034,26 @@ void Controleur::revendiquer_borne(int num_borne) {
                     auto nom = t->getNom();
                     if (nom == "Joker") {
                         t->jouer_Joker();
+                        combi_j1->calculerForceCombi();
+                        combi_j1->setTotalPuissance(combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
                     } else if (nom == "Espion") {
                         t->jouer_Espion();
+                        combi_j1->calculerForceCombi();
+                        combi_j1->setTotalPuissance(combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+
                     } else if (nom == "Porte_Bouclier") {
                         t->jouer_PorteBouclier();
+                        combi_j1->calculerForceCombi();
+                        combi_j1->setTotalPuissance(combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+
                     }
                 }
             }
         }
+        // TODO temp
+        affichage_vecteur_carteclan(cartes_pose_j1);
+        cout << endl;
+
         int tab_troupe_tac[4] = {0, 0, 0, 0};
         if (il_y_a_joker(cartes_pose_j2) || il_y_a_portebou(cartes_pose_j2) || il_y_a_espion(cartes_pose_j2)) {
             // J2 a posé des carte troupe d'elite mais J1 revendique : on teste tt les valeurs possible que peuvent prendre les cartes de J2
@@ -1279,15 +1291,17 @@ void Controleur::revendiquer_borne(int num_borne) {
             for (auto a1: cartes_a1) {
                 for (auto a2: cartes_a2) {
                     for (auto a3: cartes_a3) {
-                        for (auto a3: cartes_a3) {
+                        for (auto a4: cartes_a3) {
                             Combinaison *combi_temp = new Combinaison();
+                            combi_temp->setBoue(true);
                             combi_temp->ajouterCarte(a1);
                             combi_temp->ajouterCarte(a2);
                             combi_temp->ajouterCarte(a3);
+                            combi_temp->ajouterCarte(a4);
                             if (qui_gagne(combi_j1, combi_temp) == 2) {
                                 // J2 gagne
                                 cout << "J2 peut gagner" << endl;
-                                cout << a1 << " " << a2 << " " << a3 << endl;
+                                cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << " "<< a4->getPuissance() <<" "<< a4->getCouleur() << endl;
                                 delete combi_temp;
                                 return;
                             }
@@ -1309,10 +1323,19 @@ void Controleur::revendiquer_borne(int num_borne) {
                     auto nom = t->getNom();
                     if (nom == "Joker") {
                         t->jouer_Joker();
+                        combi_j2->calculerForceCombi();
+                        combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+
                     } else if (nom == "Espion") {
                         t->jouer_Espion();
+                        combi_j2->calculerForceCombi();
+                        combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+
                     } else if (nom == "Porte_Bouclier") {
                         t->jouer_PorteBouclier();
+                        combi_j2->calculerForceCombi();
+                        combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+
                     }
                 }
             }
@@ -1757,14 +1780,28 @@ bool il_y_a_portebou(vector<CarteClan *> v){
 
 int qui_gagne(Combinaison * combi1, Combinaison * combi2){
     // on regarde dabord  getForceCombi() puis getTotalPuissance() puis TODO le dernier a poser
-    if (combi1->getForceCombi()>combi2->getForceCombi())
+    /*cout << "combi1 : " << combi1->getForceCombi() << " " << combi1->getTotalPuissance() << endl;
+    cout << "combi2 : " << combi2->getForceCombi() << " " << combi2->getTotalPuissance() << endl;*/
+    if (combi1->getForceCombi()>combi2->getForceCombi()) {
+        //cout << "combi1 gagne car force combi" << endl;
         return 1;
-    else if (combi1->getForceCombi()<combi2->getForceCombi())
+    }
+    else if (combi1->getForceCombi()<combi2->getForceCombi()) {
+        //cout << "combi2 gagne car force combi" << endl;
         return 2;
-    else if (combi1->getTotalPuissance()>combi2->getTotalPuissance())
+    }
+    else if (combi1->getTotalPuissance()>combi2->getTotalPuissance()) {
+        //cout << "combi1 gagne car total puissance" << endl;
         return 1;
-    else if (combi1->getTotalPuissance()<combi2->getTotalPuissance())
+    }
+    else if (combi1->getTotalPuissance()<combi2->getTotalPuissance()) {
+        //cout << "combi2 gagne car total puissance" << endl;
         return 2;
-    else 
+    }
+    else {
+        //cout << "combi gagne car dernier a poser" << endl;
         return combi1->getPremierComplet();
+    }
 }
+
+
