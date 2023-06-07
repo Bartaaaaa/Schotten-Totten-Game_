@@ -25,41 +25,49 @@ using namespace std;
 int main() {
 
     Controleur& c = Controleur::getControleur(true);
-    c.debut_de_partie_tactique();
+   // c.debut_de_partie_tactique();
 
 
 
 
 
 
-   /*//Controleur& c = Controleur::getControleur(true);
-    Controleur& c = Controleur::getControleur(true);
+
+
+   //Controleur& c = Controleur::getControleur(true);
+    //Controleur& c = Controleur::getControleur(true);
     c.getPlateau()->getBornes(1);
 
     c.getPlateau()->getBornes(1)->setBoue(true);
-    c.getPlateau()->getBornes(1)->getCartesJ1()->ajouterCarte(new CarteClan(Puissance::un, Couleur::bleu));
-    c.getPlateau()->getBornes(1)->getCartesJ1()->ajouterCarte(new CarteTroupeElite("Joker", Puissance::zero, Couleur::neutre));
-    c.getPlateau()->getBornes(1)->getCartesJ1()->ajouterCarte(new CarteClan(Puissance::trois, Couleur::bleu));
-    c.getPlateau()->getBornes(1)->getCartesJ1()->ajouterCarte(new CarteClan(Puissance::quatre, Couleur::bleu));
-    c.revendiquer_borne(1);
+
+   // c.revendiquer_borne(1);
     cout << "revendiquer 1:" << c.getPlateau()->getBornes(1)->getRevendique() << endl;
-    *//*c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::quatre, Couleur::rouge));
+
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::neuf, Couleur::violet));
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::huit, Couleur::rouge));
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::sept, Couleur::rouge));
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::six, Couleur::rouge));
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::cinq, Couleur::rouge));
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::quatre, Couleur::rouge));
-    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::trois, Couleur::rouge));*//*
+    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::trois, Couleur::rouge));
+    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));
+    c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::un, Couleur::rouge));
 
-
+    c.JouerTour1();
+    c.JouerTour1();
+    c.JouerTour1();
+    c.JouerTour1();
+    c.JouerTour1();c.JouerTour1();c.JouerTour1();c.JouerTour1();
+    /*
     *//*c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));
     c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan( Puissance::quatre, Couleur::rouge));
    *//**//*
+
     for (int i = 0; i < 5; i++) {
 
         c.JouerTourIAClassique();
     }
+
 *//**//*
    // c.revendiquer_borne(1);
     //sleep(5);
