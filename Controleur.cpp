@@ -5,6 +5,7 @@
 #include "Controleur.h"
 #include "CarteTroupeElite.h"
 #include "CarteRuse.h"
+#include "CarteModeCombat.h"
 #include <ctime>
 #include <random>
 
@@ -134,18 +135,32 @@ void Controleur::JouerTour1(){
         m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
     }
     else if (carte = dynamic_cast<CarteTactique *>(carte)){
-        //TODO : vérifier si joueur pioche une carte tactique ou Elite et faire jouer les cartes en fonction de la carte
+
         Carte* carteChoisie = m_plateau->getJoueur1()->getMain()->getCarte(choix_carte);
         CarteTactique* carteTactiqueChoisie = dynamic_cast<CarteTactique*>(carteChoisie);
         cout << "Vous avez choisi la carte : Nom :" << carteTactiqueChoisie->getNom() << endl;
         cout << "Voulez vous utiliser cette carte sur quelle borne ?:" << endl;
         if (carteTactiqueChoisie->getNom() == "Colin Maillard"){
-
+            int choix_borne;
+            cin >> choix_borne;
+            while (choix_borne > 8 || choix_borne < 0) {
+                cout << "Vous n'avez pas cette borne, resaisissez une borne :" << endl;
+                cin >> choix_borne;
+            }
+            // affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());cout <<endl;
+            cout << "On pose la carte choisie sur la borne "<< choix_borne << " :"<<endl;
+              CarteModeCombat::jouer_ColinMaillard(m_plateau->getBornes(choix_borne));
 
 
         }
         else if (carteTactiqueChoisie->getNom() == "Combat de Boue"){
-
+                int choix_borne;
+                cin >> choix_borne;
+                while (choix_borne > 8 || choix_borne < 0) {
+                    cout << "Vous n'avez pas cette borne, resaisissez une borne :" << endl;
+                    cin >> choix_borne;}
+                cout << "On pose la carte choisie sur la borne "<< choix_borne << " :"<<endl;
+                CarteModeCombat::jouer_CombatdeBoue(m_plateau->getBornes(choix_borne));
         }
         else if (carteTactiqueChoisie->getNom() == "Chasseur de Tete"){
             CarteRuse::Jouer_ChasseurdeTete();
@@ -179,10 +194,6 @@ void Controleur::JouerTour1(){
         cout << endl;
         m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
     }
-
-
-
-
     cout << "Voulez vous revendiquer une borne ? 1 pour oui, 0 pour non :" << endl;
     int choix_revendication;
     cin >> choix_revendication;
@@ -198,7 +209,7 @@ void Controleur::JouerTour1(){
         }
         auto cartesBornes = m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes();
         int i =0;
-        while(cartesBornes[i]!=NULL){
+        /*while(cartesBornes[i]!=NULL){
             if (dynamic_cast<CarteTroupeElite*>(cartesBornes[i]) != nullptr) {
                 CarteTroupeElite* carteTroupeElite = dynamic_cast<CarteTroupeElite*>(cartesBornes[i]);
                 if (carteTroupeElite->getNom()== "Joker"){
@@ -252,7 +263,7 @@ void Controleur::JouerTour1(){
             }
             }i++;
         check_fin_partie();
-    }
+    */}
     cout << "Veuillez choisir si vous voulez choisir une carte tactique ou normale :, 1 pour normale et n'importe qu'elle autre chiffre pour tactique" << endl;
     int choix_style;
     cin >> choix_style;

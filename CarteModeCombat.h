@@ -12,11 +12,11 @@ public:
     CarteModeCombat(const string& nom) : CarteTactique(nom)  {};
     
 
-    void jouer_ColinMaillard(Borne b) const {
-        b.setCollin(true);
+    static void jouer_ColinMaillard(Borne* b)  {
+        b->setCollin(true);
 	}
-    void jouer_CombatdeBoue(Borne b) const {
-        b.setBoue(true);
+    static void jouer_CombatdeBoue(Borne *b)  {
+        b->setBoue(true);
     }
 
     void afficherCarte()const override{
