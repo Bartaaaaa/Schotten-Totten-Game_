@@ -274,6 +274,7 @@ void Controleur::JouerTour1(){
         cout <<"Carte piochee : "<< ci->getPuissance() <<" "<< ci->getCouleur() << endl;
         m_plateau->afficherMainJoueur(1);
     }
+
     else {
         switch (getPiocheTactique()->quandjepiochejefaisattention()) {
             case 1: {

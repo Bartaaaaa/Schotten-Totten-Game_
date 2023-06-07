@@ -10,7 +10,6 @@
 class CarteModeCombat : public CarteTactique {
 public:
     CarteModeCombat(const string& nom) : CarteTactique(nom)  {};
-    
 
     static void jouer_ColinMaillard(Borne* b)  {
         b->setCollin(true);
