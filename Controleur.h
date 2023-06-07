@@ -75,6 +75,7 @@ public:
     void revendiquer_borne_non_pleine_tactique(int num_borne);*/
 
     void debut_de_partie_classique();
+    void debut_de_partie_tactique();
 
     void test();
 

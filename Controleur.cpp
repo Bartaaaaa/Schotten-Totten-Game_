@@ -1647,6 +1647,63 @@ void Controleur::debut_de_partie_classique() {
     cout << "Fin de la phase de pioche" << endl<<endl;
 }
 
+void Controleur::debut_de_partie_tactique() {
+    // Ajout des 7 cartes dans la main du joueur 1
+    for (int i = 0; i < 7; i++) {
+        CarteClan *ci = new CarteClan(getPiocheClan()->piocherCarteClan());
+        m_plateau->m_joueur1->getMain()->ajouterCarte(ci);
+    }
+
+    // Ajout des 6 cartes dans la main du joueur 2
+    for (int i = 0; i < 7; i++) {
+        CarteClan *ci = new CarteClan(getPiocheClan()->piocherCarteClan());
+        m_plateau->m_joueur2->getMain()->ajouterCarte(ci);
+    }
+
+    // Affichage des mains des joueurs
+    cout << "Main du joueur 1 :" << endl;
+    affichage_vecteur_carte(m_plateau->m_joueur1->getMain()->getCartes());
+    cout << "Main du joueur 2 :" << endl;
+    affichage_vecteur_carte(m_plateau->m_joueur2->getMain()->getCartes());
+    cout << "Fin de la phase de pioche" << endl<<endl;
+
+    // test carte tactique
+    while (!getPiocheTactique()->estVide()) {
+        switch (getPiocheTactique()->quandjepiochejefaisattention()) {
+            case 1: {
+                auto a = new CarteTactique(getPiocheTactique()->piocherCarteTactique());
+                m_plateau->m_joueur1->getMain()->ajouterCarte(a);
+                break;
+            }
+
+            case 2: {
+                auto a = new CarteTroupeElite(getPiocheTactique()->piocherCarteTroupeElite());
+                m_plateau->m_joueur2->getMain()->ajouterCarte(a);
+                break;
+            }
+        }
+
+        switch (getPiocheTactique()->quandjepiochejefaisattention()) {
+            case 1: {
+                auto a = new CarteTactique(getPiocheTactique()->piocherCarteTactique());
+                m_plateau->m_joueur2->getMain()->ajouterCarte(a);
+                break;
+            }
+
+            case 2: {
+                auto a = new CarteTroupeElite(getPiocheTactique()->piocherCarteTroupeElite());
+                m_plateau->m_joueur2->getMain()->ajouterCarte(a);
+                break;
+            }
+        }
+    }
+    cout << "Main du joueur 1 :" << endl;
+    affichage_vecteur_carte(m_plateau->m_joueur1->getMain()->getCartes());
+    cout << "Main du joueur 2 :" << endl;
+    affichage_vecteur_carte(m_plateau->m_joueur2->getMain()->getCartes());
+    cout << "Fin de la phase de pioche" << endl<<endl;
+}
+
 void Controleur::supprimer_carte_pose_v1(CarteClan *carte) {
     for (int i = 0; i < m_carte_non_pose.size(); i++) {
         if (m_carte_non_pose[i] == carte) {
