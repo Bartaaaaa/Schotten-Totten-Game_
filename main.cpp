@@ -53,11 +53,12 @@ int main() {
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::un, Couleur::rouge));
 
+    c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(new CarteClan(Puissance::un, Couleur::rouge));
+    c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));
+    c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::neuf, Couleur::violet));
     c.JouerTour1();
-    c.JouerTour1();
-    c.JouerTour1();
-    c.JouerTour1();
-    c.JouerTour1();c.JouerTour1();c.JouerTour1();c.JouerTour1();
+
+
     /*
     *//*c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));
     c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan( Puissance::quatre, Couleur::rouge));
@@ -121,7 +122,7 @@ int main() {
 }
 
 /*
- * PAS drole :(
+ * PAS drole :( Si c'est drole
 cout << "Bienvenue dans Schotten-Totten haha ! bienvenue bienvnue dans ce superbe jeu, je suis bob lennon et voici le jeu" << endl;
 cout << "Plusieurs options s'offrent à vous , veillez en choisir une haha ! " << endl;
 cout << "1- Jouer une partie contre un autre joueur haha !" << endl;

@@ -107,7 +107,7 @@ void Plateau::afficherBornes(int joueur) {
     cout << endl;
     //affichage numero de borne
     for(int i=0; i<9; i++){
-        cout<<"| Borne  "<<i+1<<" |";
+        cout<<"| Borne  "<<i<<" |";
     }
     cout << endl;
     //si combat de boue

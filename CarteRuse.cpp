@@ -15,65 +15,31 @@ int generateRandomNumber2() {
 }
 
 void Supp_PushCarteClanTactique(){
-    int carte1;
-    cin >> carte1;
-    int carte1s = carte1;
-
-    vector<Carte*> cartesMain = Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->getCartes();
-    while(carte1>cartesMain.size() || carte1<0){
-        cout<<"Vous n'avez pas cette carte, resaisissez une que vous avez :"<<endl;
-        cin>>carte1;
+    vector<Carte*> cartesMain = Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->getCartes();
+    cout << "Veuillez choisir la carte que vous voulez jouer (son id) :" << endl;
+    int choix_carte, nb_tac = 0, nb_clan = 0, nb_total = 0;
+    cin >> choix_carte;
+    while (choix_carte >= cartesMain.size() || choix_carte < 0) {
+        cout << "Vous n'avez pas cette carte, veuillez saisir une carte que vous avez :" << endl;
+        cin >> choix_carte;
     }
-    int  nb_tac=0,nb_clan=0,nb_total=0;
-    Carte* carte = cartesMain[carte1];
+    vector<Carte*> cartes =  Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->getCartes();
+    Carte* carte = cartes[choix_carte];
 
-    if ( carte  = dynamic_cast<CarteTactique *>(carte)) {
-        for (auto carte: cartesMain) {
-            nb_tac++;
-            nb_total++;
-        }
-        if (nb_tac==0){
-            cout << "Vous n'avez plus de cartes tactiques !" << endl;
-        }
-        Carte* carte1 = Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->getCarte(carte1s);
-        CarteTactique* carteClanChoisie = dynamic_cast<CarteTactique*>(carte1);
-        if(carteClanChoisie!=nullptr) {
-            cout << "Vous avez choisi la carte : Nom :" << carteClanChoisie->getNom() << endl;
-            Controleur::getControleur(true).getPiocheTactique()->push_back(carte1);
-            Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->supprimerCarte(carte1s);
-    }}
-    int a=0;
-    if (a==1) cout<<"lacaca";
-   else {
-        if (carte = dynamic_cast<CarteClan *>(carte)) {
-            for (auto carte: cartesMain) {
-
-                nb_clan++;
-                nb_total++;
-            }
-            if (nb_clan==0){
-                cout << "Vous n'avez plus de cartes clans !" << endl;
-            }
-            if (nb_total ==0 ){
-                cout << "Vous n'avez plus de cartes !" << endl;
-                return; exit(0);
-            }
-            Carte* carte1t = Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->getCarte(carte1s);
-            CarteClan* carteClanChoisie = dynamic_cast<CarteClan*>(carte1t);
-            if(carteClanChoisie!=nullptr) {
-                cout << "Vous avez choisi la carte : Puissance :" << carteClanChoisie->getPuissance()<< " Couleur : " << carteClanChoisie->getCouleur() << endl;
-                Controleur::getControleur(false).getPiocheClan()->push_back(carte1t);
-                Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->supprimerCarte(carte1s);
-            }
-        }
+    if (CarteClan* carteClanChoisie = dynamic_cast<CarteClan*>(carte)) {
+        Controleur::getControleur(false).getPiocheClan()->push_back(carte);
+        Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->supprimerCarte(choix_carte);
+}
+    else {
+        Controleur::getControleur(true).getPiocheTactique()->push_back2(carte);
+        Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->supprimerCarte(choix_carte);
     }
 }
+
 
 void Supp_PushCarteClanTactiqueIA(){
     int carte1 = generateRandomNumber2()%(Controleur::getControleur(true).getPlateau()->getJoueur2()->getMain()->getCartes().size())+1;
     int carte1s = carte1;
-
-
     vector<Carte*> cartesMain = Controleur::getControleur(true).getPlateau()->getJoueur2()->getMain()->getCartes();
     while(carte1>cartesMain.size() || carte1<0){
         carte1 = generateRandomNumber2()%(Controleur::getControleur(true).getPlateau()->getJoueur2()->getMain()->getCartes().size())+1;
@@ -132,6 +98,7 @@ void CarteRuse::Jouer_ChasseurdeTeteIA(){
     cout  << "L'ia a choisi de piocher " <<nbCarteClan << "cartes clan." << endl;
     switch(nbCarteClan){
         case 0 : {
+
             CarteTactique* ct01 = new CarteTactique(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTactique());
             cout <<"Carte piochee : "<< ct01->getNom() << endl;
             CarteTactique* ct02 = new CarteTactique(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTactique());
@@ -328,29 +295,47 @@ void CarteRuse::Jouer_ChasseurdeTete() {
     }
     switch(nbCarteClan){
         case 0 : {
-            CarteTactique* ct01 = new CarteTactique(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTactique());
-            cout <<"Carte piochee : "<< ct01->getNom() << endl;
-            CarteTactique* ct02 = new CarteTactique(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTactique());
-            cout <<"Carte piochee : "<< ct02->getNom() << endl;
-            CarteTactique* ct03 = new CarteTactique(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTactique());
-            cout <<"Carte piochee : "<< ct03->getNom() << endl;
-            Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->ajouterCarte(ct01);
-            Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->ajouterCarte(ct02);
-            Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->ajouterCarte(ct03);
-
-
+            for (int i = 0 ; i<3;i++){
+            switch (Controleur::getControleur(true).getPiocheTactique()->quandjepiochejefaisattention()) {
+                case 1: {
+                    cout << "Vous avez pioche la carte tactique :" << endl;
+                    CarteTactique * a = new CarteTactique(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTactique());
+                    Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->ajouterCarte(a);
+                    cout << a->getNom() << endl;
+                    break;
+                }
+                case 2: {
+                    cout << "Vous avez pioche la carte troupe Elite :" << endl;
+                    CarteTroupeElite * b = new CarteTroupeElite(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTroupeElite());
+                    Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->ajouterCarte(b);
+                    cout << b->getNom() << endl;
+                    break;
+                }
+            }
+            }
             break;}
         case 1:{
             CarteClan* c11 = new CarteClan(Controleur::getControleur(false).getPiocheClan()->piocherCarteClan());
             cout <<"Carte piochee : "<< c11->getPuissance() <<" "<< c11->getCouleur() << endl;
-            CarteTactique* ct11 = new CarteTactique(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTactique());
-            cout <<"Carte piochee : "<< ct11->getNom() << endl;
-            CarteTactique* ct12 = new CarteTactique(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTactique());
-            cout <<"Carte piochee : "<< ct12->getNom() << endl;
+            for (int i = 0 ; i<2;i++){
+                switch (Controleur::getControleur(true).getPiocheTactique()->quandjepiochejefaisattention()) {
+                    case 1: {
+                        cout << "Vous avez pioche la carte tactique :" << endl;
+                        CarteTactique * a = new CarteTactique(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTactique());
+                        Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->ajouterCarte(a);
+                        cout << a->getNom() << endl;
+                        break;
+                    }
+                    case 2: {
+                        cout << "Vous avez pioche la carte troupe Elite :" << endl;
+                        CarteTroupeElite * b = new CarteTroupeElite(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTroupeElite());
+                        Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->ajouterCarte(b);
+                        cout << b->getNom() << endl;
+                        break;
+                    }
+                }
+            }
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(c11);
-            Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->ajouterCarte(ct11);
-            Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->ajouterCarte(ct12);
-
             break;}
         case 2: {
             CarteClan *c21 = new CarteClan(Controleur::getControleur(false).getPiocheClan()->piocherCarteClan());
@@ -359,12 +344,25 @@ void CarteRuse::Jouer_ChasseurdeTete() {
             CarteClan *c22 = new CarteClan(Controleur::getControleur(false).getPiocheClan()->piocherCarteClan());
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(c22);
             cout << "Carte piochee : " << c22->getPuissance() << " " << c22->getCouleur() << endl;
-            CarteTactique *ct21 = new CarteTactique(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTactique());
-            cout << "Carte piochee : " << ct21->getNom() << endl;
+            switch (Controleur::getControleur(true).getPiocheTactique()->quandjepiochejefaisattention()) {
+                case 1: {
+                    cout << "Vous avez pioche la carte tactique :" << endl;
+                    CarteTactique * a = new CarteTactique(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTactique());
+                    Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->ajouterCarte(a);
+                    cout << a->getNom() << endl;
+                    break;
+                }
+                case 2: {
+                    cout << "Vous avez pioche la carte troupe Elite :" << endl;
+                    CarteTroupeElite * b = new CarteTroupeElite(Controleur::getControleur(true).getPiocheTactique()->piocherCarteTroupeElite());
+                    Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->ajouterCarte(b);
+                    cout << b->getNom() << endl;
+                    break;
+                }
+            }
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(c21);
             Controleur::getControleur(false).getPlateau()->getJoueur1()->getMain()->ajouterCarte(c22);
-            Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->ajouterCarte(ct21);
-
+            break;
         }
         case 3: {
             CarteClan* c31 = new CarteClan(Controleur::getControleur(false).getPiocheClan()->piocherCarteClan());
@@ -385,10 +383,10 @@ void CarteRuse::Jouer_ChasseurdeTete() {
     }
     cout << "Vous allez maintenant devoir choisir deux cartes que vous allez supprimer de votre main" << endl;
     cout << "Voici votre main actuelle :" << endl;
-    Controleur::getControleur(false).getPlateau()->afficherMainJoueur(1);
+    Controleur::getControleur(true).getPlateau()->afficherMainJoueur(1);
     Supp_PushCarteClanTactique();
     cout << "Voici votre main actuelle :" << endl;
-    Controleur::getControleur(false).getPlateau()->afficherMainJoueur(1);
+    Controleur::getControleur(true).getPlateau()->afficherMainJoueur(1);
     Supp_PushCarteClanTactique();
 }
 
@@ -430,7 +428,7 @@ void CarteRuse::Jouer_Stratege() {
     if (choix == 2) {
     cout << "Sur quelle borne non revendiquee voulez vous placer votre carte ? " << endl;
     cin >> choix_borne;
-    while(Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique()!=0){
+    while(Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique()!=0 && choix_borne<0 && choix_borne>8){
         cout << "Vous ne pouvez pas poser de carte sur cette borne, veuillez en choisir une autre : " << endl;
         cin >> choix_borne;
     }
@@ -453,7 +451,7 @@ void CarteRuse::Jouer_Traitre() {
     int choix_borne, choix_carte;
     cin >> choix_borne;
     while (Controleur::getControleur(true).getPlateau()->getBornes(
-            choix_borne)->getCartesJ2()->getCartes().empty()) {
+            choix_borne)->getCartesJ2()->getCartes().empty() || Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique()!=0 ) {
         cout << "L'adversaire  n'a pas de cartes sur cette borne, veuillez en choisir une autre : " << endl;
         cin >> choix_borne;
     }
@@ -494,7 +492,7 @@ void CarteRuse::Jouer_Banshee() {
     int choix_borne, choix_carte;
     cin >> choix_borne;
     while (Controleur::getControleur(true).getPlateau()->getBornes(
-            choix_borne)->getCartesJ2()->getCartes().empty()) {
+            choix_borne)->getCartesJ2()->getCartes().empty() || Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique()!=0) {
         cout << "L'adversaire  n'a pas de cartes sur cette borne, veuillez en choisir une autre : " << endl;
         cin >> choix_borne;
     }

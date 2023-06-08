@@ -28,6 +28,10 @@ public:
         m_cartes = temp;
         ++m_nb;
     }
+    void push_back2(const Carte* carte) {
+
+        m_cartes[++m_nb] = carte;
+    }
     bool estVide() const { return m_nb==0; }
     size_t getNbCartes() const { return m_nb; }
     const CarteClan& piocherCarteClan();
