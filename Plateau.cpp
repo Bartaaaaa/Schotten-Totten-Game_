@@ -166,9 +166,9 @@ void Plateau::afficherBornes(int joueur) {
 
 void Plateau::afficherPlateau(int pointdevue) {
     if(pointdevue==1){
-        afficherMainJoueur(1);
-        afficherBornes(1);
         afficherDosMain(2);
+        afficherBornes(1);
+        afficherMainJoueur(1);
     }
     else{
         afficherDosMain(1);
