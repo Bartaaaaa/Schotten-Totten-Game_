@@ -12,6 +12,9 @@ class CarteTactique : public Carte {
 public:
     CarteTactique(const string& nom): m_nom(nom) {};
     const string &getNom() const { return m_nom; }
+    void afficherCarte()const override{
+        cout<<"Carte Tactique vide";
+    };
 };
 
 #endif //LO21_SCHOTTEN_TOTTEN_CARTETACTIQUE_H
