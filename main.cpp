@@ -41,7 +41,7 @@ int main() {
     c.getPlateau()->getBornes(1)->setBoue(true);
 
    // c.revendiquer_borne(1);
-    cout << "revendiquer 1:" << c.getPlateau()->getBornes(1)->getRevendique() << endl;
+    //cout << "revendiquer 1:" << c.getPlateau()->getBornes(1)->getRevendique() << endl;
 
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::neuf, Couleur::violet));
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::huit, Couleur::rouge));
@@ -52,12 +52,19 @@ int main() {
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::trois, Couleur::rouge));
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));
     c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(new CarteClan(Puissance::un, Couleur::rouge));
+    c.getPlateau()->getBornes(1)->getCartesJ1()->ajouterCarte(new CarteClan(Puissance::neuf, Couleur::violet));
+    c.getPlateau()->getBornes(2)->getCartesJ1()->ajouterCarte(new CarteClan(Puissance::huit, Couleur::rouge));
 
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(new CarteClan(Puissance::un, Couleur::rouge));
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));
-    c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::neuf, Couleur::violet));
-    c.JouerTour1();
-
+    c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(new CarteClan(Puissance::trois, Couleur::rouge));
+    c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(new CarteClan(Puissance::quatre, Couleur::rouge));
+    c.getPlateau()->getBornes(5)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::trois, Couleur::vert));
+    c.getPlateau()->getBornes(6)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::huit, Couleur::rouge));
+    for (int i = 0 ; i<3;i++){
+        c.JouerTourIA();
+        sleep(10);
+    }
 
     /*
     *//*c.getPlateau()->getBornes(1)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));

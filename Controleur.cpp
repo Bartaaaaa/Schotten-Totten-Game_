@@ -109,7 +109,7 @@ void Controleur::JouerTour1(){
     //cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
     //cout <<"taille pioche tactique : "<<getPiocheTactique()->getNbCartes()<<"\n";
     cout << "Voici votre main :" << endl;
-    affichage_vecteur_carte(m_plateau->m_joueur1->getMain()->getCartes());
+    m_plateau->afficherMainJoueur(1);
     vector<Carte*> cartesMain = m_plateau->m_joueur1->getMain()->getCartes();
 
     cout << "Veuillez choisir la carte que vous voulez jouer (son id) :" << endl;
@@ -129,7 +129,7 @@ void Controleur::JouerTour1(){
         cout << "Veuillez choisir une borne :" << endl;
         int choix_borne;
         cin >> choix_borne;
-        while (choix_borne > 9 || choix_borne < 1) {
+        while (choix_borne > 8 || choix_borne < 0) {
             cout << "Vous n'avez pas cette borne, veuillez saisir une borne :" << endl;
             cin >> choix_borne;
         }
@@ -208,6 +208,7 @@ void Controleur::JouerTour1(){
         int i =0;
 
     }
+    m_plateau->afficherMainJoueur(1);
     cout << "Veuillez choisir si vous voulez choisir une carte tactique ou normale :, 1 pour normale et n'importe qu'elle autre chiffre pour tactique" << endl;
     int choix_style;
     cin >> choix_style;
@@ -216,7 +217,7 @@ void Controleur::JouerTour1(){
         CarteClan* ci = new CarteClan(getPiocheClan()->piocherCarteClan());
         m_plateau->getJoueur1()->getMain()->ajouterCarte(ci);
         cout <<"Carte piochee : "<< ci->getPuissance() <<" "<< ci->getCouleur() << endl;
-        affichage_vecteur_carte(m_plateau->m_joueur1->getMain()->getCartes());;
+
     }
 
     else {
@@ -240,7 +241,7 @@ void Controleur::JouerTour1(){
     }
     //Affichage de la main du joueur 1
     cout << "Votre main est maintenant composee de : " << endl;
-    affichage_vecteur_carte(m_plateau->m_joueur1->getMain()->getCartes());
+    m_plateau->afficherMainJoueur(1);
     cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
     //cout <<"taille pioche tactique : "<<getPiocheTactique()->getNbCartes()<<"\n";
     Afficher_Borne1();
@@ -249,7 +250,7 @@ void Controleur::JouerTour1(){
 
 void Controleur::JouerTour2(){
     cout << "Voici votre main :" << endl;
-    affichage_vecteur_carte(m_plateau->m_joueur2->getMain()->getCartes());
+    m_plateau->afficherMainJoueur(2);
     vector<Carte*> cartesMain = m_plateau->m_joueur2->getMain()->getCartes();
 
     cout << "Veuillez choisir la carte que vous voulez jouer (son id) :" << endl;
@@ -352,12 +353,13 @@ void Controleur::JouerTour2(){
     cout << "Veuillez choisir si vous voulez choisir une carte tactique ou normale :, 1 pour normale et n'importe qu'elle autre chiffre pour tactique" << endl;
     int choix_style;
     cin >> choix_style;
+    m_plateau->afficherMainJoueur(2);
     cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
     if( int(choix_style)==1 ){
         CarteClan* ci = new CarteClan(getPiocheClan()->piocherCarteClan());
         m_plateau->getJoueur2()->getMain()->ajouterCarte(ci);
         cout <<"Carte piochee : "<< ci->getPuissance() <<" "<< ci->getCouleur() << endl;
-        affichage_vecteur_carte(m_plateau->m_joueur1->getMain()->getCartes());;
+
     }
 
     else {
@@ -381,16 +383,15 @@ void Controleur::JouerTour2(){
     }
     //Affichage de la main du joueur 1
     cout << "Votre main est maintenant composee de : " << endl;
-    affichage_vecteur_carte(m_plateau->m_joueur2->getMain()->getCartes());
-    cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
-    //cout <<"taille pioche tactique : "<<getPiocheTactique()->getNbCartes()<<"\n";
-    Afficher_Borne2();
+    m_plateau->afficherMainJoueur(2);
+
     cout << "\nFIN DU TOUR" << endl;
 }
 
 void Controleur::JouerTourIAClassique(){
-    Afficher_Borne1();
-    m_plateau->afficherMainJoueur(1);
+
+    m_plateau->afficherBornes(2);
+    m_plateau->afficherMainJoueur(2);
     vector<Carte*> cartesMain = m_plateau->m_joueur1->getMain()->getCartes();
     srand(time(0));
     int choix_carte, nb_tac=0,nb_clan=0,nb_total=0;
@@ -399,37 +400,37 @@ void Controleur::JouerTourIAClassique(){
         cout<<"Vous n'avez pas cette carte, resaisissez une que vous avez :"<<endl;
         choix_carte = generateRandomNumber()%cartesMain.size()+1;
     }
-    vector<Carte*> cartes = m_plateau->m_joueur1->getMain()->getCartes();
+    vector<Carte*> cartes = m_plateau->m_joueur2->getMain()->getCartes();
     Carte* carte = cartes[choix_carte];
     if (carte = dynamic_cast<CarteClan *>(carte)) {
-        Carte* carteChoisie = m_plateau->getJoueur1()->getMain()->getCarte(choix_carte);
+        Carte* carteChoisie = m_plateau->getJoueur2()->getMain()->getCarte(choix_carte);
         CarteClan* carteClanChoisie = dynamic_cast<CarteClan*>(carteChoisie);
             cout << "L'IA a choisi de poser la carte : Puissance :" << carteClanChoisie->getPuissance() << " Couleur : " << carteClanChoisie->getCouleur() << endl;
         //affichage borne
         //Choix de la borne
         int choix_borne = generateRandomNumber()%8+1;
-        if (choix_borne > 9|| choix_borne < 0) {
+        if (choix_borne > 8|| choix_borne < 0) {
             choix_borne = generateRandomNumber()%8+1;
         }
 
-        while (m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes().size()==3){
+        while (m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes().size()==3){
             cout << "La borne est pleine, veuillez choisir une autre borne :" << endl;
-            choix_borne = generateRandomNumber()%7+1;
+            choix_borne = generateRandomNumber()%8+1;
         }
 
 
-        affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());cout <<endl;
+        affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes());cout <<endl;
         cout << "On pose la carte piochee sur la borne "<< choix_borne << " :"<<endl;
         m_plateau->poser(*m_plateau->getBornes(choix_borne),carteClanChoisie );
         cout << "Borne " << choix_borne << " :" << endl;
-        affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());cout <<endl;
-        m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
+        affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes());cout <<endl;
+        m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
     }
-    Afficher_Borne1();
+    m_plateau->afficherBornes(2);
     int count_cartes = 0;
     for (int i=0 ;i <9;i++) {
         count_cartes=0;
-        auto cartesBornes = m_plateau->getBornes(i)->getCartesJ1()->getCartes();
+        auto cartesBornes = m_plateau->getBornes(i)->getCartesJ2()->getCartes();
             if (cartesBornes.size() ==3) {
                 count_cartes = 3;
                 revendiquer_borne(i);
@@ -439,16 +440,13 @@ void Controleur::JouerTourIAClassique(){
 
     cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
         CarteClan* ci = new CarteClan(getPiocheClan()->piocherCarteClan());
-        m_plateau->getJoueur1()->getMain()->ajouterCarte(ci);
+        m_plateau->getJoueur2()->getMain()->ajouterCarte(ci);
         cout <<"L'ia a piochee la carte  : "<< ci->getPuissance() <<" "<< ci->getCouleur() << endl;
         m_plateau->afficherMainJoueur(1);
     //jouer carte espion
     //Affichage de la main du joueur 1
     cout << "La main de l'IA est maintenant composee de :" << endl;
-    m_plateau->afficherMainJoueur(1);
-    cout <<"Taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
-    //cout <<"taille pioche tactique : "<<getPiocheTactique()->getNbCartes()<<"\n";
-    Afficher_Borne1();
+    m_plateau->afficherMainJoueur(2);
     cout << "\nFIN DU TOUR" << endl;
 }
 
@@ -456,126 +454,105 @@ void Controleur::JouerTourIAClassique(){
 
 void Controleur::JouerTourIA(){
 
-    affichage_vecteur_carte(m_plateau->m_joueur2->getMain()->getCartes());
+    CarteRuse::Jouer_StrategeIA();
+
+    m_plateau->afficherMainJoueur(2);
     vector<Carte*> cartesMain = m_plateau->m_joueur2->getMain()->getCartes();
-
-
     int choix_carte, nb_tac = 0, nb_clan = 0, nb_total = 0;
     choix_carte = generateRandomNumber() % cartesMain.size()+1;
-
     while (choix_carte >= cartesMain.size() || choix_carte < 0) {
         choix_carte = generateRandomNumber() % cartesMain.size();
     }
-
-    vector<Carte*> cartes = m_plateau->m_joueur1->getMain()->getCartes();
+    vector<Carte*> cartes = m_plateau->m_joueur2->getMain()->getCartes();
     Carte* carte = cartes[choix_carte];
 
     if (CarteClan* carteClanChoisie = dynamic_cast<CarteClan*>(carte)) {
-        cout << "Vous avez choisi la carte : Puissance :" << carteClanChoisie->getPuissance() << " Couleur : " << carteClanChoisie->getCouleur() << endl;
-        m_plateau->afficherBornes(2);
-        cout << "Veuillez choisir une borne :" << endl;
-        int choix_borne;
-        cin >> choix_borne;
+        cout << "L'ia a choisie de jouer la carte  : Puissance :" << carteClanChoisie->getPuissance() << " Couleur : " << carteClanChoisie->getCouleur() << endl;
+        int choix_borne = generateRandomNumber() % 8 + 1;
         while (choix_borne > 8 || choix_borne < 0) {
-            cout << "Vous n'avez pas cette borne, veuillez saisir une borne :" << endl;
-            cin >> choix_borne;
+            choix_borne = generateRandomNumber() % 8 + 1;
         }
-        cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
+        cout << "L'ia pose sa carte sur la borne " << choix_borne << " :" << endl;
         m_plateau->poser(*m_plateau->getBornes(choix_borne), carteClanChoisie);
         m_plateau->afficherBornes(2);
-        m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
+        m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
     }
     else if (CarteTactique* carteTactiqueChoisie = dynamic_cast<CarteTactique*>(carte)) {
-        cout << "Vous avez choisi la carte : Nom :" << carteTactiqueChoisie->getNom() << endl;
-        cout << "Voulez-vous utiliser cette carte sur quelle borne ? :" << endl;
+        cout << "L'ia a choisie la carte : Nom :" << carteTactiqueChoisie->getNom() << endl;
         if (carteTactiqueChoisie->getNom() == "Colin Maillard") {
-            int choix_borne;
-            cin >> choix_borne;
+            int choix_borne = generateRandomNumber() % 8 + 1;
+
             while (choix_borne > 8 || choix_borne < 0) {
-                cout << "Vous n'avez pas cette borne, veuillez saisir une borne :" << endl;
-                cin >> choix_borne;
+                choix_borne = generateRandomNumber() % 8 + 1;
             }
-            cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
+            cout << "L'IA pose la carte choisie sur la borne " << choix_borne << " :" << endl;
             CarteModeCombat::jouer_ColinMaillard(m_plateau->getBornes(choix_borne));
         }
         else if (carteTactiqueChoisie->getNom() == "Combat de Boue") {
-            int choix_borne;
-            cin >> choix_borne;
+            int choix_borne = generateRandomNumber() % 8 + 1;
+
             while (choix_borne > 8 || choix_borne < 0) {
-                cout << "Vous n'avez pas cette borne, veuillez saisir une borne :" << endl;
-                cin >> choix_borne;
+                choix_borne = generateRandomNumber() % 8 + 1;
             }
-            cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
+            cout << "L'ia  pose la carte choisie sur la borne " << choix_borne << " :" << endl;
             CarteModeCombat::jouer_CombatdeBoue(m_plateau->getBornes(choix_borne));
         }
         else if (carteTactiqueChoisie->getNom() == "Chasseur de Tete") {
-            CarteRuse::Jouer_ChasseurdeTete();
+            CarteRuse::Jouer_ChasseurdeTeteIA();
         }
         else if (carteTactiqueChoisie->getNom() == "Stratege") {
-            CarteRuse::Jouer_Stratege();
+            CarteRuse::Jouer_StrategeIA();
         }
         else if (carteTactiqueChoisie->getNom() == "Banshee") {
-            CarteRuse::Jouer_Banshee();
+            CarteRuse::Jouer_BansheeIA();
         }
         else if (carteTactiqueChoisie->getNom() == "Traitre") {
-            CarteRuse::Jouer_Traitre();
+            CarteRuse::Jouer_TraitreIA();
         }
     }
     else if (CarteTroupeElite* carteTroupeEliteChoisie = dynamic_cast<CarteTroupeElite*>(carte)) {
-        cout << "Vous avez choisi la carte : Nom :" << carteTroupeEliteChoisie->getNom() << endl;
-        cout << "Voulez-vous utiliser cette carte sur quelle borne ? :" << endl;
-        int choix_borne;
-        cin >> choix_borne;
+        cout << "L'ia a choisi la carte : Nom :" << carteTroupeEliteChoisie->getNom() << endl;
+        int choix_borne = generateRandomNumber() % 8 + 1;
         while (choix_borne > 8|| choix_borne < 0) {
-            cout << "Vous n'avez pas cette borne, veuillez saisir une borne :" << endl;
-            cin >> choix_borne;
+            choix_borne = generateRandomNumber() % 8 + 1;
         }
-        cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
+        cout << "L'ia pose la carte choisie sur la borne " << choix_borne << " :" << endl;
         m_plateau->poser(*m_plateau->getBornes(choix_borne), carteTroupeEliteChoisie);
         cout << "Borne " << choix_borne << " :" << endl;
         affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes());
         cout << endl;
 
     }
-    cout << "Voulez vous revendiquer une borne ? 1 pour oui, 0 pour non :" << endl;
-    int choix_revendication;
-    cin >> choix_revendication;
+    //L'ia cherche à revendiquer les bornes où elle a 3 cartes
+    int count_cartes = 0;
+    for (int i=0 ;i <9;i++) {
+        count_cartes=0;
+        auto cartesBornes = m_plateau->getBornes(i)->getCartesJ1()->getCartes();
+        if (cartesBornes.size() ==3 ||cartesBornes.size()==4) {
+            cout << "L'ia va tenter de  revendiquer la borne " << i << endl;
+            revendiquer_borne(i);
 
-    if(choix_revendication==1){
-        cout << "Veuillez choisir la borne que vous voulez revendiquer :" << endl;
-        int choix_borne;
-        cin >> choix_borne;
-        while (m_plateau->m_bornes[choix_borne]->getRevendique()==2 || m_plateau->m_bornes[choix_borne]->getRevendique()==1 && (choix_borne > 9 || choix_borne < 1)) {
-            cout << "La borne a déjà été revendiquée, veuillez choisir une autre borne :" << endl;
-            cin>> choix_borne;
-            return;
         }
-        revendiquer_borne(choix_borne);
-        auto cartesBornes = m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes();
-        int i =0;
-
     }
-    cout << "Veuillez choisir si vous voulez choisir une carte tactique ou normale :, 1 pour normale et n'importe qu'elle autre chiffre pour tactique" << endl;
-    int choix_style;
-    cin >> choix_style;
-    cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
+    int choix_style = generateRandomNumber()%2+1;
+
     if( int(choix_style)==1 ){
         CarteClan* ci = new CarteClan(getPiocheClan()->piocherCarteClan());
         m_plateau->getJoueur2()->getMain()->ajouterCarte(ci);
-        cout <<"Carte piochee : "<< ci->getPuissance() <<" "<< ci->getCouleur() << endl;
-        affichage_vecteur_carte(m_plateau->m_joueur1->getMain()->getCartes());;
+        cout <<"L'ia a pioche la carte  : "<< ci->getPuissance() <<" "<< ci->getCouleur() << endl;
+        m_plateau->afficherMainJoueur(2);
     }
     else {
         switch (getPiocheTactique()->quandjepiochejefaisattention()) {
             case 1: {
-                cout << "Vous avez pioche la carte tactique :" << endl;
+                cout << "L'ia a pioche  la carte tactique :" << endl;
                 CarteTactique * a = new CarteTactique(getPiocheTactique()->piocherCarteTactique());
                 m_plateau->getJoueur2()->getMain()->ajouterCarte(a);
                 cout << a->getNom() << endl;
                 break;
             }
             case 2: {
-                cout << "Vous avez pioche la carte troupe Elite :" << endl;
+                cout << "L'ia a pioche la carte troupe Elite :" << endl;
                 CarteTroupeElite * b = new CarteTroupeElite( getPiocheTactique()->piocherCarteTroupeElite());
                 m_plateau->getJoueur2()->getMain()->ajouterCarte(b);
                 cout << b->getNom() << endl;
@@ -585,34 +562,10 @@ void Controleur::JouerTourIA(){
 
     }
     //Affichage de la main du joueur 1
-    cout << "Votre main est maintenant composee de : " << endl;
-    affichage_vecteur_carte(m_plateau->m_joueur2->getMain()->getCartes());
-    cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
-    //cout <<"taille pioche tactique : "<<getPiocheTactique()->getNbCartes()<<"\n";
-    Afficher_Borne2();
+
     cout << "\nFIN DU TOUR" << endl;
 
-   /* for (int i=0 ;i <8;i++) {
-        count_cartes = 0;
-        auto cartesBornes = m_plateau->getBornes(i)->getCartesJ1()->getCartes();
-        if (cartesBornes.size() ==3) {
-            count_cartes = 3;
-        }
 
-        if (count_cartes == 3) {
-            cout << "Vous avez 3 cartes sur la borne " << i<< ", voulez vous la revendiquer ? 1 pour oui, 0 pour non :" << endl;
-
-            int choix_revendication = rand() % 2;
-            if (choix_revendication == 1) {
-                if (m_plateau->m_bornes[i]->getRevendique() == 2 || m_plateau->m_bornes[i]->getRevendique() == 1) {
-                    cout << "test3";
-                    return;
-                } else {
-                    m_plateau->m_bornes[i]->setRevendique(1);
-                    cout << "Vous avez revendique la borne " << i << endl;
-                }
-            }
-        }*/
 }
 
 
