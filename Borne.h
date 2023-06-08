@@ -11,13 +11,12 @@ class Borne{
     int m_revendique;
     Combinaison *m_cartesj1;
     Combinaison *m_cartesj2;
-    int m_dernier_pose;
 
 public :
     friend class Plateau;
 
     explicit Borne(int num, bool collin=false, bool boue=false):
-            m_num(num), m_revendique(0), m_dernier_pose(0){
+            m_num(num), m_revendique(0){
         //printf("Borne %d cree\n", m_num);
         m_cartesj1 = new Combinaison();
         m_cartesj2 = new Combinaison();
@@ -36,9 +35,7 @@ public :
     int getRevendique() const{
         return m_revendique;
     }
-    int getDernierPose() const{
-        return m_dernier_pose;
-    }
+
     void setNum(int num){
         m_num = num;
     }
@@ -53,15 +50,7 @@ public :
     void setRevendique(int revendique) {
         m_revendique = revendique;
     }
-    void setDernierPose(int dernier_pose) {
-        m_dernier_pose = dernier_pose;
-    }
 
-    /*Todo faire ces methodes ?
-    set_cartesj1(in add : bool, in carte : CarteClan, in cote : int) : void
-    set_cartesj2(in add : bool, in carte : CarteClan, in cote : int) : void
-    check_exception(???) : ???
-     */
     void ajouter_carte(CarteClan* carte);
 };
 

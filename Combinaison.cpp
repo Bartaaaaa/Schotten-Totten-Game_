@@ -23,7 +23,7 @@ int Combinaison::calculerForceCombi()// MARCHE PAS !!!!! Ne fonctioone qu'en ver
     return 0;
 }
     */
-int Combinaison::calculerForceCombi(bool aff)
+int Combinaison::calculerForceCombi()
 {
     auto nbr_carte = m_cartes.size();
     Couleur tab_coul[4];
@@ -43,7 +43,7 @@ int Combinaison::calculerForceCombi(bool aff)
         }
     }
     // aff des tableaux:
-    if (aff) {
+    /*if (aff) {
         cout << endl;
         cout << "tableau des puissances: ";
         for (auto i = 0; i < nbr_carte; i++) {
@@ -55,7 +55,7 @@ int Combinaison::calculerForceCombi(bool aff)
             cout << tab_coul[i] << " ";
         }
         cout << endl;
-    }
+    }*/
     // 0 : somme, 1: suite, 2: couleur, 3: brelan, 4: suite couleur
 
     if (nbr_carte == 3) {
