@@ -74,10 +74,10 @@ public :
         m_premier_complet = premier_complet;
     }
 
-    int calculerForceCombi(bool affichage = false);
+    int calculerForceCombi();
 
 
-    void ajouterCarte( CarteClan* carte) {
+    void ajouterCarte(CarteClan* carte) {
         if (m_boue) {
             if (m_cartes.size() == 4)
                 throw std::invalid_argument("Vous ne pouvez pas ajouter plus de 4 cartes dans une combinaison");

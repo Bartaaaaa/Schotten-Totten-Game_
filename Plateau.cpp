@@ -27,11 +27,13 @@ void Plateau::poser(Borne borne, CarteClan* carte){
 void Plateau::afficherMainJoueur(int joueur) {
     Joueur* joueurcourant= (joueur==1) ? m_joueur1 : m_joueur2;
     vector<Carte*> main = joueurcourant->getMain()->getCartes();
-
     cout << "Main du joueur " << joueur << ":\n";
     int i=0;
     for (const auto& carte : main) {
+        cout << i << ": ";
         carte->afficherCarte();
+        i++;
+        cout << endl;
     }
     cout << endl;
 }
@@ -164,9 +166,9 @@ void Plateau::afficherBornes(int joueur) {
 
 void Plateau::afficherPlateau(int pointdevue) {
     if(pointdevue==1){
-        afficherMainJoueur(1);
-        afficherBornes(1);
         afficherDosMain(2);
+        afficherBornes(1);
+        afficherMainJoueur(1);
     }
     else{
         afficherDosMain(1);
