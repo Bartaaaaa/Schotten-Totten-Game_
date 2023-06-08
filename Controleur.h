@@ -86,6 +86,7 @@ public:
 
 };
 int qui_gagne(Combinaison * combi1, Combinaison * combi2);
+int CarteClan_egales(CarteClan* c1, CarteClan* c2);
 vector<CarteClan *> gen_vect_joker();
 vector<CarteClan *> gen_vect_espion();
 vector<CarteClan *> gen_vect_portebou();

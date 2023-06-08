@@ -1161,17 +1161,23 @@ void Controleur::revendiquer_borne(int num_borne) {
             for (auto a1: cartes_a1) {
                 for (auto a2: cartes_a2) {
                     for (auto a3: cartes_a3) {
-                        Combinaison *combi_temp = new Combinaison();
-                        combi_temp->ajouterCarte(a1);
-                        combi_temp->ajouterCarte(a2);
-                        combi_temp->ajouterCarte(a3);
-                        if (qui_gagne(combi_j1, combi_temp) == 2) {
-                            // J2 gagne
-                            cout << "\nJ2 peut gagner: " << endl;
-                            cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << endl;
-                            delete combi_temp;
-                            return;
-                        }
+                            if (CarteClan_egales(a1, a2) || CarteClan_egales(a1, a3) ||
+                                CarteClan_egales(a2, a3)  )
+                                continue;
+
+
+                            Combinaison *combi_temp = new Combinaison();
+                            combi_temp->ajouterCarte(a1);
+                            combi_temp->ajouterCarte(a2);
+                            combi_temp->ajouterCarte(a3);
+                            if (qui_gagne(combi_j1, combi_temp) == 2) {
+                                // J2 gagne
+                                cout << "\nJ2 peut gagner: " << endl;
+                                cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << endl;
+                                delete combi_temp;
+                                return;
+                            }
+
                     }
                 }
             }
@@ -1292,18 +1298,22 @@ void Controleur::revendiquer_borne(int num_borne) {
                 for (auto a2: cartes_a2) {
                     for (auto a3: cartes_a3) {
                         for (auto a4: cartes_a3) {
-                            Combinaison *combi_temp = new Combinaison();
-                            combi_temp->setBoue(true);
-                            combi_temp->ajouterCarte(a1);
-                            combi_temp->ajouterCarte(a2);
-                            combi_temp->ajouterCarte(a3);
-                            combi_temp->ajouterCarte(a4);
-                            if (qui_gagne(combi_j1, combi_temp) == 2) {
-                                // J2 gagne
-                                cout << "J2 peut gagner" << endl;
-                                cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << " "<< a4->getPuissance() <<" "<< a4->getCouleur() << endl;
-                                delete combi_temp;
-                                return;
+                            if (CarteClan_egales(a1, a2) || CarteClan_egales(a1, a3) || CarteClan_egales(a1, a4) ||
+                                CarteClan_egales(a2, a3) || CarteClan_egales(a2, a4) || CarteClan_egales(a3, a4))
+                                continue;
+                                Combinaison *combi_temp = new Combinaison();
+                                combi_temp->setBoue(true);
+                                combi_temp->ajouterCarte(a1);
+                                combi_temp->ajouterCarte(a2);
+                                combi_temp->ajouterCarte(a3);
+                                combi_temp->ajouterCarte(a4);
+                                if (qui_gagne(combi_j1, combi_temp) == 2) {
+                                    // J2 gagne
+                                    cout << "J2 peut gagner" << endl;
+                                    cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << " "<< a4->getPuissance() <<" "<< a4->getCouleur() << endl;
+                                    delete combi_temp;
+                                    return;
+
                             }
                         }
                     }
@@ -1447,6 +1457,9 @@ void Controleur::revendiquer_borne(int num_borne) {
             for (auto a1: cartes_a1) {
                 for (auto a2: cartes_a2) {
                     for (auto a3: cartes_a3) {
+                        if (CarteClan_egales(a1, a2) || CarteClan_egales(a1, a3) ||
+                            CarteClan_egales(a2, a3) )
+                            continue;
                         Combinaison *combi_temp = new Combinaison();
                         combi_temp->ajouterCarte(a1);
                         combi_temp->ajouterCarte(a2);
@@ -1577,11 +1590,15 @@ void Controleur::revendiquer_borne(int num_borne) {
             for (auto a1: cartes_a1) {
                 for (auto a2: cartes_a2) {
                     for (auto a3: cartes_a3) {
-                        for (auto a3: cartes_a3) {
+                        for (auto a4: cartes_a4) {
+                            if (CarteClan_egales(a1, a2) || CarteClan_egales(a1, a3) || CarteClan_egales(a1, a4) ||
+                                CarteClan_egales(a2, a3) || CarteClan_egales(a2, a4) || CarteClan_egales(a3, a4))
+                                continue;
                             Combinaison *combi_temp = new Combinaison();
                             combi_temp->ajouterCarte(a1);
                             combi_temp->ajouterCarte(a2);
                             combi_temp->ajouterCarte(a3);
+                            combi_temp->ajouterCarte(a4);
                             if (qui_gagne(combi_j2, combi_temp) == 2) {
                                 // J2 gagne
                                 cout << "J1 peut gagner" << endl;
@@ -1859,6 +1876,15 @@ int qui_gagne(Combinaison * combi1, Combinaison * combi2){
         //cout << "combi gagne car dernier a poser" << endl;
         return combi1->getPremierComplet();
     }
+
 }
+
+int CarteClan_egales(CarteClan* c1, CarteClan* c2){
+    if (c1->getPuissance()==c2->getPuissance() && c1->getCouleur()==c2->getCouleur())
+        return 1;
+    else
+        return 0;
+}
+
 
 
