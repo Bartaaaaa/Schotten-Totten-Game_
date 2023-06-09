@@ -59,10 +59,14 @@ int main() {
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(new CarteClan(Puissance::deux, Couleur::rouge));
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(new CarteClan(Puissance::trois, Couleur::rouge));
     c.getPlateau()->getJoueur2()->getMain()->ajouterCarte(new CarteClan(Puissance::quatre, Couleur::rouge));
+    auto k = new CarteTroupeElite("Joker", Puissance::zero, Couleur::neutre);
+    c.getPlateau()->getBornes(5)->getCartesJ2()->ajouterCarte(k);
+
     c.getPlateau()->getBornes(5)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::trois, Couleur::vert));
     c.getPlateau()->getBornes(6)->getCartesJ2()->ajouterCarte(new CarteClan(Puissance::huit, Couleur::rouge));
+    //c.JouerTour1();
     for (int i = 0 ; i<3;i++){
-        c.JouerTourIA();
+        c.JouerTour1();
         sleep(10);
     }
 

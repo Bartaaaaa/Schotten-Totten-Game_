@@ -201,84 +201,63 @@ void CarteRuse::Jouer_StrategeIA() {
         cout << "Voici les bornes de l'adversaire bornes : " << endl;
         Controleur::getControleur(true).getPlateau()->afficherBornes(2);
 }
- void CarteRuse::Jouer_BansheeIA() {
-     cout << "L'IA a joué la carte Banshee" << endl;
-     cout << "Voici les bornes de l'adversaire bornes : " << endl;
-     Controleur::getControleur(false).Afficher_Borne2();
-     cout << "Veuillez choisir une borne non revendiquee appartenant a l'adversaire " << endl;
-     int choix_borne, choix_carte;
-     choix_borne = generateRandomNumber2() % 8 + 1;
-     while (Controleur::getControleur(true).getPlateau()->getBornes(
-             choix_borne)->getCartesJ2()->getCartes().empty() &&
-            Controleur::getControleur(true).getPlateau()->getBornes(
-                    choix_borne)->getRevendique() == 0) {
-         cout << "L'adversaire  n'a pas de cartes sur cette borne, veuillez en choisir une autre : " << endl;
-         choix_borne = generateRandomNumber2() % 8 + 1;
-     }
-     auto cartesBornes = Controleur::getControleur(true).getPlateau()->getBornes(
-             choix_borne)->getCartesJ2()->getCartes();
-     for (int i = 0; i < cartesBornes.size(); i++) {
-         cout << "id :" << i << " " << cartesBornes[i]->getCouleur() << " " << cartesBornes[i]->getPuissance()
-              << endl;
-     }
-     cout << "Quelle carte souhaitee vous retirer de la borne " << choix_borne << "?" << endl;
-     int taille_borne = Controleur::getControleur(true).getPlateau()->getBornes(
-             choix_borne)->getCartesJ1()->getCartes().size();
-     choix_carte = generateRandomNumber2() % taille_borne + 1;
+void CarteRuse::Jouer_BansheeIA() {
+    cout << "L'IA a joué la carte Banshee" << endl;
+    int choix_borne, choix_carte;
+    choix_borne = generateRandomNumber2() % 8 + 1;
 
+    while (Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->getCartes().empty() ||
+           Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique() != 0) {
+        choix_borne = generateRandomNumber2() % 8 + 1;
+    }
 
-     while (choix_carte > cartesBornes.size() - 1 || choix_carte < 0) {
-         choix_carte = generateRandomNumber2() % taille_borne + 1;
-     }
-     auto carte_choisie = Controleur::getControleur(true).getPlateau()->getBornes(
-             choix_borne)->getCartesJ2()->getCartes()[choix_carte];
-     cout << "L'ia a choisi la carte : " << carte_choisie->getCouleur() << " " << carte_choisie->getPuissance() << endl;
-     Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ2()->supprimerCarte_Borne(
-             choix_carte);
- }
+    auto cartesBornes = Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->getCartes();
+    cout << "Quelle carte souhaitez-vous retirer de la borne " << choix_borne << "?" << endl;
+
+    int taille_borne = cartesBornes.size();
+    choix_carte = generateRandomNumber2() % taille_borne;
+
+    while (choix_carte >= taille_borne || choix_carte < 0) {
+        choix_carte = generateRandomNumber2() % taille_borne;
+    }
+
+    auto carte_choisie = cartesBornes[choix_carte];
+    cout << "L'IA a choisi d'enlever la carte : " << carte_choisie->getCouleur() << " " << carte_choisie->getPuissance() << " de la borne "<< choix_borne<< endl;
+    Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->supprimerCarte_Borne(choix_carte);
+}
  void CarteRuse::Jouer_TraitreIA() {
-     cout << "L'ia a joueé la carte Traitre" << endl;
-     cout << "Voici les bornes de l'adversaire bornes : " << endl;
-     Controleur::getControleur(false).Afficher_Borne2();
-     cout << "Veuillez choisir une borne non revendiquee appartenant a l'adversaire " << endl;
+     cout << "L'IA a joué la carte traitre" << endl;
      int choix_borne, choix_carte;
      choix_borne = generateRandomNumber2() % 8 + 1;
-     while (Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ2()->getCartes().empty() && Controleur::getControleur(true).getPlateau()->getBornes(
-                    choix_borne)->getRevendique() == 0) {
-         cout << "L'adversaire  n'a pas de cartes sur cette borne, veuillez en choisir une autre : " << endl;
+
+     while (Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->getCartes().empty() ||
+            Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique() != 0) {
          choix_borne = generateRandomNumber2() % 8 + 1;
      }
-     auto cartesBornes = Controleur::getControleur(true).getPlateau()->getBornes(
-             choix_borne)->getCartesJ2()->getCartes();
-     for (int i = 0; i < cartesBornes.size(); i++) {
-         cout << "id :" << i << " " << cartesBornes[i]->getCouleur() << " " << cartesBornes[i]->getPuissance()
-              << endl;
-     }
-     cout << "Quelle carte souhaitee vous retirer de la borne " << choix_borne << "?" << endl;
-     int taille_borne = Controleur::getControleur(true).getPlateau()->getBornes(
-             choix_borne)->getCartesJ1()->getCartes().size();
-     choix_carte = generateRandomNumber2() % taille_borne + 1;
 
-     while (choix_carte > cartesBornes.size() - 1 || choix_carte < 0) {
-         cout << "Vous ne pouvez pas selectionner cette carte, veuillez en choisir une autre : " << endl;
-         choix_carte = generateRandomNumber2() % taille_borne + 1;
+     auto cartesBornes = Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->getCartes();
+     cout << "Quelle carte souhaitez-vous retirer de la borne " << choix_borne << "?" << endl;
+
+     int taille_borne = cartesBornes.size();
+     choix_carte = generateRandomNumber2() % taille_borne;
+
+     while (choix_carte >= taille_borne || choix_carte < 0) {
+         choix_carte = generateRandomNumber2() % taille_borne;
      }
-     auto carte_choisie = Controleur::getControleur(true).getPlateau()->getBornes(
-             choix_borne)->getCartesJ2()->getCartes()[choix_carte];
-     cout << "L'ia a choisi la carte : " << carte_choisie->getCouleur() << " " << carte_choisie->getPuissance()
-          << endl;
-     Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ2()->supprimerCarte_Borne(
+
+     CarteClan * carte_choisie = cartesBornes[choix_carte];
+     cout << "L'IA a choisi d'enlever la carte : " << carte_choisie->getCouleur() << " " << carte_choisie->getPuissance() << " de la borne "<< choix_borne<< endl;
+     Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->supprimerCarte_Borne(
              choix_carte);
-     cout << "Sur quelle borne non revendiquee voulez vous placer votre carte ? " << endl;
+
+
      choix_borne = generateRandomNumber2() % 8 + 1;
      while (Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ2()->getCartes().empty() && Controleur::getControleur(true).getPlateau()->getBornes(
              choix_borne)->getRevendique() == 0) {
-         cout << "Vous ne pouvez pas poser votre carte sur cette borne, veuillez en choisir une autre : " << endl;
          choix_borne = generateRandomNumber2() % 8 + 1;
      }
-     Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->ajouterCarte(carte_choisie);
-     cout << "Voici vos bornes apres avoir joué la carte Traitre : " << endl;
-     Controleur::getControleur(true).Afficher_Borne1();
+     Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ2()->ajouterCarte(carte_choisie);
+     Controleur::getControleur(true).getPlateau()->afficherBornes(2);
 }
 
 
@@ -388,7 +367,7 @@ void CarteRuse::Jouer_ChasseurdeTete() {
 void CarteRuse::Jouer_Stratege() {
     cout << "Vous avez joue la carte Stratege" << endl;
     cout << "Voici toutes vos bornes : " << endl;
-    Controleur::getControleur(false).Afficher_Borne1();
+    Controleur::getControleur(true).getPlateau()->afficherBornes(1);
     cout << "Veuillez choisir une borne non revendiquee appartenant a vous " << endl;
     int choix_borne, choix_carte;
     cin >> choix_borne;
@@ -439,7 +418,7 @@ void CarteRuse::Jouer_Stratege() {
 void CarteRuse::Jouer_Traitre() {
     cout << "Vous avez joue la carte Traitre" << endl;
     cout << "Voici les bornes de l'adversaire bornes : " << endl;
-    Controleur::getControleur(false).Afficher_Borne2();
+    Controleur::getControleur(true).getPlateau()->afficherBornes(1);
     cout << "Veuillez choisir une borne non revendiquee appartenant a l'adversaire " << endl;
     int choix_borne, choix_carte;
     cin >> choix_borne;
@@ -454,32 +433,54 @@ void CarteRuse::Jouer_Traitre() {
         cout << "id :" << i << " " << cartesBornes[i]->getCouleur() << " " << cartesBornes[i]->getPuissance()
              << endl;
     }
+
     cout << "Quelle carte souhaitee vous retirer de la borne "<< choix_borne << "?" << endl;
+
+
+
     cin >> choix_carte;
-    while (choix_carte > cartesBornes.size() - 1 || choix_carte < 0) {
+
+    while (choix_carte > cartesBornes.size() - 1 || choix_carte < 0 ) {
         cout << "Vous ne pouvez pas selectionner cette carte, veuillez en choisir une autre : " << endl;
         cin >> choix_carte;
     }
-    auto carte_choisie = Controleur::getControleur(true).getPlateau()->getBornes(
-            choix_borne)->getCartesJ2()->getCartes()[choix_carte];
-    cout << "Vous avez choisi la carte : " << carte_choisie->getCouleur() << " " << carte_choisie->getPuissance()
-         << endl;
-    Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ2()->supprimerCarte_Borne(
-            choix_carte);
-    cout << "Sur quelle borne non revendiquee voulez vous placer votre carte ? " << endl;
-    cin >> choix_borne;
-    while(Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique()!=0){
-        cout << "Vous ne pouvez pas poser de carte sur cette borne, veuillez en choisir une autre : " << endl;
-        cin >> choix_borne;
+    vector<Carte*> cartesMain = Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->getCartes();
+    vector<Carte*> cartes = Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->getCartes();
+    Carte* carte = cartes[choix_carte];
+    int a =0;
+    while(a==0) {
+        if (CarteClan *carteClanChoisie = dynamic_cast<CarteClan *>(carte)) {
+            a=1;
+            auto carte_choisie = Controleur::getControleur(false).getPlateau()->getBornes(
+                    choix_borne)->getCartesJ2()->getCartes()[choix_carte];
+            cout << "Vous avez choisi la carte : " << carte_choisie->getCouleur() << " "
+                 << carte_choisie->getPuissance()
+                 << endl;
+            Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ2()->supprimerCarte_Borne(
+                    choix_carte);
+            cout << "Sur quelle borne non revendiquee voulez vous placer votre carte ? " << endl;
+            cin >> choix_borne;
+            while (Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique() != 0) {
+                cout << "Vous ne pouvez pas poser de carte sur cette borne, veuillez en choisir une autre : " << endl;
+                cin >> choix_borne;
+            }
+            Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->ajouterCarte(
+                    carte_choisie);
+        } else {
+            cout << "Vous ne pouvez pas selectionner cette carte, veuillez en choisir une autre : " << endl;
+            cin >> choix_carte;
+
+        }
     }
-    Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->ajouterCarte(carte_choisie);
+
+
 
 }
 
 void CarteRuse::Jouer_Banshee() {
     cout << "Vous avez joue la carte Banshee" << endl;
     cout << "Voici les bornes de l'adversaire bornes : " << endl;
-    Controleur::getControleur(false).Afficher_Borne2();
+    Controleur::getControleur(true).getPlateau()->afficherBornes(1);
     cout << "Veuillez choisir une borne non revendiquee appartenant a l'adversaire " << endl;
     int choix_borne, choix_carte;
     cin >> choix_borne;

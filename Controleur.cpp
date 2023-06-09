@@ -103,6 +103,7 @@ void Controleur::afficherCartesNonPose() const
     }
 }
 void Controleur::JouerTour1(){
+
    // cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
     //cout <<"taille pioche tactique : "<<getPiocheTactique()->getNbCartes()<<"\n";
     //CarteRuse::Jouer_ChasseurdeTete();
@@ -249,6 +250,7 @@ void Controleur::JouerTour1(){
 }
 
 void Controleur::JouerTour2(){
+
     cout << "Voici votre main :" << endl;
     m_plateau->afficherMainJoueur(2);
     vector<Carte*> cartesMain = m_plateau->m_joueur2->getMain()->getCartes();
@@ -453,8 +455,8 @@ void Controleur::JouerTourIAClassique(){
 
 
 void Controleur::JouerTourIA(){
+    m_plateau->afficherBornes(2);
 
-    CarteRuse::Jouer_StrategeIA();
 
     m_plateau->afficherMainJoueur(2);
     vector<Carte*> cartesMain = m_plateau->m_joueur2->getMain()->getCartes();
