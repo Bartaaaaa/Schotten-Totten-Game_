@@ -42,7 +42,7 @@ public:
 
 
     CarteTroupeElite jouer_PorteBouclier()  {
-        cout << "Carte joker pose : " << endl;
+        cout << "Carte Porte Bouclier pose : " << endl;
         for (int i = 0; i < 6; i++) {
             cout << i << ": " << static_cast<Couleur>(i) << endl;
         }
@@ -62,7 +62,7 @@ public:
         return *this;
     }
     CarteTroupeElite jouer_Espion() {
-        cout << "Carte joker pose : " << endl;
+        cout << "Carte Espion pose : " << endl;
         for (int i = 0; i < 6; i++) {
             cout << i << ": " << static_cast<Couleur>(i) << endl;
         }
@@ -80,7 +80,7 @@ public:
         if(getNom()=="Joker"){
             cout << "|    Joker |";
         }
-        else if(getNom()=="Porte Bouclier"){
+        else if(getNom()=="Porte_Bouclier"){
             cout << "| Prte bou |";
         }
         else if(getNom()=="Espion"){

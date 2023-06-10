@@ -25,7 +25,14 @@ using namespace std;
 int main() {
 
     Controleur& c = Controleur::getControleur(true);
-   // c.debut_de_partie_tactique();
+    c.debut_de_partie_tactique();
+    c.JouerTour1();
+    c.JouerTour1();
+    c.getPlateau()->setJoueurActif(2);
+    c.JouerTour2();
+    c.getPlateau()->setJoueurActif(1);
+    c.JouerTour1();
+    /*
 
 
 

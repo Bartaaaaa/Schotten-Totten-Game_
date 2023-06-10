@@ -616,262 +616,6 @@ bool Controleur::check_fin_partie() {
     return false;
 }
 
-/*void Controleur::revendiquer_borne(int num_borne) {
-    if (getTactique()){
-
-    }
-    else {
-        if ((m_plateau->getBornes(num_borne)->getCartesJ1()->getCartes().size()==3) && (m_plateau->getBornes(num_borne)->getCartesJ2()->getCartes().size()==3)){
-            revendiquer_borne_pleine_non_tactique(num_borne);
-        }
-        else if (((m_plateau->getBornes(num_borne)->getCartesJ1()->getCartes().size()==3) && (m_plateau->getBornes(num_borne)->getCartesJ2()->getCartes().size()<3))
-            || ((m_plateau->getBornes(num_borne)->getCartesJ1()->getCartes().size()<3) && (m_plateau->getBornes(num_borne)->getCartesJ2()->getCartes().size()==3))){
-            revendiquer_borne_non_pleine_non_tactique(num_borne);
-        }
-        else {cout << "On ne peut pas revendiquer cette borne pour le moment" << endl;}
-    }
-
-}
-void Controleur::revendiquer_borne_pleine_non_tactique(int num_borne){
-    Borne * borne = m_plateau->getBornes(num_borne);
-    Combinaison* combi_j1 = borne->getCartesJ1();
-    Combinaison* combi_j2 = borne->getCartesJ2();
-    vector<CarteClan*> cartes_pose_j1 = combi_j1->getCartes();
-    vector<CarteClan*> cartes_pose_j2 = combi_j2->getCartes();
-
-    int joueur_qui_revendique = getPlateau()->getJoueurActif();
-
-    // affichage des valeurs:
-    std::cout << "Le joueur " << joueur_qui_revendique << " revendique la borne " << borne->getNum() << std::endl;
-    std::cout << "cartes pose j1 : " << std::endl;
-    affichage_vecteur_carteclan(cartes_pose_j1);
-    std::cout << "Force combi j1: " << combi_j1->getForceCombi() << std::endl;
-
-
-    std::cout << "cartes pose j2 : " << std::endl;
-    affichage_vecteur_carteclan(cartes_pose_j2);
-    std::cout << "Force combi j2: " << combi_j2->getForceCombi() << std::endl;
-
-    // on verifie que le joeur actif a tt les cartes dans sa borne
-
-
-    if (joueur_qui_revendique == 1){
-        if (combi_j1->getForceCombi() >combi_j2->getForceCombi()){
-            //cas ou J1 a une meilleur combinaison que J2
-            std::cout << "J1 gagne la borne car il a une meuilleur combianison que J2" << std::endl;
-            borne->setRevendique(1);
-        }
-        else if (combi_j1->getForceCombi() == combi_j2->getForceCombi()){
-            // cas ou J1 et J2 ont la meme combinaison on verifie la somme des valeurs
-                if (combi_j1->getTotalPuissance() > combi_j2->getTotalPuissance())
-                {// J1 a bien une meuilleur main que J2
-                    std::cout << "J1 gagne la borne car meme niveau de combi mais somme des valeurs plus eleve que J2" << std::endl;
-                    borne->setRevendique(1);}
-                else if(combi_j1->getTotalPuissance() == combi_j2->getTotalPuissance()){
-                    //TODO verifier que J1 a bien été le premier a poser la 3eme carte
-                    std::cout << "J1 gagne la borne car meme niveau de combi mais somme des valeurs plus eleve que J2" << std::endl;
-                    borne->setRevendique(1);
-                }
-                else{
-                    std::cout << "J1 perd et ne peut pas revendiquer la borne car meme niveau de combi mais somme des valeurs plus eleve pour J2 " << std::endl;
-                }
-        }
-        else{
-            std::cout << "J1 perd et ne peut pas revendiquer la borne car J2 a une meuilleur combianison que J1" << std::endl;
-        }
-    }
-    // J2 revendique
-    else{
-        if (combi_j2->getForceCombi() > combi_j1->getForceCombi()){
-            //cas ou J2 a une meilleur combinaison que J1
-            std::cout << "J2 gagne la borne car il a une meuilleur combianison que J2" << std::endl;
-            borne->setRevendique(2);
-        }
-        else if (combi_j1->getForceCombi() == combi_j2->getForceCombi()){
-            // cas ou J1 et J2 ont la meme combinaison on verifie la somme des valeurs
-            if (combi_j2->getTotalPuissance() > combi_j1->getTotalPuissance())
-            {// J2 a bien une meuilleur main que J1
-                std::cout << "J2 gagne la borne car meme niveau de combi mais somme des valeurs plus eleve que J1" << std::endl;
-                borne->setRevendique(2);}
-            else if(combi_j1->getTotalPuissance() == combi_j2->getTotalPuissance()){
-                //TODO verifier que J1 a bien été le premier a poser la 3eme carte
-                std::cout << "J2 gagne la borne car meme niveau de combi et somme des valeurs, mais carte pose avant " << std::endl;
-                borne->setRevendique(2);
-            }
-            else{
-                std::cout << "J2 perd et ne peut pas revendiquer la borne car meme niveau de combi mais somme des valeurs plus eleve pour J1 " << std::endl;
-            }
-        }
-        else{
-            std::cout << "J2 perd et ne peut pas revendiquer la borne car J1 a une meuilleur combianison que J1" << std::endl;
-        }
-
-
-    }
-}
-void Controleur::revendiquer_borne_non_pleine_non_tactique(int num_borne ) {
-
-    Borne *borne = m_plateau->getBornes(num_borne);
-    Combinaison *combi_j1 = borne->getCartesJ1();
-    Combinaison *combi_j2 = borne->getCartesJ2();
-    vector<CarteClan *> cartes_pose_j1 = combi_j1->getCartes();
-    vector<CarteClan *> cartes_pose_j2 = combi_j2->getCartes();
-
-    int joueur_qui_revendique = getPlateau()->getJoueurActif();
-
-    // affichage des valeurs:
-    std::cout << "Le joueur " << joueur_qui_revendique << " revendique la borne " << borne->getNum() << std::endl;
-    std::cout << "cartes pose j1 : " << std::endl;
-    affichage_vecteur_carteclan(cartes_pose_j1);
-    std::cout << "\nForce combi j1: " << combi_j1->getForceCombi() << std::endl;
-
-    std::cout << "cartes pose j2 : " << std::endl;
-    affichage_vecteur_carteclan(cartes_pose_j2);
-    std::cout << "\nForce combi j2: " << combi_j2->getForceCombi() << std::endl;
-
-    if (joueur_qui_revendique == 1) {
-        //J1 revendique
-        if (cartes_pose_j1.size() != 3) {
-            cout << "J1 ne peut pas revendiquer la borne car il n'a pas pose 3 cartes" << endl;
-        } else {
-            int nbr_carte_manquante_a_j2 = 3 - cartes_pose_j2.size();
-            switch (nbr_carte_manquante_a_j2) {
-                case (1): {
-                    // J2 a pose 2 cartes
-                    int max = 0;
-                    for (auto a1: m_carte_non_pose) {
-                        Combinaison *combi_temp = new Combinaison();
-                        combi_temp->ajouterCarte(cartes_pose_j2[0]);
-                        combi_temp->ajouterCarte(cartes_pose_j2[1]);
-                        combi_temp->ajouterCarte(a1);
-                        // TODO marche mais peut mieux faire on peut verifier le couleur et armee et pas enlever de m_cartepose
-                        if (cartes_pose_j2[0] != cartes_pose_j2[1] && cartes_pose_j2[0] != a1 &&
-                            cartes_pose_j2[1] != a1) {
-                            if (combi_temp->getForceCombi() > max) {
-                                max = combi_temp->getForceCombi();
-                                combi_j2 = combi_temp;
-                            }
-                            if (max > combi_j1->getForceCombi()) {
-                                cout
-                                        << "J1 perd et ne peut pas revendiquer la borne car certaines carte non posé peuvent battre J1"
-                                        << std::endl;
-                                break;
-                            } else if (max == combi_j1->getForceCombi()) {
-                                if (combi_temp->getTotalPuissance() > combi_j1->getTotalPuissance()) {
-                                    cout
-                                            << "J1 perd et ne peut pas revendiquer la borne car certaines carte non posé peuvent battre J1"
-                                            << std::endl;
-                                    break;
-                                } else if (combi_temp->getTotalPuissance() == combi_j1->getTotalPuissance()) {
-                                    //TODO reverifier que J2 a bien pose la 3eme carte
-                                    cout
-                                            << "J1 perd et ne peut pas revendiquer la borne car certaines carte non posé peuvent battre J1"
-                                            << std::endl;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    cout << "J1 gagne la borne car J2 ne peut pas battre J1 avec les cartes restantes" << endl;
-                    borne->setRevendique(1);
-                    break;
-                }
-
-                case (2): {
-                    // J2 a pose 1 carte
-                    int max = 0;
-                    for (auto a1: m_carte_non_pose) {
-                        for (auto a2: m_carte_non_pose) {
-                            Combinaison *combi_temp = new Combinaison();
-                            combi_temp->ajouterCarte(cartes_pose_j2[0]);
-                            combi_temp->ajouterCarte(a1);
-                            combi_temp->ajouterCarte(a2);
-                            if (cartes_pose_j2[0] != a1 && cartes_pose_j2[0] != a2 && a1 != a2) {
-                                if (combi_temp->getForceCombi() > max) {
-                                    max = combi_temp->getForceCombi();
-                                    combi_j2 = combi_temp;
-                                }
-                                if (max > combi_j1->getForceCombi()) {
-                                    cout
-                                            << "J1 perd et ne peut pas revendiquer la borne car certaines carte non posé peuvent battre J1"
-                                            << std::endl;
-                                    break;
-                                } else if (max == combi_j1->getForceCombi()) {
-                                    if (combi_temp->getTotalPuissance() > combi_j1->getTotalPuissance()) {
-                                        cout
-                                                << "J1 perd et ne peut pas revendiquer la borne car certaines carte non posé peuvent battre J1"
-                                                << std::endl;
-                                        break;
-                                    } else if (combi_temp->getTotalPuissance() == combi_j1->getTotalPuissance()) {
-                                        //TODO reverifier que J2 a bien pose la 3eme carte
-                                        cout
-                                                << "J1 perd et ne peut pas revendiquer la borne car certaines carte non posé peuvent battre J1"
-                                                << std::endl;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    cout << "J1 gagne la borne car J2 ne peut pas battre J1 avec les cartes restantes" << endl;
-                    borne->setRevendique(1);
-                    break;
-                }
-                case (3): {
-                    // J2 a pose 0 carte
-                    int max = 0;
-                    for (auto a1: m_carte_non_pose) {
-                        for (auto a2: m_carte_non_pose) {
-                            for (auto a3: m_carte_non_pose) {
-                                Combinaison *combi_temp = new Combinaison();
-                                combi_temp->ajouterCarte(a1);
-                                combi_temp->ajouterCarte(a2);
-                                combi_temp->ajouterCarte(a3);
-
-                                //TODO enlever ca
-                                affichage_vecteur_carteclan(combi_temp->getCartes());
-                                cout << endl;
-                                if (a1 != a2 && a1 != a3 && a2 != a3) {
-                                    if (combi_temp->getForceCombi() > max) {
-                                        max = combi_temp->getForceCombi();
-                                        combi_j2 = combi_temp;
-                                    }
-                                    if (max > combi_j1->getForceCombi()) {
-                                        cout
-                                                << "J1 perd et ne peut pas revendiquer la borne car certaines carte non posé peuvent battre J1"
-                                                << std::endl;
-                                        return;
-                                    } else if (max == combi_j1->getForceCombi()) {
-                                        if (combi_temp->getTotalPuissance() > combi_j1->getTotalPuissance()) {
-                                            cout
-                                                    << "J1 perd et ne peut pas revendiquer la borne car certaines carte non posé peuvent battre J1"
-                                                    << std::endl;
-                                            return;
-                                        } else if (combi_temp->getTotalPuissance() == combi_j1->getTotalPuissance()) {
-                                            //TODO reverifier que J2 a bien pose la 3eme carte
-                                            cout
-                                                    << "J1 perd et ne peut pas revendiquer la borne car certaines carte non posé peuvent battre J1"
-                                                    << std::endl;
-                                            return;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    cout << "J1 gagne la borne car J2 ne peut pas battre J1 avec les cartes restantes" << endl;
-                    borne->setRevendique(1);
-                    break;
-
-                }
-
-            }
-
-        }
-    }
-    // TODO faire J2
-}*/
-
 void Controleur::revendiquer_borne(int num_borne) {
 
     Borne *borne = m_plateau->getBornes(num_borne);
@@ -962,7 +706,7 @@ void Controleur::revendiquer_borne(int num_borne) {
             vector<CarteClan *> cartes_a3 = m_carte_non_pose;
             cout << cartes_pose_j2.size() <<endl;
             if (cartes_pose_j2.size()) {
-                for (auto i = 0; i < cartes_pose_j2.size() - 1; i++)
+                for (auto i = 0; i < cartes_pose_j2.size() ; i++)
                     switch (i) {
                         case (0): {
                             switch (tab_troupe_tac[i]) {
@@ -1068,13 +812,14 @@ void Controleur::revendiquer_borne(int num_borne) {
             cout << "J2 ne peut pas gagner" << endl;
             borne->setRevendique(1);
             return;
-        } else {
+        }
+        else {
             vector<CarteClan *> cartes_a1 = m_carte_non_pose;
             vector<CarteClan *> cartes_a2 = m_carte_non_pose;
             vector<CarteClan *> cartes_a3 = m_carte_non_pose;
             vector<CarteClan *> cartes_a4 = m_carte_non_pose;
             if (cartes_pose_j2.size()) {
-                for (auto i = 0; i < cartes_pose_j2.size() - 1; i++)
+                for (auto i = 0; i < cartes_pose_j2.size() ; i++)
                     switch (i) {
                         case (0): {
                             switch (tab_troupe_tac[i]) {
@@ -1258,7 +1003,7 @@ void Controleur::revendiquer_borne(int num_borne) {
             vector<CarteClan *> cartes_a3 = m_carte_non_pose;
             cout << cartes_pose_j1.size() <<endl;
             if (cartes_pose_j1.size()) {
-                for (auto i = 0; i < cartes_pose_j1.size() - 1; i++)
+                for (auto i = 0; i < cartes_pose_j1.size(); i++)
                     switch (i) {
                         case (0): {
                             switch (tab_troupe_tac[i]) {
@@ -1361,13 +1106,14 @@ void Controleur::revendiquer_borne(int num_borne) {
             cout << "J1 ne peut pas gagner" << endl;
             borne->setRevendique(2);
             return;
-        } else {
+        }
+        else {
             vector<CarteClan *> cartes_a1 = m_carte_non_pose;
             vector<CarteClan *> cartes_a2 = m_carte_non_pose;
             vector<CarteClan *> cartes_a3 = m_carte_non_pose;
             vector<CarteClan *> cartes_a4 = m_carte_non_pose;
             if (cartes_pose_j1.size()) {
-                for (auto i = 0; i < cartes_pose_j1.size() - 1; i++)
+                for (auto i = 0; i < cartes_pose_j1.size() ; i++)
                     switch (i) {
                         case (0): {
                             switch (tab_troupe_tac[i]) {
@@ -1562,42 +1308,6 @@ void Controleur::debut_de_partie_tactique() {
     }
 
     // Affichage des mains des joueurs
-    cout << "Main du joueur 1 :" << endl;
-    affichage_vecteur_carte(m_plateau->m_joueur1->getMain()->getCartes());
-    cout << "Main du joueur 2 :" << endl;
-    affichage_vecteur_carte(m_plateau->m_joueur2->getMain()->getCartes());
-    cout << "Fin de la phase de pioche" << endl<<endl;
-
-    // test carte tactique
-    while (!getPiocheTactique()->estVide()) {
-        switch (getPiocheTactique()->quandjepiochejefaisattention()) {
-            case 1: {
-                auto a = new CarteTactique(getPiocheTactique()->piocherCarteTactique());
-                m_plateau->m_joueur1->getMain()->ajouterCarte(a);
-                break;
-            }
-
-            case 2: {
-                auto a = new CarteTroupeElite(getPiocheTactique()->piocherCarteTroupeElite());
-                m_plateau->m_joueur2->getMain()->ajouterCarte(a);
-                break;
-            }
-        }
-
-        switch (getPiocheTactique()->quandjepiochejefaisattention()) {
-            case 1: {
-                auto a = new CarteTactique(getPiocheTactique()->piocherCarteTactique());
-                m_plateau->m_joueur2->getMain()->ajouterCarte(a);
-                break;
-            }
-
-            case 2: {
-                auto a = new CarteTroupeElite(getPiocheTactique()->piocherCarteTroupeElite());
-                m_plateau->m_joueur2->getMain()->ajouterCarte(a);
-                break;
-            }
-        }
-    }
     cout << "Main du joueur 1 :" << endl;
     affichage_vecteur_carte(m_plateau->m_joueur1->getMain()->getCartes());
     cout << "Main du joueur 2 :" << endl;
