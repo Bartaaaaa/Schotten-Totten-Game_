@@ -264,7 +264,7 @@ void Controleur::JouerTour2(){
         cin >> choix_carte;
     }
 
-    vector<Carte*> cartes = m_plateau->m_joueur1->getMain()->getCartes();
+    vector<Carte*> cartes = m_plateau->m_joueur2->getMain()->getCartes();
     Carte* carte = cartes[choix_carte];
 
     if (CarteClan* carteClanChoisie = dynamic_cast<CarteClan*>(carte)) {
@@ -280,7 +280,7 @@ void Controleur::JouerTour2(){
         cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
         m_plateau->poser(*m_plateau->getBornes(choix_borne), carteClanChoisie);
         m_plateau->afficherBornes(2);
-        m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
+        m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
     }
     else if (CarteTactique* carteTactiqueChoisie = dynamic_cast<CarteTactique*>(carte)) {
         cout << "Vous avez choisi la carte : Nom :" << carteTactiqueChoisie->getNom() << endl;
