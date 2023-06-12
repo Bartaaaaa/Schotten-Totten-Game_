@@ -109,8 +109,9 @@ void Controleur::JouerTour1(){
     //CarteRuse::Jouer_ChasseurdeTete();
     //cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
     //cout <<"taille pioche tactique : "<<getPiocheTactique()->getNbCartes()<<"\n";
-    cout << "Voici votre main :" << endl;
-    m_plateau->afficherMainJoueur(1);
+    //cout << "Voici votre main :" << endl;
+    //m_plateau->afficherMainJoueur(1);
+    m_plateau->afficherPlateau(1);
     vector<Carte*> cartesMain = m_plateau->m_joueur1->getMain()->getCartes();
 
     cout << "Veuillez choisir la carte que vous voulez jouer (son id) :" << endl;
@@ -126,7 +127,7 @@ void Controleur::JouerTour1(){
 
     if (CarteClan* carteClanChoisie = dynamic_cast<CarteClan*>(carte)) {
         cout << "Vous avez choisi la carte : Puissance :" << carteClanChoisie->getPuissance() << " Couleur : " << carteClanChoisie->getCouleur() << endl;
-        m_plateau->afficherBornes(1);
+        m_plateau->afficherPlateau(1);
         cout << "Veuillez choisir une borne :" << endl;
         int choix_borne;
         cin >> choix_borne;
@@ -136,7 +137,7 @@ void Controleur::JouerTour1(){
         }
         cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
         m_plateau->poser(*m_plateau->getBornes(choix_borne), carteClanChoisie);
-        m_plateau->afficherBornes(1);
+        m_plateau->afficherPlateau(1);
         m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
     }
     else if (CarteTactique* carteTactiqueChoisie = dynamic_cast<CarteTactique*>(carte)) {
@@ -209,7 +210,7 @@ void Controleur::JouerTour1(){
         int i =0;
 
     }
-    m_plateau->afficherMainJoueur(1);
+    m_plateau->afficherPlateau(1);
     cout << "Veuillez choisir si vous voulez choisir une carte tactique ou normale :, 1 pour normale et n'importe qu'elle autre chiffre pour tactique" << endl;
     int choix_style;
     cin >> choix_style;
@@ -242,7 +243,7 @@ void Controleur::JouerTour1(){
     }
     //Affichage de la main du joueur 1
     cout << "Votre main est maintenant composee de : " << endl;
-    m_plateau->afficherMainJoueur(1);
+    m_plateau->afficherPlateau(1);
     cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
     //cout <<"taille pioche tactique : "<<getPiocheTactique()->getNbCartes()<<"\n";
     Afficher_Borne1();
