@@ -65,6 +65,7 @@ void launchTacticalGame(bool againstAI) {
 
 
 int main() {
+    system ("CLS");
     std::cout << "Bienvenue dans le jeu  !" << std::endl;
     // affichage du logo:
     std::cout << "     ___            _                _       _                               _____            _       _                     " << std::endl;
@@ -84,6 +85,7 @@ int main() {
 //  "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'./o--000'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'
 
     while (true) {
+        system ("CLS");
         std::cout << "=== Menu ===" << std::endl;
         std::cout << "1. Partie classique contre un humain" << std::endl;
         std::cout << "2. Partie classique contre l'IA" << std::endl;
