@@ -29,8 +29,8 @@ void launchClassicGame(bool againstAI) {
     c.debut_de_partie_classique();
     if (againstAI) {
         while (! c.check_fin_partie()) {
-            c.JouerTour1();
-            if (!c.check_fin_partie()) {
+            c.JouerTourClassique1();
+            if (c.check_fin_partie()) {
                 break;
             }
             c.getPlateau()->setJoueurActif(2);

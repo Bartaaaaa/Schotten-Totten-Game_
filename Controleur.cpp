@@ -1335,10 +1335,8 @@ void Controleur::supprimer_carte_pose_v2(CarteClan *carte) {
 
 void Controleur::JouerTourClassique1(){
     system ("CLS");
-    cout << "Voici votre main :" << endl;
-    m_plateau->afficherMainJoueur(1);
     vector<Carte*> cartesMain = m_plateau->m_joueur1->getMain()->getCartes();
-
+    m_plateau->afficherPlateau(1);
     cout<<"Veuillez choisir la carte que vous voulez jouer (son id) :"<<endl;
     int choix_carte, nb_tac=0,nb_clan=0,nb_total=0;
     cin>>choix_carte; clean();
@@ -1364,26 +1362,43 @@ void Controleur::JouerTourClassique1(){
 
         system ("CLS");
         cout << "Carte choisie : " << carte_choisie->getCouleur() << " " << carte_choisie->getPuissance() << endl;
-        Afficher_Borne1();
-        //Choix de la borne
+        m_plateau->afficherPlateau(1);
         cout << "Veuillez choisir une borne :" << endl;
         int choix_borne;
         cin >> choix_borne;
-        affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());cout <<endl;
-        cout << "On pose la carte piochee sur la borne "<< choix_borne << " :"<<endl;
         m_plateau->poser(*m_plateau->getBornes(choix_borne),carte_choisie);
-        cout << "Borne " << choix_borne << " :" << endl;
-        affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());cout <<endl;
         m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
+        system ("CLS");
+        m_plateau->afficherPlateau(1);
 
+    }
+
+
+    cout << "Voulez vous revendiquer une borne ? 1 pour oui, 0 pour non :" << endl;
+    int choix_revendication;
+    cin >> choix_revendication;
+
+    if(choix_revendication==1) {
+        cout << "Veuillez choisir la borne que vous voulez revendiquer :" << endl;
+        int choix_borne;
+        cin >> choix_borne;
+        while (m_plateau->m_bornes[choix_borne]->getRevendique() == 2 ||
+               m_plateau->m_bornes[choix_borne]->getRevendique() == 1 && (choix_borne > 9 || choix_borne < 1)) {
+            cout << "La borne a déjà été revendiquée, veuillez choisir une autre borne :" << endl;
+            cin >> choix_borne;
+            return;
+        }
+        revendiquer_borne(choix_borne);
+        cout << "appuie" ;
+        string oui;
+        cin >>  oui;
     }
     CarteClan* ci = new CarteClan(getPiocheClan()->piocherCarteClan());
 
     m_plateau->getJoueur1()->getMain()->ajouterCarte(ci);
-
+    system ("CLS");
+    m_plateau->afficherPlateau(1);
     cout <<"Carte piochee : "<< ci->getPuissance() <<" "<< ci->getCouleur() << endl;
-    m_plateau->afficherMainJoueur(1);
-    Afficher_Borne1();
     cout << "\nFIN DU TOUR" << endl;
 
 }
