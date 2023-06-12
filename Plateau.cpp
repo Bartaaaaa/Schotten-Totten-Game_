@@ -67,7 +67,7 @@ void Plateau::afficherBornes(int joueur) {
     //affichage si revendication Jadverse
     for(int i=0; i<9; i++){
         if(m_bornes[i]->getRevendique()==joueuradverse){
-            cout<<"| B"<<i+1<<" revJ"<<joueuradverse<<" |";
+            cout<<"| B"<<i<<" revJ"<<joueuradverse<<" |";
         }
         else{
             cout<<"|          |";
