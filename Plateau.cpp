@@ -28,12 +28,20 @@ void Plateau::afficherMainJoueur(int joueur) {
     Joueur* joueurcourant= (joueur==1) ? m_joueur1 : m_joueur2;
     vector<Carte*> main = joueurcourant->getMain()->getCartes();
     cout << "Main du joueur " << joueur << ":\n";
-    int i=0;
+    for (int i=0; i<main.size(); i++){
+        cout << "------------";
+    }
+    cout <<endl;
     for (const auto& carte : main) {
-        cout << i << ": ";
         carte->afficherCarte();
-        i++;
-        cout << endl;
+    }
+    cout << endl;
+    for(int id=0; id<main.size();id++){
+        cout << "|  id = " << id << "  |";
+    }
+    cout << endl;
+    for (int i=0; i<main.size(); i++){
+        cout << "------------";
     }
     cout << endl;
 }
