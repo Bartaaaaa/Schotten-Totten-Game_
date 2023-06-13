@@ -43,7 +43,7 @@ void launchClassicGame(bool againstAI) {
     }
     else{
         while (! c.check_fin_partie()) {
-            c.JouerTour1();
+            c.JouerTourClassique1();
             if (c.check_fin_partie()) {
                 break;
             }
@@ -59,7 +59,12 @@ void launchClassicGame(bool againstAI) {
 }
 
 void launchTacticalGame(bool againstAI) {
-    std::cout << "test TacticalGame "<< againstAI<<endl;
+    std::cout << "test TacticalGame " << againstAI << endl;
+    Controleur &c = Controleur::getControleur(true);
+    c.debut_de_partie_classique();
+    while (!c.check_fin_partie()) {
+        c.JouerTour1();
+    }
 }
 
 

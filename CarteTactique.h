@@ -13,8 +13,26 @@ public:
     CarteTactique(const string& nom): m_nom(nom) {};
     const string &getNom() const { return m_nom; }
     void afficherCarte()const override{
-        cout<<"Carte Tactique vide";
-    };
+        if(getNom()=="Chasseur de Tete"){
+            cout<< "| Chas Tete |";
+        }
+        else if(getNom()=="Stratege"){
+            cout<< "| Stratege |";
+        }
+        else if(getNom()=="Banshee"){
+            cout<< "|  Banshee |";
+        }
+        else if(getNom()=="Traitre"){
+            cout<< "|  Traitre |";
+        }
+        else if(getNom()=="Colin Maillard"){
+            cout<< "| Col Mail |";
+        }
+        else if(getNom()=="Combat de Boue"){
+            cout<< "| Cbt Boue |";
+        }
+
+    }
 };
 
 #endif //LO21_SCHOTTEN_TOTTEN_CARTETACTIQUE_H
