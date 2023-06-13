@@ -702,7 +702,6 @@ void Controleur::revendiquer_borne(int num_borne) {
             vector<CarteClan *> cartes_a1 = m_carte_non_pose;
             vector<CarteClan *> cartes_a2 = m_carte_non_pose;
             vector<CarteClan *> cartes_a3 = m_carte_non_pose;
-            cout << cartes_pose_j2.size() <<endl;
             if (cartes_pose_j2.size()) {
                 for (auto i = 0; i < cartes_pose_j2.size() ; i++)
                     switch (i) {
