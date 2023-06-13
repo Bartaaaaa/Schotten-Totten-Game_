@@ -8,6 +8,7 @@
 #include "CarteModeCombat.h"
 #include <ctime>
 #include <random>
+#include <unistd.h>
 
 
 int generateRandomNumber() {
@@ -741,9 +742,7 @@ void Controleur::JouerTourClassique1(){
             return;
         }
         revendiquer_borne(choix_borne);
-        cout << "appuie" ;
-        string oui;
-        cin >>  oui;
+        sleep(3);
     }
     CarteClan* ci = new CarteClan(getPiocheClan()->piocherCarteClan());
 
