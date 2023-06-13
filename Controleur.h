@@ -83,6 +83,7 @@ public:
     void supprimer_carte_pose_v1(CarteClan *carte);
     void supprimer_carte_pose_v2(CarteClan *carte);
     void JouerTourClassique1();
+    void JouerTourClassique2();
 
 };
 int qui_gagne(Combinaison * combi1, Combinaison * combi2);

@@ -48,7 +48,7 @@ void launchClassicGame(bool againstAI) {
                 break;
             }
             c.getPlateau()->setJoueurActif(2);
-            c.JouerTour2();
+            c.JouerTourClassique2();
             c.getPlateau()->setJoueurActif(1);
         }
         cout << "Fin de partie" << endl;
@@ -59,12 +59,41 @@ void launchClassicGame(bool againstAI) {
 }
 
 void launchTacticalGame(bool againstAI) {
-    std::cout << "test TacticalGame " << againstAI << endl;
-    Controleur &c = Controleur::getControleur(true);
-    c.debut_de_partie_classique();
-    while (!c.check_fin_partie()) {
-        c.JouerTour1();
+    std::cout << "test TacticalGame "<< againstAI<<endl;
+    Controleur& c = Controleur::getControleur(true);
+    c.debut_de_partie_tactique();
+    if (againstAI) {
+        while (! c.check_fin_partie()) {
+
+            c.JouerTour1();
+
+            if (c.check_fin_partie()) {
+                break;
+            }
+            c.getPlateau()->setJoueurActif(2);
+            c.JouerTourIA();
+            c.getPlateau()->setJoueurActif(1);
+        }
+        cout << "Fin de partie" << endl;
+        cout << "Le joueur " << c.getGagnant()<< " a gagné" << endl;
+        c.fin_de_partie();
     }
+    else{
+        while (! c.check_fin_partie()) {
+            c.JouerTour1();
+            if (c.check_fin_partie()) {
+                break;
+            }
+            c.getPlateau()->setJoueurActif(2);
+            c.JouerTour2();
+            c.getPlateau()->setJoueurActif(1);
+        }
+        cout << "Fin de partie" << endl;
+        cout << "Le joueur " << c.getGagnant()<< " a gagné" << endl;
+        c.fin_de_partie();
+    }
+
+
 }
 
 
@@ -79,7 +108,7 @@ int main() {
     std::cout << "    |___/   \\__|_  |_||_|   \\___/   _\\__|   _\\__|   \\___|  |_||_|   TS__[O]  _|_|_   \\___/   _\\__|   _\\__|   \\___|  |_||_|  " << std::endl;
     std::cout << "  _|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| {======|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| " << std::endl;
     std::cout << "  \"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'./o--000'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' " << std::endl;
-    sleep(5);
+    sleep(1);
 
 
 //     ___            _                _       _                               _____            _       _

@@ -371,7 +371,7 @@ void CarteRuse::Jouer_Stratege() {
     cout << "Veuillez choisir une borne non revendiquee appartenant a vous " << endl;
     int choix_borne, choix_carte;
     cin >> choix_borne;
-    while (Controleur::getControleur(true).getPlateau()->getBornes(
+    while ((choix_borne>8 || choix_borne<0) ||Controleur::getControleur(true).getPlateau()->getBornes(
             choix_borne)->getCartesJ1()->getCartes().empty()) {
         cout << "Vous n'avez pas de cartes sur cette borne, veuillez en choisir une autre : " << endl;
         cin >> choix_borne;
@@ -422,22 +422,24 @@ void CarteRuse::Jouer_Traitre() {
     cout << "Veuillez choisir une borne non revendiquee appartenant a l'adversaire " << endl;
     int choix_borne, choix_carte;
     cin >> choix_borne;
-    while (Controleur::getControleur(true).getPlateau()->getBornes(
+  //  while (choix_borne > 8 || choix_borne < 0) {
+    //    cout << "L'adversaire  n'a pas de cartes sur cette borne, veuillez en choisir une autre : " << endl;
+      //  cin >> choix_borne;
+    //}
+    while ((choix_borne > 8 || choix_borne < 0) || Controleur::getControleur(true).getPlateau()->getBornes(
             choix_borne)->getCartesJ2()->getCartes().empty() || Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique()!=0 ) {
         cout << "L'adversaire  n'a pas de cartes sur cette borne, veuillez en choisir une autre : " << endl;
         cin >> choix_borne;
     }
+
+
     auto cartesBornes = Controleur::getControleur(true).getPlateau()->getBornes(
             choix_borne)->getCartesJ2()->getCartes();
     for (int i = 0; i < cartesBornes.size(); i++) {
         cout << "id :" << i << " " << cartesBornes[i]->getCouleur() << " " << cartesBornes[i]->getPuissance()
              << endl;
     }
-
     cout << "Quelle carte souhaitee vous retirer de la borne "<< choix_borne << "?" << endl;
-
-
-
     cin >> choix_carte;
 
     while (choix_carte > cartesBornes.size() - 1 || choix_carte < 0 ) {
@@ -460,10 +462,11 @@ void CarteRuse::Jouer_Traitre() {
                     choix_carte);
             cout << "Sur quelle borne non revendiquee voulez vous placer votre carte ? " << endl;
             cin >> choix_borne;
-            while (Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique() != 0) {
+            while ((Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->getCartes().size()==3) || (choix_borne > 8 || choix_borne < 0) || Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique() != 0) {
                 cout << "Vous ne pouvez pas poser de carte sur cette borne, veuillez en choisir une autre : " << endl;
                 cin >> choix_borne;
             }
+
             Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->ajouterCarte(
                     carte_choisie);
         } else {
@@ -489,6 +492,11 @@ void CarteRuse::Jouer_Banshee() {
         cout << "L'adversaire  n'a pas de cartes sur cette borne, veuillez en choisir une autre : " << endl;
         cin >> choix_borne;
     }
+    while (choix_borne > 8 || choix_borne < 0) {
+        cout << "Vous n'avez pas cette borne, veuillez saisir une borne :" << endl;
+        cin >> choix_borne;
+    }
+
     auto cartesBornes = Controleur::getControleur(true).getPlateau()->getBornes(
             choix_borne)->getCartesJ2()->getCartes();
     for (int i = 0; i < cartesBornes.size(); i++) {
