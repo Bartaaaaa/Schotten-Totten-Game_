@@ -10,6 +10,7 @@ class CarteRuse : public CarteTactique {
 public:
     CarteRuse(const string& nom) : CarteTactique(nom)  {};
 
+
     static void Jouer_ChasseurdeTete() ;
     static void Jouer_Stratege() ;
     static void Jouer_Banshee() ;

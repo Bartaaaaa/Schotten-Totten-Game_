@@ -445,6 +445,7 @@ void Controleur::JouerTourIA(){
         m_plateau->afficherMainJoueur(2);
     }
     else {
+
         switch (getPiocheTactique()->quandjepiochejefaisattention()) {
             case 1: {
                 cout << "L'ia a pioche  la carte tactique :" << endl;

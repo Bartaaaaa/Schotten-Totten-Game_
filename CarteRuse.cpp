@@ -221,6 +221,7 @@ void CarteRuse::Jouer_BansheeIA() {
         choix_carte = generateRandomNumber2() % taille_borne;
     }
 
+
     auto carte_choisie = cartesBornes[choix_carte];
     cout << "L'IA a choisi d'enlever la carte : " << carte_choisie->getCouleur() << " " << carte_choisie->getPuissance() << " de la borne "<< choix_borne<< endl;
     Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->supprimerCarte_Borne(choix_carte);

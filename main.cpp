@@ -23,6 +23,7 @@
 using namespace std;
 
 
+
 void launchClassicGame(bool againstAI) {
     std::cout << "test ClassicGame "<< againstAI<<endl;
     Controleur& c = Controleur::getControleur(false);
