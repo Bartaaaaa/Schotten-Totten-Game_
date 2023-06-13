@@ -938,9 +938,6 @@ void Controleur::revendiquer_borne(int num_borne) {
                 }
             }
         }
-        // TODO temp
-        affichage_vecteur_carteclan(cartes_pose_j1);
-        cout << endl;
 
         int tab_troupe_tac[4] = {0, 0, 0, 0};
         if (il_y_a_joker(cartes_pose_j2) || il_y_a_portebou(cartes_pose_j2) || il_y_a_espion(cartes_pose_j2)) {
@@ -964,7 +961,6 @@ void Controleur::revendiquer_borne(int num_borne) {
             vector<CarteClan *> cartes_a1 = m_carte_non_pose;
             vector<CarteClan *> cartes_a2 = m_carte_non_pose;
             vector<CarteClan *> cartes_a3 = m_carte_non_pose;
-            cout << cartes_pose_j2.size() <<endl;
             if (cartes_pose_j2.size()) {
                 for (auto i = 0; i < cartes_pose_j2.size() ; i++)
                     switch (i) {
@@ -1053,7 +1049,6 @@ void Controleur::revendiquer_borne(int num_borne) {
                                 CarteClan_egales(a2, a3)  )
                                 continue;
 
-
                             Combinaison *combi_temp = new Combinaison();
                             combi_temp->ajouterCarte(a1);
                             combi_temp->ajouterCarte(a2);
@@ -1069,7 +1064,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                     }
                 }
             }
-            cout << "J2 ne peut pas gagner" << endl;
+            cout << "J2 ne peut pas gagner (J1 gagne)" << endl;
             borne->setRevendique(1);
             return;
         }
@@ -1208,7 +1203,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                     }
                 }
             }
-            cout << "J2 ne peut pas gagner" << endl;
+            cout << "J2 ne peut pas gagner (J1 gagne 2)" << endl;
             borne->setRevendique(1);
             return;
         }
@@ -1261,7 +1256,6 @@ void Controleur::revendiquer_borne(int num_borne) {
             vector<CarteClan *> cartes_a1 = m_carte_non_pose;
             vector<CarteClan *> cartes_a2 = m_carte_non_pose;
             vector<CarteClan *> cartes_a3 = m_carte_non_pose;
-            cout << cartes_pose_j1.size() <<endl;
             if (cartes_pose_j1.size()) {
                 for (auto i = 0; i < cartes_pose_j1.size(); i++)
                     switch (i) {
@@ -1492,7 +1486,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                             if (qui_gagne(combi_j2, combi_temp) == 2) {
                                 // J2 gagne
                                 cout << "J1 peut gagner" << endl;
-                                cout << a1 << " " << a2 << " " << a3 << endl;
+                                cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur()  << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << " "<< a4->getPuissance() <<" "<< a4->getCouleur() << endl;
                                 delete combi_temp;
                                 return;
                             }
@@ -1501,7 +1495,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                 }
             }
             cout << "J1 ne peut pas gagner" << endl;
-            borne->setRevendique(1);
+            borne->setRevendique(2);
             return;
         }
     }
