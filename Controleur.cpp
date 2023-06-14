@@ -9,6 +9,7 @@
 #include <ctime>
 #include <random>
 #include <unistd.h>
+#include <sstream>
 
 
 int generateRandomNumber() {
@@ -260,7 +261,8 @@ void Controleur::JouerTour1(){
             cin>> choix_borne;
             return;
         }
-        revendiquer_borne(choix_borne);
+        auto msg =revendiquer_borne(choix_borne);
+        cout << msg << endl;
         sleep(3);
         auto cartesBornes = m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes();
         int i =0;
@@ -441,7 +443,8 @@ void Controleur::JouerTourIA(){
         auto cartesBornes = m_plateau->getBornes(i)->getCartesJ1()->getCartes();
         if (cartesBornes.size() ==3 ||cartesBornes.size()==4) {
             cout << "L'ia va tenter de  revendiquer la borne " << i << endl;
-            revendiquer_borne(i);
+            auto msg =revendiquer_borne(i);
+            cout << msg << endl;
 
         }
     }
@@ -579,7 +582,8 @@ void Controleur::JouerTour2(){
             cin>> choix_borne;
             return;
         }
-        revendiquer_borne(choix_borne);
+        auto msg =revendiquer_borne(choix_borne);
+        cout << msg << endl;
         auto cartesBornes = m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes();
         int i =0;
 
@@ -667,7 +671,8 @@ void Controleur::JouerTourIAClassique(){
         auto cartesBornes = m_plateau->getBornes(i)->getCartesJ2()->getCartes();
             if (cartesBornes.size() ==3) {
                 count_cartes = 3;
-                revendiquer_borne(i);
+                auto msg =revendiquer_borne(i);
+                cout << msg << endl;
                 cout << "L'ia a  revendique la borne " << i << endl;
         }
     }
@@ -749,7 +754,8 @@ void Controleur::JouerTourClassique1(){
             cin >> choix_borne;
             return;
         }
-        revendiquer_borne(choix_borne);
+        auto msg =revendiquer_borne(choix_borne);
+        cout << msg << endl;
         sleep(3);
     }
     CarteClan* ci = new CarteClan(getPiocheClan()->piocherCarteClan());
@@ -826,7 +832,8 @@ void Controleur::JouerTourClassique2(){
             cin >> choix_borne;
             return;
         }
-        revendiquer_borne(choix_borne);
+        auto msg =revendiquer_borne(choix_borne);
+        cout << msg << endl;
         cout << "appuie" ;
         string oui;
         cin >>  oui;
@@ -884,7 +891,7 @@ bool Controleur::check_fin_partie() {
     return false;
 }
 
-void Controleur::revendiquer_borne(int num_borne) {
+std::string Controleur::revendiquer_borne(int num_borne) {
 
     Borne *borne = m_plateau->getBornes(num_borne);
     Combinaison *combi_j1 = borne->getCartesJ1();
@@ -903,28 +910,24 @@ void Controleur::revendiquer_borne(int num_borne) {
     if (joueur_qui_revendique == 1){
         if(combi_j1->getBoue() == 0){
             if (cartes_pose_j1.size() !=3){
-                cout << "J1 n'a pas pose 3 cartes, il ne peut pas revendiquer la borne" << endl;
-                return;
+                return "J1 n'a pas pose 3 cartes, il ne peut pas revendiquer la borne";
             }
         }
         else{
             if (cartes_pose_j1.size() !=4){
-                cout << "J1 n'a pas pose 4 cartes, il ne peut pas revendiquer la borne" << endl;
-                return;
+                return "J1 n'a pas pose 4 cartes, il ne peut pas revendiquer la borne";
             }
         }
     }
     else{
         if(combi_j2->getBoue() == 0){
             if (cartes_pose_j2.size() !=3){
-                cout << "J2 n'a pas pose 3 cartes, il ne peut pas revendiquer la borne" << endl;
-                return;
+                return "J2 n'a pas pose 3 cartes, il ne peut pas revendiquer la borne";
             }
         }
         else{
             if (cartes_pose_j2.size() !=4){
-                cout << "J2 n'a pas pose 4 cartes, il ne peut pas revendiquer la borne" << endl;
-                return;
+                return "J2 n'a pas pose 4 cartes, il ne peut pas revendiquer la borne";
             }
         }
     }
@@ -933,21 +936,21 @@ void Controleur::revendiquer_borne(int num_borne) {
         cout << "J1 revendique la borne "<< num_borne << endl;
 
         if (il_y_a_joker(cartes_pose_j1) || il_y_a_portebou(cartes_pose_j1) || il_y_a_espion(cartes_pose_j1)) {
-        //Si on a des cartes troupes d'elite alors J1 choisi leur valeur
+            //Si on a des cartes troupes d'elite alors J1 choisi leur valeur
             for (auto c: cartes_pose_j1) {
                 if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
                     auto nom = t->getNom();
                     if (nom == "Joker") {
-                        t->jouer_Joker();
+                        //t->jouer_Joker();
                         combi_j1->calculerForceCombi();
                         combi_j1->setTotalPuissance(combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
                     } else if (nom == "Espion") {
-                        t->jouer_Espion();
+                        //t->jouer_Espion();
                         combi_j1->calculerForceCombi();
                         combi_j1->setTotalPuissance(combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
                     } else if (nom == "Porte_Bouclier") {
-                        t->jouer_PorteBouclier();
+                        //t->jouer_PorteBouclier();
                         combi_j1->calculerForceCombi();
                         combi_j1->setTotalPuissance(combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
@@ -1059,32 +1062,45 @@ void Controleur::revendiquer_borne(int num_borne) {
                         }
                     }
             }
+            // TODO temporaire
+            /*
+            cout << "\ncartes" << endl;
+            cout << cartes_pose_j2.size()<< endl;
+            cout << "\ncartes_a1" << endl;
+            affichage_vecteur_carteclan(cartes_a1);
+            cout << "\ncartes_a2" << endl;
+            affichage_vecteur_carteclan(cartes_a2);
+            cout << "\ncartes_a3" << endl;
+            affichage_vecteur_carteclan(cartes_a3);
+            */
 
             for (auto a1: cartes_a1) {
                 for (auto a2: cartes_a2) {
                     for (auto a3: cartes_a3) {
-                            if (CarteClan_egales(a1, a2) || CarteClan_egales(a1, a3) ||
-                                CarteClan_egales(a2, a3)  )
-                                continue;
+                        if (CarteClan_egales(a1, a2) || CarteClan_egales(a1, a3) ||
+                            CarteClan_egales(a2, a3)  )
+                            continue;
 
-                            Combinaison *combi_temp = new Combinaison();
-                            combi_temp->ajouterCarte(a1);
-                            combi_temp->ajouterCarte(a2);
-                            combi_temp->ajouterCarte(a3);
-                            if (qui_gagne(combi_j1, combi_temp) == 2) {
-                                // J2 gagne
-                                cout << "\nECHEC J2 peut gagner: " << endl;
-                                cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << endl;
-                                delete combi_temp;
-                                return;
-                            }
+                        Combinaison *combi_temp = new Combinaison();
+                        combi_temp->ajouterCarte(a1);
+                        combi_temp->ajouterCarte(a2);
+                        combi_temp->ajouterCarte(a3);
+                        if (qui_gagne(combi_j1, combi_temp) == 2) {
+                            // J2 gagne
+                            std::ostringstream oss;
+                            oss << "\nECHEC J2 peut gagner: " << endl;
+                            oss << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << endl;
+                            delete combi_temp;
+                            return oss.str();
+                        }
 
                     }
                 }
             }
-            cout << "REUSSITE: J2 ne peut pas gagner (J1 gagne)" << endl;
+            std::ostringstream oss;
+            oss << "REUSSITE: J2 ne peut pas gagner (J1 gagne)" << endl;
             borne->setRevendique(1);
-            return;
+            return oss.str();
         }
         else {
             vector<CarteClan *> cartes_a1 = m_carte_non_pose;
@@ -1196,6 +1212,15 @@ void Controleur::revendiquer_borne(int num_borne) {
                         }
                     }
             }
+            // TODO temporaire
+            /*cout << "cartes_a1" << endl;
+            affichage_vecteur_carteclan(cartes_a1);
+            cout << "cartes_a2" << endl;
+            affichage_vecteur_carteclan(cartes_a2);
+            cout << "cartes_a3" << endl;
+            affichage_vecteur_carteclan(cartes_a3);
+            cout << "cartes_a4" << endl;
+            affichage_vecteur_carteclan(cartes_a4);*/
             for (auto a1: cartes_a1) {
                 for (auto a2: cartes_a2) {
                     for (auto a3: cartes_a3) {
@@ -1203,27 +1228,29 @@ void Controleur::revendiquer_borne(int num_borne) {
                             if (CarteClan_egales(a1, a2) || CarteClan_egales(a1, a3) || CarteClan_egales(a1, a4) ||
                                 CarteClan_egales(a2, a3) || CarteClan_egales(a2, a4) || CarteClan_egales(a3, a4))
                                 continue;
-                                Combinaison *combi_temp = new Combinaison();
-                                combi_temp->setBoue(true);
-                                combi_temp->ajouterCarte(a1);
-                                combi_temp->ajouterCarte(a2);
-                                combi_temp->ajouterCarte(a3);
-                                combi_temp->ajouterCarte(a4);
-                                if (qui_gagne(combi_j1, combi_temp) == 2) {
-                                    // J2 gagne
-                                    cout << "ECHEC J2 peut gagner" << endl;
-                                    cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << " "<< a4->getPuissance() <<" "<< a4->getCouleur() << endl;
-                                    delete combi_temp;
-                                    return;
+                            Combinaison *combi_temp = new Combinaison();
+                            combi_temp->setBoue(true);
+                            combi_temp->ajouterCarte(a1);
+                            combi_temp->ajouterCarte(a2);
+                            combi_temp->ajouterCarte(a3);
+                            combi_temp->ajouterCarte(a4);
+                            if (qui_gagne(combi_j1, combi_temp) == 2) {
+                                // J2 gagne
+                                std::ostringstream oss;
+                                oss << "ECHEC J2 peut gagner" << endl;
+                                oss << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << " "<< a4->getPuissance() <<" "<< a4->getCouleur() << endl;
+                                delete combi_temp;
+                                return oss.str();
 
                             }
                         }
                     }
                 }
             }
-            cout << "REUSSITE J2 ne peut pas gagner (J1 gagne 2)" << endl;
+            std::ostringstream oss;
+            oss << "REUSSITE J2 ne peut pas gagner (J1 gagne 2)" << endl;
             borne->setRevendique(1);
-            return;
+            return oss.str();
         }
     }
     else {
@@ -1234,17 +1261,17 @@ void Controleur::revendiquer_borne(int num_borne) {
                 if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
                     auto nom = t->getNom();
                     if (nom == "Joker") {
-                        t->jouer_Joker();
+                        //t->jouer_Joker();
                         combi_j2->calculerForceCombi();
                         combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
                     } else if (nom == "Espion") {
-                        t->jouer_Espion();
+                        //t->jouer_Espion();
                         combi_j2->calculerForceCombi();
                         combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
                     } else if (nom == "Porte_Bouclier") {
-                        t->jouer_PorteBouclier();
+                        //t->jouer_PorteBouclier();
                         combi_j2->calculerForceCombi();
                         combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
@@ -1281,7 +1308,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                             switch (tab_troupe_tac[i]) {
                                 case (0): {
                                     cartes_a1.clear();
-                                    cartes_a1.push_back(cartes_pose_j2[i]);
+                                    cartes_a1.push_back(cartes_pose_j1[i]);
                                     break;
                                 }
                                 case (1): {
@@ -1306,7 +1333,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                             switch (tab_troupe_tac[i]) {
                                 case (0): {
                                     cartes_a2.clear();
-                                    cartes_a2.push_back(cartes_pose_j2[i]);
+                                    cartes_a2.push_back(cartes_pose_j1[i]);
                                     break;
                                 }
                                 case (1): {
@@ -1331,7 +1358,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                             switch (tab_troupe_tac[i]) {
                                 case (0): {
                                     cartes_a3.clear();
-                                    cartes_a3.push_back(cartes_pose_j2[i]);
+                                    cartes_a3.push_back(cartes_pose_j1[i]);
                                     break;
                                 }
                                 case (1): {
@@ -1354,6 +1381,13 @@ void Controleur::revendiquer_borne(int num_borne) {
                         }
                     }
             }
+            // TODO temporaire
+            /*cout << "cartes_a1" << endl;
+            affichage_vecteur_carteclan(cartes_a1);
+            cout << "cartes_a2" << endl;
+            affichage_vecteur_carteclan(cartes_a2);
+            cout << "cartes_a3" << endl;
+            affichage_vecteur_carteclan(cartes_a3);*/
 
             for (auto a1: cartes_a1) {
                 for (auto a2: cartes_a2) {
@@ -1366,18 +1400,20 @@ void Controleur::revendiquer_borne(int num_borne) {
                         combi_temp->ajouterCarte(a2);
                         combi_temp->ajouterCarte(a3);
                         if (qui_gagne(combi_j2, combi_temp) == 2) {
-                            // J2 gagne
-                            cout << "\nECHEC J1 peut gagner: " << endl;
-                            cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << endl;
+                            // J1 gagne
+                            std::ostringstream oss;
+                            oss << "\nECHEC J1 peut gagner: " << endl;
+                            oss << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << endl;
                             delete combi_temp;
-                            return;
+                            return oss.str();
                         }
                     }
                 }
             }
-            cout << "REUSSITE J1 ne peut pas gagner (J2 gagne 1)" << endl;
+            std::ostringstream oss;
+            oss << "REUSSITE J1 ne peut pas gagner (J2 gagne 1)" << endl;
             borne->setRevendique(2);
-            return;
+            return oss.str();
         }
         else {
             vector<CarteClan *> cartes_a1 = m_carte_non_pose;
@@ -1391,7 +1427,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                             switch (tab_troupe_tac[i]) {
                                 case (0): {
                                     cartes_a1.clear();
-                                    cartes_a1.push_back(cartes_pose_j2[i]);
+                                    cartes_a1.push_back(cartes_pose_j1[i]);
                                     break;
                                 }
                                 case (1): {
@@ -1416,7 +1452,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                             switch (tab_troupe_tac[i]) {
                                 case (0): {
                                     cartes_a2.clear();
-                                    cartes_a2.push_back(cartes_pose_j2[i]);
+                                    cartes_a2.push_back(cartes_pose_j1[i]);
                                     break;
                                 }
                                 case (1): {
@@ -1441,7 +1477,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                             switch (tab_troupe_tac[i]) {
                                 case (0): {
                                     cartes_a3.clear();
-                                    cartes_a3.push_back(cartes_pose_j2[i]);
+                                    cartes_a3.push_back(cartes_pose_j1[i]);
                                     break;
                                 }
                                 case (1): {
@@ -1466,7 +1502,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                             switch (tab_troupe_tac[i]) {
                                 case (0): {
                                     cartes_a4.clear();
-                                    cartes_a4.push_back(cartes_pose_j2[i]);
+                                    cartes_a4.push_back(cartes_pose_j1[i]);
                                     break;
                                 }
                                 case (1): {
@@ -1489,6 +1525,16 @@ void Controleur::revendiquer_borne(int num_borne) {
                         }
                     }
             }
+            // TODO temporaire
+            /*cout << "cartes_a1" << endl;
+            affichage_vecteur_carteclan(cartes_a1);
+            cout << "cartes_a2" << endl;
+            affichage_vecteur_carteclan(cartes_a2);
+            cout << "cartes_a3" << endl;
+            affichage_vecteur_carteclan(cartes_a3);
+            cout << "cartes_a4" << endl;
+            affichage_vecteur_carteclan(cartes_a4);*/
+
             for (auto a1: cartes_a1) {
                 for (auto a2: cartes_a2) {
                     for (auto a3: cartes_a3) {
@@ -1503,19 +1549,21 @@ void Controleur::revendiquer_borne(int num_borne) {
                             combi_temp->ajouterCarte(a3);
                             combi_temp->ajouterCarte(a4);
                             if (qui_gagne(combi_j2, combi_temp) == 2) {
-                                // J2 gagne
-                                cout << "ECHEC J1 peut gagner" << endl;
-                                cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur()  << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << " "<< a4->getPuissance() <<" "<< a4->getCouleur() << endl;
+                                // J1 gagne
+                                std::ostringstream oss;
+                                oss << "ECHEC J1 peut gagner" << endl;
+                                oss << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur()  << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << " "<< a4->getPuissance() <<" "<< a4->getCouleur() << endl;
                                 delete combi_temp;
-                                return;
+                                return oss.str();
                             }
                         }
                     }
                 }
             }
-            cout << "REUSSITE J1 ne peut pas gagner (J2 gagne 2)" << endl;
+            std::ostringstream oss;
+            oss << "REUSSITE J1 ne peut pas gagner (J2 gagne 2)" << endl;
             borne->setRevendique(2);
-            return;
+            return oss.str();
         }
     }
 }
