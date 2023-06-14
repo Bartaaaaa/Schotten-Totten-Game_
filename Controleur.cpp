@@ -884,6 +884,12 @@ void Controleur::revendiquer_borne(int num_borne) {
     vector<CarteClan *> cartes_pose_j1 = combi_j1->getCartes();
     vector<CarteClan *> cartes_pose_j2 = combi_j2->getCartes();
 
+    //TODO temporaire:
+    cout << "Les cartes sont\nJ1:  "<< endl;
+    affichage_vecteur_carteclan(cartes_pose_j1);
+    cout << "J2:" << endl;
+    affichage_vecteur_carteclan(cartes_pose_j2);
+
     int joueur_qui_revendique = getPlateau()->getJoueurActif();
     if (joueur_qui_revendique == 1){
         if(combi_j1->getBoue() == 0){
@@ -916,7 +922,9 @@ void Controleur::revendiquer_borne(int num_borne) {
 
     if (joueur_qui_revendique == 1) {
         cout << "J1 revendique la borne "<< num_borne << endl;
+
         if (il_y_a_joker(cartes_pose_j1) || il_y_a_portebou(cartes_pose_j1) || il_y_a_espion(cartes_pose_j1)) {
+        //Si on a des cartes troupes d'elite alors J1 choisi leur valeur
             for (auto c: cartes_pose_j1) {
                 if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
                     auto nom = t->getNom();
@@ -958,6 +966,7 @@ void Controleur::revendiquer_borne(int num_borne) {
             }
         }
         if (combi_j1->getBoue() == 0) {
+            // creation des vecteur sur les quels les cartes de J2 vont varier
             vector<CarteClan *> cartes_a1 = m_carte_non_pose;
             vector<CarteClan *> cartes_a2 = m_carte_non_pose;
             vector<CarteClan *> cartes_a3 = m_carte_non_pose;
@@ -1181,7 +1190,7 @@ void Controleur::revendiquer_borne(int num_borne) {
             for (auto a1: cartes_a1) {
                 for (auto a2: cartes_a2) {
                     for (auto a3: cartes_a3) {
-                        for (auto a4: cartes_a3) {
+                        for (auto a4: cartes_a4) {
                             if (CarteClan_egales(a1, a2) || CarteClan_egales(a1, a3) || CarteClan_egales(a1, a4) ||
                                 CarteClan_egales(a2, a3) || CarteClan_egales(a2, a4) || CarteClan_egales(a3, a4))
                                 continue;
@@ -1479,6 +1488,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                                 CarteClan_egales(a2, a3) || CarteClan_egales(a2, a4) || CarteClan_egales(a3, a4))
                                 continue;
                             Combinaison *combi_temp = new Combinaison();
+                            combi_temp->setBoue(true);
                             combi_temp->ajouterCarte(a1);
                             combi_temp->ajouterCarte(a2);
                             combi_temp->ajouterCarte(a3);
