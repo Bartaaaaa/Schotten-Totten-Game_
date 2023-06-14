@@ -941,16 +941,16 @@ std::string Controleur::revendiquer_borne(int num_borne) {
                 if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
                     auto nom = t->getNom();
                     if (nom == "Joker") {
-                        //t->jouer_Joker();
+                        t->jouer_Joker();
                         combi_j1->calculerForceCombi();
                         combi_j1->setTotalPuissance(combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
                     } else if (nom == "Espion") {
-                        //t->jouer_Espion();
+                        t->jouer_Espion();
                         combi_j1->calculerForceCombi();
                         combi_j1->setTotalPuissance(combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
                     } else if (nom == "Porte_Bouclier") {
-                        //t->jouer_PorteBouclier();
+                        t->jouer_PorteBouclier();
                         combi_j1->calculerForceCombi();
                         combi_j1->setTotalPuissance(combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
@@ -1261,17 +1261,17 @@ std::string Controleur::revendiquer_borne(int num_borne) {
                 if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
                     auto nom = t->getNom();
                     if (nom == "Joker") {
-                        //t->jouer_Joker();
+                        t->jouer_Joker();
                         combi_j2->calculerForceCombi();
                         combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
                     } else if (nom == "Espion") {
-                        //t->jouer_Espion();
+                        t->jouer_Espion();
                         combi_j2->calculerForceCombi();
                         combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
                     } else if (nom == "Porte_Bouclier") {
-                        //t->jouer_PorteBouclier();
+                        t->jouer_PorteBouclier();
                         combi_j2->calculerForceCombi();
                         combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
