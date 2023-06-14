@@ -113,6 +113,7 @@ void Controleur::JouerTour1(){
     //cout <<"taille pioche tactique : "<<getPiocheTactique()->getNbCartes()<<"\n";
     //cout << "Voici votre main :" << endl;
     //m_plateau->afficherMainJoueur(1);
+    system ("CLS");
     m_plateau->afficherPlateau(1);
     vector<Carte*> cartesMain = m_plateau->m_joueur1->getMain()->getCartes();
     while (attente_valide!=1) {
@@ -129,6 +130,7 @@ void Controleur::JouerTour1(){
         if (CarteClan *carteClanChoisie = dynamic_cast<CarteClan *>(carte)) {
             cout << "Vous avez choisi la carte : Puissance :" << carteClanChoisie->getPuissance() << " Couleur : "
                  << carteClanChoisie->getCouleur() << endl;
+            system ("CLS");
             m_plateau->afficherPlateau(1);
             cout << "Veuillez choisir une borne :" << endl;
             int choix_borne;
@@ -137,12 +139,14 @@ void Controleur::JouerTour1(){
                 cout << "Vous ne pouvez pas poser de carte sur cette borne :" << endl;
                 cin >> choix_borne;
             }
+            system ("CLS");
             cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
             m_plateau->poser(*m_plateau->getBornes(choix_borne), carteClanChoisie);
             m_plateau->afficherPlateau(1);
             m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
             attente_valide= 1;
         } else if (CarteTactique *carteTactiqueChoisie = dynamic_cast<CarteTactique *>(carte)) {
+            //TODO verifier le nbr de carteTactiqueJouee par J1 et J2
             cout << "Vous avez choisi la carte : Nom :" << carteTactiqueChoisie->getNom() << endl;
             cout << "Voulez-vous utiliser cette carte sur quelle borne ? :" << endl;
             if (carteTactiqueChoisie->getNom() == "Colin Maillard") {
@@ -223,6 +227,7 @@ void Controleur::JouerTour1(){
 
 
             }
+            //TODO ne sert a rien car une carte troupeELite est une carteCLan
         } else if (CarteTroupeElite *carteTroupeEliteChoisie = dynamic_cast<CarteTroupeElite *>(carte)) {
             cout << "Vous avez choisi la carte : Nom :" << carteTroupeEliteChoisie->getNom() << endl;
             cout << "Voulez-vous utiliser cette carte sur quelle borne ? :" << endl;
@@ -261,6 +266,7 @@ void Controleur::JouerTour1(){
         int i =0;
 
     }
+    system ("CLS");
     m_plateau->afficherPlateau(1);
     cout << "Veuillez choisir si vous voulez choisir une carte tactique ou normale : 0 pour normale et 1 pour  tactique" << endl;
     int choix_style;
@@ -297,11 +303,12 @@ void Controleur::JouerTour1(){
 
     }
     //Affichage de la main du joueur 1
+    system ("CLS");
     cout << "Votre main est maintenant composee de : " << endl;
     m_plateau->afficherPlateau(1);
 
     //cout <<"taille pioche tactique : "<<getPiocheTactique()->getNbCartes()<<"\n";
-    Afficher_Borne1();
+    //Afficher_Borne1();
     cout << "\nFIN DU TOUR" << endl;
 }
 
@@ -1659,9 +1666,6 @@ bool il_y_a_portebou(vector<CarteClan *> v){
 }
 
 int qui_gagne(Combinaison * combi1, Combinaison * combi2){
-    // on regarde dabord  getForceCombi() puis getTotalPuissance() puis TODO le dernier a poser
-    /*cout << "combi1 : " << combi1->getForceCombi() << " " << combi1->getTotalPuissance() << endl;
-    cout << "combi2 : " << combi2->getForceCombi() << " " << combi2->getTotalPuissance() << endl;*/
     if (combi1->getForceCombi()>combi2->getForceCombi()) {
         //cout << "combi1 gagne car force combi" << endl;
         return 1;

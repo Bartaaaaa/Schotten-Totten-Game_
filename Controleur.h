@@ -44,13 +44,6 @@ public:
     int getGagnant() const { return m_gagnant; }
     bool getTactique() const { return m_tactique; }
     void fin_de_partie();
-    /*TODO verifier si on a besoin de ces getters
-    const Pioche& getPiocheClan() const { return *m_pioche_clan; }
-    const Pioche& getPiocheTactique() const { return *m_pioche_tactique; }
-
-    JeuClan getJeuClan() const { return m_jeu_clan; }
-    JeuTactique getJeuTactique() const { return m_jeu_tactique; }
-     */
 
     vector<CarteClan *> getCarteNonPose() const { return m_carte_non_pose; }
     void afficherCartesNonPose() const;
@@ -68,11 +61,6 @@ public:
     Pioche* getPiocheClan() const { return m_pioche_clan; }
     Pioche* getPiocheTactique() const { return m_pioche_tactique; }
     void revendiquer_borne(int num_borne);
-/*    void revendiquer_borne_pleine_non_tactique(int num_borne);
-    void revendiquer_borne_non_pleine_non_tactique(int num_borne );
-
-    void revendiquer_borne_pleine_tactique(int num_borne);
-    void revendiquer_borne_non_pleine_tactique(int num_borne);*/
 
     void debut_de_partie_classique();
     void debut_de_partie_tactique();
