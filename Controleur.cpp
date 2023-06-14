@@ -256,6 +256,7 @@ void Controleur::JouerTour1(){
             return;
         }
         revendiquer_borne(choix_borne);
+        sleep(1);
         auto cartesBornes = m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes();
         int i =0;
 
@@ -887,8 +888,9 @@ void Controleur::revendiquer_borne(int num_borne) {
     //TODO temporaire:
     cout << "Les cartes sont\nJ1:  "<< endl;
     affichage_vecteur_carteclan(cartes_pose_j1);
-    cout << "J2:" << endl;
+    cout << "\nJ2:" << endl;
     affichage_vecteur_carteclan(cartes_pose_j2);
+    cout <<"\n"<<endl;
 
     int joueur_qui_revendique = getPlateau()->getJoueurActif();
     if (joueur_qui_revendique == 1){
@@ -1064,7 +1066,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                             combi_temp->ajouterCarte(a3);
                             if (qui_gagne(combi_j1, combi_temp) == 2) {
                                 // J2 gagne
-                                cout << "\nJ2 peut gagner: " << endl;
+                                cout << "\nECHEC J2 peut gagner: " << endl;
                                 cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << endl;
                                 delete combi_temp;
                                 return;
@@ -1073,7 +1075,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                     }
                 }
             }
-            cout << "J2 ne peut pas gagner (J1 gagne)" << endl;
+            cout << "REUSSITE: J2 ne peut pas gagner (J1 gagne)" << endl;
             borne->setRevendique(1);
             return;
         }
@@ -1202,7 +1204,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                                 combi_temp->ajouterCarte(a4);
                                 if (qui_gagne(combi_j1, combi_temp) == 2) {
                                     // J2 gagne
-                                    cout << "J2 peut gagner" << endl;
+                                    cout << "ECHEC J2 peut gagner" << endl;
                                     cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << " "<< a4->getPuissance() <<" "<< a4->getCouleur() << endl;
                                     delete combi_temp;
                                     return;
@@ -1212,7 +1214,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                     }
                 }
             }
-            cout << "J2 ne peut pas gagner (J1 gagne 2)" << endl;
+            cout << "REUSSITE J2 ne peut pas gagner (J1 gagne 2)" << endl;
             borne->setRevendique(1);
             return;
         }
@@ -1358,7 +1360,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                         combi_temp->ajouterCarte(a3);
                         if (qui_gagne(combi_j2, combi_temp) == 2) {
                             // J2 gagne
-                            cout << "\nJ1 peut gagner: " << endl;
+                            cout << "\nECHEC J1 peut gagner: " << endl;
                             cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur() << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << endl;
                             delete combi_temp;
                             return;
@@ -1366,7 +1368,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                     }
                 }
             }
-            cout << "J1 ne peut pas gagner" << endl;
+            cout << "REUSSITE J1 ne peut pas gagner (J2 gagne 1)" << endl;
             borne->setRevendique(2);
             return;
         }
@@ -1495,7 +1497,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                             combi_temp->ajouterCarte(a4);
                             if (qui_gagne(combi_j2, combi_temp) == 2) {
                                 // J2 gagne
-                                cout << "J1 peut gagner" << endl;
+                                cout << "ECHEC J1 peut gagner" << endl;
                                 cout << a1->getPuissance() <<" "<< a1->getCouleur() << " "<< a2->getPuissance() <<" "<< a2->getCouleur()  << " "<< a3->getPuissance() <<" "<< a3->getCouleur() << " "<< a4->getPuissance() <<" "<< a4->getCouleur() << endl;
                                 delete combi_temp;
                                 return;
@@ -1504,7 +1506,7 @@ void Controleur::revendiquer_borne(int num_borne) {
                     }
                 }
             }
-            cout << "J1 ne peut pas gagner" << endl;
+            cout << "REUSSITE J1 ne peut pas gagner (J2 gagne 2)" << endl;
             borne->setRevendique(2);
             return;
         }
