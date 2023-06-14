@@ -44,6 +44,7 @@ public:
     Pioche(const Pioche&) = delete;
     Pioche& operator=(const Pioche&) = delete;
 };
+int getRandomInt(int min, int max);
 
 
 #endif //LO21_SCHOTTEN_TOTTEN_PIOCHE_H

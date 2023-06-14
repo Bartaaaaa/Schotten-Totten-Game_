@@ -4,6 +4,15 @@
 
 #include "Pioche.h"
 #include "CarteException.h"
+#include <random>
+#include <algorithm>
+
+int getRandomInt(int min, int max) {
+    static std::random_device rd;
+    static std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(min, max);
+    return distribution(generator);
+}
 
     Pioche::Pioche(const JeuClan& jeuClan) : m_cartes(new const Carte*[jeuClan.getNbCartes()]), m_nb(jeuClan.getNbCartes())
     {
@@ -12,12 +21,12 @@
             m_cartes[i++] = &it.currentItem();
 
 
-        // shuffle (un peu naif)
-        for(size_t it=0; it<2*m_nb ; ++it){
-            size_t a = rand() % m_nb,  b = rand() % m_nb; // on tire deux positions entre 0 et nb
-            const Carte * tmp = m_cartes[a];
-            m_cartes[a]=m_cartes[b];
-            m_cartes[b]=tmp;
+        // Shuffle amélioré
+        for (size_t it = 0; it < 2 * m_nb; ++it) {
+            size_t a = getRandomInt(0, m_nb - 1);
+            size_t b = getRandomInt(0, m_nb - 1);
+
+            std::swap(m_cartes[a], m_cartes[b]);
         }
     }
 
@@ -27,6 +36,15 @@
         for (auto it = jeuTactique.getIterator(); !it.isDone(); it.next()) {
             m_cartes[i++] = &it.currentItem();
         }
+        // TODO Shuffle amélioré
+        /*
+        for (size_t it = 0; it < 2 * m_nb; ++it) {
+            size_t a = getRandomInt(0, m_nb - 1);
+            size_t b = getRandomInt(0, m_nb - 1);
+
+            std::swap(m_cartes[a], m_cartes[b]);
+        }
+         */
     }
 
     const Carte& Pioche::piocher() {
