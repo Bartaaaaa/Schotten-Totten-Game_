@@ -256,7 +256,7 @@ void Controleur::JouerTour1(){
             return;
         }
         revendiquer_borne(choix_borne);
-        sleep(1);
+        sleep(3);
         auto cartesBornes = m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes();
         int i =0;
 
