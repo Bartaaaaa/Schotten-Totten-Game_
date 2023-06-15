@@ -43,6 +43,8 @@ public:
 
     Pioche(const Pioche&) = delete;
     Pioche& operator=(const Pioche&) = delete;
+    void setM_nb(size_t mNb) { m_nb = mNb; }
+    const Carte**& getCartes()  { return m_cartes; }
 };
 int getRandomInt(int min, int max);
 

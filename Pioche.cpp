@@ -37,14 +37,14 @@ int getRandomInt(int min, int max) {
             m_cartes[i++] = &it.currentItem();
         }
         // TODO Shuffle amélioré
-        /*
+
         for (size_t it = 0; it < 2 * m_nb; ++it) {
             size_t a = getRandomInt(0, m_nb - 1);
             size_t b = getRandomInt(0, m_nb - 1);
 
             std::swap(m_cartes[a], m_cartes[b]);
         }
-         */
+
     }
 
     const Carte& Pioche::piocher() {

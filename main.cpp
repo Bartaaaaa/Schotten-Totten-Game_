@@ -99,7 +99,7 @@ void launchTacticalGame(bool againstAI) {
 
 
 
-int main() {
+int main1() {
     system ("CLS");
     std::cout << "Bienvenue dans le jeu  !" << std::endl;
     // affichage du logo:
@@ -155,6 +155,23 @@ int main() {
 return 0;
 }
 
+int main()
+{
+    Controleur& c = Controleur::getControleur(true);
+    cout << "Il y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
+    auto carte = c.getPiocheTactique()->piocher();
+    cout << "on pioche une carte "<< &carte << endl;
+    carte.afficherCarte();
+    cout << "\n\nIl y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
+    auto a =c.getPiocheTactique()->getCartes();
+    c.getPiocheTactique()->setM_nb(c.getPiocheTactique()->getNbCartes() + 1);
+    cout << "Il y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
+    a[c.getPiocheTactique()->getNbCartes()]= &carte;
+    carte = c.getPiocheTactique()->piocher();
+    cout << "on pioche une carte "<< &carte << endl;
+    carte.afficherCarte();
+    cout << "\nIl y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
+}
 
 
 
