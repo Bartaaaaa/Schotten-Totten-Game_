@@ -159,18 +159,55 @@ int main()
 {
     Controleur& c = Controleur::getControleur(true);
     cout << "Il y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
-    auto carte = c.getPiocheTactique()->piocher();
-    cout << "on pioche une carte "<< &carte << endl;
-    carte.afficherCarte();
+    Carte carte;
+    // on pioche
+    switch (c.getPiocheTactique()->quandjepiochejefaisattention()) {
+        case 1: {
+            cout << "Vous avez pioche la carte tactique :" << endl;
+            CarteTactique * a = new CarteTactique(c.getPiocheTactique()->piocherCarteTactique());
+            c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(a);
+            cout << a->getNom() << endl;
+            carte = *a;
+            break;
+        }
+        case 2: {
+            cout << "Vous avez pioche la carte troupe Elite :" << endl;
+            CarteTroupeElite * b = new CarteTroupeElite( c.getPiocheTactique()->piocherCarteTroupeElite());
+            c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(b);
+            cout << b->getNom() << endl;
+            carte = *b;
+            break;
+        }
+    }
     cout << "\n\nIl y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
     auto a =c.getPiocheTactique()->getCartes();
     c.getPiocheTactique()->setM_nb(c.getPiocheTactique()->getNbCartes() + 1);
     cout << "Il y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
+    // on la refout dans le paquet
     a[c.getPiocheTactique()->getNbCartes()]= &carte;
-    carte = c.getPiocheTactique()->piocher();
-    cout << "on pioche une carte "<< &carte << endl;
-    carte.afficherCarte();
-    cout << "\nIl y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
+
+
+    // on repioche
+    switch (c.getPiocheTactique()->quandjepiochejefaisattention()) {
+        case 1: {
+            cout << "Vous avez pioche la carte tactique :" << endl;
+            CarteTactique * a = new CarteTactique(c.getPiocheTactique()->piocherCarteTactique());
+            c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(a);
+            cout << a->getNom() << endl;
+            carte = *a;
+            break;
+        }
+        case 2: {
+            cout << "Vous avez pioche la carte troupe Elite :" << endl;
+            CarteTroupeElite * b = new CarteTroupeElite( c.getPiocheTactique()->piocherCarteTroupeElite());
+            c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(b);
+            cout << b->getNom() << endl;
+            carte = *b;
+            break;
+        }
+    }
+    cout << "\n\nIl y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
+    return 0;
 }
 
 
