@@ -157,6 +157,7 @@ return 0;
 
 int main()
 {
+    main1();
     Controleur& c = Controleur::getControleur(true);
     cout << "Il y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
     Carte carte;
