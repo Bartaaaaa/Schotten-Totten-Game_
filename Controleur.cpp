@@ -104,9 +104,9 @@ void Controleur::afficherCartesNonPose() const
             std::cout << "Aucune carte" << std::endl;
     }
 }
+int Joker1 = 0;
 void Controleur::JouerTour1(){
     int attente_valide = 0;
-    CarteRuse::Jouer_ChasseurdeTete(); CarteRuse::Jouer_ChasseurdeTete(); CarteRuse::Jouer_ChasseurdeTete(); CarteRuse::Jouer_ChasseurdeTete();
    // cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
     //cout <<"taille pioche tactique : "<<getPiocheTactique()->getNbCartes()<<"\n";
     //CarteRuse::Jouer_ChasseurdeTete();
@@ -129,24 +129,39 @@ void Controleur::JouerTour1(){
         }
         vector<Carte *> cartes = m_plateau->m_joueur1->getMain()->getCartes();
         Carte *carte = cartes[choix_carte];
-        if  (CarteTroupeElite *carteTroupeEliteChoisie = dynamic_cast<CarteTroupeElite *>(carte)) {
-            cout << "Vous avez choisi la carte : Nom :" << carteTroupeEliteChoisie->getNom() << endl;
-            cout << "Voulez-vous utiliser cette carte sur quelle borne ? :" << endl;
-            int choix_borne;
-            cin >> choix_borne;
-            m_plateau->getBornes(choix_borne)->getCartesJ1()->getBoue()==0;
-            while ((choix_borne > 8 || choix_borne < 0) || (m_plateau->getBornes(choix_borne)->getCartesJ1()->getBoue()==0 &&m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes().size() == 3) || (m_plateau->getBornes(choix_borne)->getCartesJ1()->getBoue()==1 &&m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes().size() == 4)) {
-                cout << "Vous ne pouvez pas poser votre carte sur cette borne:" << endl;
-                cin >> choix_borne;
+
+        if (CarteTroupeElite *carteTroupeEliteChoisie = dynamic_cast<CarteTroupeElite *>(carte)) {
+            if (carteTroupeEliteChoisie->getNom() == "Joker" ) {
+                Joker1 ++;
             }
-            cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
-            m_plateau->poser(*m_plateau->getBornes(choix_borne), carteTroupeEliteChoisie);
-            cout << "Borne " << choix_borne << " :" << endl;
-            affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());
-            cout << endl;
-            attente_valide= 1;
-            m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
+          if (Joker1 > 1 && carteTroupeEliteChoisie->getNom() == "Joker") {
+                cout << "Vous ne pouvez pas avoir 2 joker dans la meme partie, selectionnez une autre carte" << endl;
+            } else {
+                cout << "Vous avez choisi la carte : Nom :" << carteTroupeEliteChoisie->getNom() << endl;
+                cout << "Voulez-vous utiliser cette carte sur quelle borne ? :" << endl;
+                int choix_borne;
+                cin >> choix_borne;
+                m_plateau->getBornes(choix_borne)->getCartesJ1()->getBoue() == 0;
+                while ((choix_borne > 8 || choix_borne < 0) ||
+                       (m_plateau->getBornes(choix_borne)->getCartesJ1()->getBoue() == 0 &&
+                        m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes().size() == 3) ||
+                       (m_plateau->getBornes(choix_borne)->getCartesJ1()->getBoue() == 1 &&
+                        m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes().size() == 4)) {
+                    cout << "Vous ne pouvez pas poser votre carte sur cette borne:" << endl;
+                    cin >> choix_borne;
+                }
+                cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
+                m_plateau->poser(*m_plateau->getBornes(choix_borne), carteTroupeEliteChoisie);
+                cout << "Borne " << choix_borne << " :" << endl;
+                affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());
+                cout << endl;
+                attente_valide = 1;
+                m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
+            }
+
         }
+
+
         else if (CarteClan *carteClanChoisie = dynamic_cast<CarteClan *>(carte)) {
             cout << "Vous avez choisi la carte : Puissance :" << carteClanChoisie->getPuissance() << " Couleur : "
                  << carteClanChoisie->getCouleur() << endl;
@@ -279,8 +294,9 @@ void Controleur::JouerTour1(){
         cout << "Veuillez choisir si vous voulez choisir une carte tactique ou normale : 0 pour normale et 1 pour  tactique" << endl;
         cin >> choix_style;
     }
-    if( getPiocheClan()->estVide()!=0) {
-        if (int(choix_style) == 0) {
+    if (choix_style == 0) {
+    if( !getPiocheClan()->estVide()) {
+
             CarteClan *ci = new CarteClan(getPiocheClan()->piocherCarteClan());
             m_plateau->getJoueur1()->getMain()->ajouterCarte(ci);
             cout << "Carte piochee : " << ci->getPuissance() << " " << ci->getCouleur() << endl;
@@ -337,7 +353,28 @@ void Controleur::JouerTourIA(){
         }
         vector<Carte *> cartes = m_plateau->m_joueur2->getMain()->getCartes();
         Carte *carte = cartes[choix_carte];
-        if (CarteClan *carteClanChoisie = dynamic_cast<CarteClan *>(carte)) {
+        if (CarteTroupeElite *carteTroupeEliteChoisie = dynamic_cast<CarteTroupeElite *>(carte)) {
+            if (carteTroupeEliteChoisie->getNom() == "Joker" ) {
+                Joker1 ++;
+            }
+            if (Joker1 > 1 && carteTroupeEliteChoisie->getNom() == "Joker") {
+                cout << "Vous ne pouvez pas avoir 2 joker dans la meme partie, selectionnez une autre carte" << endl;
+            }
+            else {int choix_borne;
+                choix_borne = generateRandomNumber()%8 +1;
+                while ((choix_borne > 8 || choix_borne < 0) || (m_plateau->getBornes(choix_borne)->getCartesJ2()->getBoue()==0 &&m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes().size() == 3) || (m_plateau->getBornes(choix_borne)->getCartesJ2()->getBoue()==1 &&m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes().size() == 4)) {
+                    choix_borne = generateRandomNumber()%8 +1;
+                }
+                cout << "L'ia pose la carte choisie sur la borne " << choix_borne << " :" << endl;
+                m_plateau->poser(*m_plateau->getBornes(choix_borne), carteTroupeEliteChoisie);
+                cout << "Borne " << choix_borne << " :" << endl;
+
+                cout << endl;
+                attente_valide= 1;
+                m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
+            }
+        }
+        else if (CarteClan *carteClanChoisie = dynamic_cast<CarteClan *>(carte)) {
             cout << "L'ia a choisi la carte : Puissance :" << carteClanChoisie->getPuissance() << " Couleur : "
                  << carteClanChoisie->getCouleur() << endl;
             m_plateau->afficherPlateau(2);
@@ -426,19 +463,6 @@ void Controleur::JouerTourIA(){
                 }
 
             }
-        } else if (CarteTroupeElite *carteTroupeEliteChoisie = dynamic_cast<CarteTroupeElite *>(carte)) {
-            int choix_borne;
-            choix_borne = generateRandomNumber()%8 +1;
-            while ((choix_borne > 8 || choix_borne < 0) || (m_plateau->getBornes(choix_borne)->getCartesJ2()->getBoue()==0 &&m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes().size() == 3) || (m_plateau->getBornes(choix_borne)->getCartesJ2()->getBoue()==1 &&m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes().size() == 4)) {
-                choix_borne = generateRandomNumber()%8 +1;
-            }
-            cout << "L'ia pose la carte choisie sur la borne " << choix_borne << " :" << endl;
-            m_plateau->poser(*m_plateau->getBornes(choix_borne), carteTroupeEliteChoisie);
-            cout << "Borne " << choix_borne << " :" << endl;
-
-            cout << endl;
-            attente_valide= 1;
-            m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
         }
     }
     //L'ia cherche à revendiquer les bornes où elle a 3 cartes
@@ -454,9 +478,9 @@ void Controleur::JouerTourIA(){
         }
     }
     int choix_style = generateRandomNumber()%2+1;
-
+    if (choix_style == 0) {
     if( getPiocheClan()->estVide()!=0) {
-        if (int(choix_style) == 0) {
+
             CarteClan *ci = new CarteClan(getPiocheClan()->piocherCarteClan());
             m_plateau->getJoueur2()->getMain()->ajouterCarte(ci);
             cout << "Carte piochee : " << ci->getPuissance() << " " << ci->getCouleur() << endl;
@@ -482,6 +506,7 @@ void Controleur::JouerTourIA(){
         }
 
     }
+
     else {
         cout << "Vous n'avez plus de cartes dans vos pioches" << endl;
     }

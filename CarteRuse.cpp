@@ -234,16 +234,16 @@ void CarteRuse::Jouer_StrategeIA() {
         Controleur::getControleur(true).getPlateau()->afficherBornes(2);
 }
 void CarteRuse::Jouer_BansheeIA() {
-    cout << "L'IA a joué la carte Banshee" << endl;
+    cout << "L'IA a joue la carte Banshee" << endl;
     int choix_borne, choix_carte;
-    choix_borne = generateRandomNumber2() % 8 + 1;
+    choix_borne = generateRandomNumber2() % 9 ;
 
     while (Controleur::getControleur(true).getPlateau()->getBornes(
             choix_borne)->getCartesJ1()->getCartes().empty() || Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique()!=0) {
-        choix_borne = generateRandomNumber2() % 8 + 1;
+        choix_borne = generateRandomNumber2() % 9;
     }
     while (choix_borne > 8 || choix_borne < 0) {
-        choix_borne = generateRandomNumber2() % 8 + 1;
+        choix_borne = generateRandomNumber2() % 9;
 
     }
 
@@ -251,7 +251,7 @@ void CarteRuse::Jouer_BansheeIA() {
     int taille_borne = cartesBornes.size();
     choix_carte = generateRandomNumber2() % taille_borne;
 
-    while (choix_carte >= taille_borne-1 || choix_carte < 0) {
+    while (choix_carte >= cartesBornes.size() || choix_carte < 0) {
         choix_carte = generateRandomNumber2() % taille_borne;
     }
 
@@ -541,6 +541,7 @@ void CarteRuse::Jouer_Banshee() {
     cout << "Veuillez choisir une borne non revendiquee appartenant a l'adversaire " << endl;
     int choix_borne, choix_carte;
     cin >> choix_borne;
+
     while (Controleur::getControleur(true).getPlateau()->getBornes(
             choix_borne)->getCartesJ2()->getCartes().empty() || Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique()!=0) {
         cout << "L'adversaire  n'a pas de cartes sur cette borne, veuillez en choisir une autre : " << endl;
