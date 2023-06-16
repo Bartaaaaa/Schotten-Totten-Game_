@@ -105,6 +105,7 @@ void Controleur::afficherCartesNonPose() const
     }
 }
 int Joker1 = 0;
+int Joker2=0;
 void Controleur::JouerTour1(){
     int attente_valide = 0;
    // cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
@@ -273,7 +274,7 @@ void Controleur::JouerTour1(){
         cout << "Veuillez choisir la borne que vous voulez revendiquer :" << endl;
         int choix_borne;
         cin >> choix_borne;
-        while (m_plateau->m_bornes[choix_borne]->getRevendique()==2 || m_plateau->m_bornes[choix_borne]->getRevendique()==1 && (choix_borne > 9 || choix_borne < 1)) {
+        while (m_plateau->m_bornes[choix_borne]->getRevendique()==2 || m_plateau->m_bornes[choix_borne]->getRevendique()==1 && (choix_borne > 8 || choix_borne < 0)) {
             cout << "La borne a déjà été revendiquée, veuillez choisir une autre borne :" << endl;
             cin>> choix_borne;
             return;
@@ -355,9 +356,9 @@ void Controleur::JouerTourIA(){
         Carte *carte = cartes[choix_carte];
         if (CarteTroupeElite *carteTroupeEliteChoisie = dynamic_cast<CarteTroupeElite *>(carte)) {
             if (carteTroupeEliteChoisie->getNom() == "Joker" ) {
-                Joker1 ++;
+                Joker2 ++;
             }
-            if (Joker1 > 1 && carteTroupeEliteChoisie->getNom() == "Joker") {
+            if (Joker2 > 1 && carteTroupeEliteChoisie->getNom() == "Joker") {
                 cout << "Vous ne pouvez pas avoir 2 joker dans la meme partie, selectionnez une autre carte" << endl;
             }
             else {int choix_borne;
@@ -469,15 +470,18 @@ void Controleur::JouerTourIA(){
     int count_cartes = 0;
     for (int i=0 ;i <9;i++) {
         count_cartes=0;
-        auto cartesBornes = m_plateau->getBornes(i)->getCartesJ1()->getCartes();
-        if (cartesBornes.size() ==3 ||cartesBornes.size()==4) {
+        auto cartesBornes = m_plateau->getBornes(i)->getCartesJ2()->getCartes();
+        if (m_plateau->m_bornes[i]->getRevendique()==2 || m_plateau->m_bornes[i]->getRevendique()==1 ) {
+            return;
+        }
+        else if (cartesBornes.size() ==3 ||cartesBornes.size()==4 ) {
             cout << "L'ia va tenter de  revendiquer la borne " << i << endl;
             auto msg =revendiquer_borne(i);
             cout << msg << endl;
 
         }
     }
-    int choix_style = generateRandomNumber()%2+1;
+    int choix_style = generateRandomNumber()%2;
     if (choix_style == 0) {
     if( getPiocheClan()->estVide()!=0) {
 

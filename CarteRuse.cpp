@@ -264,11 +264,11 @@ void CarteRuse::Jouer_BansheeIA() {
  void CarteRuse::Jouer_TraitreIA() {
      cout << "L'IA a joué la carte traitre" << endl;
      int choix_borne, choix_carte;
-     choix_borne = generateRandomNumber2() % 8 + 1;
+     choix_borne = generateRandomNumber2() % 9;
 
      while ((choix_borne > 8 || choix_borne < 0) || Controleur::getControleur(true).getPlateau()->getBornes(
              choix_borne)->getCartesJ1()->getCartes().empty() || Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique()!=0 ) {
-         choix_borne = generateRandomNumber2() % 8 + 1;
+         choix_borne = generateRandomNumber2() % 9;
      }
 
      auto cartesBornes = Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->getCartes();
@@ -276,7 +276,7 @@ void CarteRuse::Jouer_BansheeIA() {
      int taille_borne = cartesBornes.size();
      choix_carte = generateRandomNumber2() % taille_borne;
 
-     while (choix_carte >= taille_borne -1|| choix_carte < 0) {
+     while (choix_carte >= cartesBornes.size()|| choix_carte < 0) {
          choix_carte = generateRandomNumber2() % taille_borne;
      }
 
@@ -292,10 +292,10 @@ void CarteRuse::Jouer_BansheeIA() {
              Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ1()->supprimerCarte_Borne(
                      choix_carte);
              cout << "Sur quelle borne non revendiquee voulez vous placer votre carte ? " << endl;
-             choix_borne = generateRandomNumber2() % 8 + 1;
+             choix_borne = generateRandomNumber2() % 9;
              while ((Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ2()->getCartes().size()==3) || (choix_borne > 8 || choix_borne < 0) || Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getRevendique() != 0) {
                  cout << "Vous ne pouvez pas poser de carte sur cette borne, veuillez en choisir une autre : " << endl;
-                 choix_borne = generateRandomNumber2() % 8 + 1;
+                 choix_borne = generateRandomNumber2() % 9;
              }
 
              Controleur::getControleur(true).getPlateau()->getBornes(choix_borne)->getCartesJ2()->ajouterCarte(
