@@ -15,6 +15,10 @@ public:
     static void Jouer_Stratege() ;
     static void Jouer_Banshee() ;
     static void Jouer_Traitre() ;
+    static void Jouer_ChasseurdeTete2() ;
+    static void Jouer_Stratege2() ;
+    static void Jouer_Banshee2() ;
+    static void Jouer_Traitre2() ;
     static void Jouer_ChasseurdeTeteIA() ;
     static void Jouer_StrategeIA() ;
     static void Jouer_BansheeIA() ;
