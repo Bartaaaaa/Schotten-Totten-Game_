@@ -39,6 +39,12 @@ public:
     return *this;
     }
 
+    CarteTroupeElite jouer_JokerIA(){
+        setCouleur(static_cast<Couleur>(rand()%6));
+        setPuissance(static_cast<Puissance>(rand()%10));
+        return *this;
+    }
+
 
 
     CarteTroupeElite jouer_PorteBouclier()  {
@@ -61,6 +67,12 @@ public:
         setPuissance(static_cast<Puissance>(choix_puissance));
         return *this;
     }
+    CarteTroupeElite jouer_PorteBouclierIA(){
+        setCouleur(static_cast<Couleur>(rand()%6));
+        setPuissance(static_cast<Puissance>(rand()%4));
+        return *this;
+    }
+
     CarteTroupeElite jouer_Espion() {
         cout << "Carte Espion pose : " << endl;
         for (int i = 0; i < 6; i++) {
@@ -72,6 +84,11 @@ public:
             cin >> choix_couleur;
         }
         setCouleur(static_cast<Couleur>(choix_couleur));
+        setPuissance(Puissance::sept);
+        return *this;
+    }
+    CarteTroupeElite jouer_EspionIA(){
+        setCouleur(static_cast<Couleur>(rand()%6));
         setPuissance(Puissance::sept);
         return *this;
     }
