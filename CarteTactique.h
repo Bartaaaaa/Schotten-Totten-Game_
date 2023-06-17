@@ -33,6 +33,9 @@ public:
         }
 
     }
+    void afficherDosCarte() const override {
+        cout << "| Tactique |";
+    }
 };
 
 #endif //LO21_SCHOTTEN_TOTTEN_CARTETACTIQUE_H

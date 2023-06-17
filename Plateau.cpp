@@ -158,7 +158,7 @@ void Plateau::afficherBornes(int joueur) {
     //affichage si revendication Jcourant
     for(int i=0; i<9; i++){
         if(m_bornes[i]->getRevendique()==joueur){
-            cout<<"| B"<<i+1<<" revJ"<<joueur<<" |";
+            cout<<"| B"<<i<<" revJ"<<joueur<<" |";
         }
         else{
             cout<<"|          |";
@@ -173,12 +173,12 @@ void Plateau::afficherBornes(int joueur) {
 
 void Plateau::afficherPlateau(int pointdevue) {
     if(pointdevue==1){
-        afficherDosMain(2);
+        afficherDosMain(1);
         afficherBornes(1);
         afficherMainJoueur(1);
     }
     else{
-        afficherDosMain(1);
+        afficherDosMain(2);
         afficherBornes(2);
         afficherMainJoueur(2);
     }
