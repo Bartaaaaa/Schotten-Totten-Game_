@@ -99,7 +99,7 @@ void launchTacticalGame(bool againstAI) {
 
 
 
-int main1() {
+int main() {
     system ("CLS");
     std::cout << "Bienvenue dans le jeu  !" << std::endl;
     // affichage du logo:
@@ -155,61 +155,7 @@ int main1() {
 return 0;
 }
 
-int main()
-{
-    main1();
-    Controleur& c = Controleur::getControleur(true);
-    cout << "Il y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
-    Carte carte;
-    // on pioche
-    switch (c.getPiocheTactique()->quandjepiochejefaisattention()) {
-        case 1: {
-            cout << "Vous avez pioche la carte tactique :" << endl;
-            CarteTactique * a = new CarteTactique(c.getPiocheTactique()->piocherCarteTactique());
-            c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(a);
-            cout << a->getNom() << endl;
-            carte = *a;
-            break;
-        }
-        case 2: {
-            cout << "Vous avez pioche la carte troupe Elite :" << endl;
-            CarteTroupeElite * b = new CarteTroupeElite( c.getPiocheTactique()->piocherCarteTroupeElite());
-            c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(b);
-            cout << b->getNom() << endl;
-            carte = *b;
-            break;
-        }
-    }
-    cout << "\n\nIl y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
-    auto a =c.getPiocheTactique()->getCartes();
-    c.getPiocheTactique()->setM_nb(c.getPiocheTactique()->getNbCartes() + 1);
-    cout << "Il y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
-    // on la refout dans le paquet
-    a[c.getPiocheTactique()->getNbCartes()]= &carte;
 
-
-    // on repioche
-    switch (c.getPiocheTactique()->quandjepiochejefaisattention()) {
-        case 1: {
-            cout << "Vous avez pioche la carte tactique :" << endl;
-            CarteTactique * a = new CarteTactique(c.getPiocheTactique()->piocherCarteTactique());
-            c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(a);
-            cout << a->getNom() << endl;
-            carte = *a;
-            break;
-        }
-        case 2: {
-            cout << "Vous avez pioche la carte troupe Elite :" << endl;
-            CarteTroupeElite * b = new CarteTroupeElite( c.getPiocheTactique()->piocherCarteTroupeElite());
-            c.getPlateau()->getJoueur1()->getMain()->ajouterCarte(b);
-            cout << b->getNom() << endl;
-            carte = *b;
-            break;
-        }
-    }
-    cout << "\n\nIl y a " << c.getPiocheTactique()->getNbCartes() << " cartes dans le paquet" << endl;
-    return 0;
-}
 
 
 
