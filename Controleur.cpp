@@ -296,7 +296,7 @@ void Controleur::JouerTour1(){
             cin>> choix_borne;
             return;
         }
-        auto msg =revendiquer_borne(choix_borne);
+        auto msg =revendiquer_borne(choix_borne,true);
         cout << msg << endl;
         sleep(3);
         auto cartesBornes = m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes();
@@ -507,7 +507,7 @@ void Controleur::JouerTourIA(){
         }
         else if (cartesBornes.size() ==3 ||cartesBornes.size()==4 ) {
             cout << "L'ia va tenter de  revendiquer la borne " << i << endl;
-            auto msg =revendiquer_borne(i);
+            auto msg =revendiquer_borne(i,false);
             cout << msg << endl;
 
         }
@@ -553,89 +553,172 @@ void Controleur::JouerTourIA(){
 
 
 void Controleur::JouerTour2(){
+    int attente_valide = 0;
 
-    cout << "Voici votre main :" << endl;
-    m_plateau->afficherMainJoueur(2);
+    system ("CLS");
+    m_plateau->afficherPlateau(2);
     vector<Carte*> cartesMain = m_plateau->m_joueur2->getMain()->getCartes();
 
-    cout << "Veuillez choisir la carte que vous voulez jouer (son id) :" << endl;
-    int choix_carte, nb_tac = 0, nb_clan = 0, nb_total = 0;
-    cin >> choix_carte;
-    clean();
-    while (choix_carte >= cartesMain.size() || choix_carte < 0) {
-        cout << "Vous n'avez pas cette carte, veuillez saisir une carte que vous avez :" << endl;
+    while (attente_valide!=1) {
+        cout << "Veuillez choisir la carte que vous voulez jouer (son id) :" << endl;
+        int choix_carte, nb_tac = 0, nb_clan = 0, nb_total = 0;
         cin >> choix_carte;
-    }
-
-    vector<Carte*> cartes = m_plateau->m_joueur2->getMain()->getCartes();
-    Carte* carte = cartes[choix_carte];
-
-    if (CarteClan* carteClanChoisie = dynamic_cast<CarteClan*>(carte)) {
-        cout << "Vous avez choisi la carte : Puissance :" << carteClanChoisie->getPuissance() << " Couleur : " << carteClanChoisie->getCouleur() << endl;
-        m_plateau->afficherBornes(2);
-        cout << "Veuillez choisir une borne :" << endl;
-        int choix_borne;
-        cin >> choix_borne;
-        while (choix_borne > 8 || choix_borne < 0) {
-            cout << "Vous n'avez pas cette borne, veuillez saisir une borne :" << endl;
-            cin >> choix_borne;
+        clean();
+        while (choix_carte >= cartesMain.size() || choix_carte < 0) {
+            cout << "Vous n'avez pas cette carte, veuillez saisir une carte que vous avez :" << endl;
+            cin >> choix_carte;
         }
-        cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
-        m_plateau->poser(*m_plateau->getBornes(choix_borne), carteClanChoisie);
-        m_plateau->afficherBornes(2);
-        m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
-    }
-    else if (CarteTactique* carteTactiqueChoisie = dynamic_cast<CarteTactique*>(carte)) {
-        cout << "Vous avez choisi la carte : Nom :" << carteTactiqueChoisie->getNom() << endl;
-        cout << "Voulez-vous utiliser cette carte sur quelle borne ? :" << endl;
-        if (carteTactiqueChoisie->getNom() == "Colin Maillard") {
+        vector<Carte *> cartes = m_plateau->m_joueur2->getMain()->getCartes();
+        Carte *carte = cartes[choix_carte];
+
+        if (CarteTroupeElite *carteTroupeEliteChoisie = dynamic_cast<CarteTroupeElite *>(carte) ) {
+            if (cartetacJoué1 < cartetacJoué2 + 1) {
+                if (carteTroupeEliteChoisie->getNom() == "Joker") {
+                    Joker1++;
+                }
+                if (Joker1 > 1 && carteTroupeEliteChoisie->getNom() == "Joker") {
+                    cout << "Vous ne pouvez pas avoir 2 joker dans la meme partie, selectionnez une autre carte"
+                         << endl;
+                } else {
+                    cout << "Vous avez choisi la carte : Nom :" << carteTroupeEliteChoisie->getNom() << endl;
+                    cout << "Voulez-vous utiliser cette carte sur quelle borne ? :" << endl;
+                    int choix_borne;
+                    cin >> choix_borne;
+                    m_plateau->getBornes(choix_borne)->getCartesJ2()->getBoue() == 0;
+                    while ((choix_borne > 8 || choix_borne < 0) ||
+                           (m_plateau->getBornes(choix_borne)->getCartesJ2()->getBoue() == 0 &&
+                            m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes().size() == 3) ||
+                           (m_plateau->getBornes(choix_borne)->getCartesJ2()->getBoue() == 1 &&
+                            m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes().size() == 4)) {
+                        cout << "Vous ne pouvez pas poser votre carte sur cette borne:" << endl;
+                        cin >> choix_borne;
+                    }
+                    cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
+                    m_plateau->poser(*m_plateau->getBornes(choix_borne), carteTroupeEliteChoisie);
+                    cout << "Borne " << choix_borne << " :" << endl;
+                    affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes());
+                    cout << endl;
+                    cartetacJoué1++;
+                    attente_valide = 1;
+                    m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
+                }
+
+            } else {
+                cout << "Vous ne pouvez pas jouer cette carte, vous avez une carte tactique de plus que l'adversaire" << endl;
+            }
+        }
+
+        else if (CarteClan *carteClanChoisie = dynamic_cast<CarteClan *>(carte)) {
+            cout << "Vous avez choisi la carte : Puissance :" << carteClanChoisie->getPuissance() << " Couleur : "
+                 << carteClanChoisie->getCouleur() << endl;
+            system ("CLS");
+            m_plateau->afficherPlateau(2);
+            cout << "Veuillez choisir une borne :" << endl;
             int choix_borne;
             cin >> choix_borne;
-            while (choix_borne > 8 || choix_borne < 0) {
-                cout << "Vous n'avez pas cette borne, veuillez saisir une borne :" << endl;
+            while ((choix_borne > 8 || choix_borne < 0) || (m_plateau->getBornes(choix_borne)->getCartesJ2()->getBoue()==0 &&m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes().size() == 3) || (m_plateau->getBornes(choix_borne)->getCartesJ2()->getBoue()==1 &&m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes().size() == 4)) {
+                cout << "Vous ne pouvez pas poser de carte sur cette borne :" << endl;
                 cin >> choix_borne;
             }
+            system ("CLS");
             cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
-            CarteModeCombat::jouer_ColinMaillard(m_plateau->getBornes(choix_borne));
+            m_plateau->poser(*m_plateau->getBornes(choix_borne), carteClanChoisie);
+            m_plateau->afficherPlateau(2);
+            m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
+            attente_valide= 1;
         }
-        else if (carteTactiqueChoisie->getNom() == "Combat de Boue") {
-            int choix_borne;
-            cin >> choix_borne;
-            while (choix_borne > 8 || choix_borne < 0) {
-                cout << "Vous n'avez pas cette borne, veuillez saisir une borne :" << endl;
-                cin >> choix_borne;
-            }
-            cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
-            CarteModeCombat::jouer_CombatdeBoue(m_plateau->getBornes(choix_borne));
-        }
-        else if (carteTactiqueChoisie->getNom() == "Chasseur de Tete") {
-            CarteRuse::Jouer_ChasseurdeTete();
-        }
-        else if (carteTactiqueChoisie->getNom() == "Stratege") {
-            CarteRuse::Jouer_Stratege();
-        }
-        else if (carteTactiqueChoisie->getNom() == "Banshee") {
-            CarteRuse::Jouer_Banshee();
-        }
-        else if (carteTactiqueChoisie->getNom() == "Traitre") {
-            CarteRuse::Jouer_Traitre();
-        }
-    }
-    else if (CarteTroupeElite* carteTroupeEliteChoisie = dynamic_cast<CarteTroupeElite*>(carte)) {
-        cout << "Vous avez choisi la carte : Nom :" << carteTroupeEliteChoisie->getNom() << endl;
-        cout << "Voulez-vous utiliser cette carte sur quelle borne ? :" << endl;
-        int choix_borne;
-        cin >> choix_borne;
-        while (choix_borne > 8|| choix_borne < 0) {
-            cout << "Vous n'avez pas cette borne, veuillez saisir une borne :" << endl;
-            cin >> choix_borne;
-        }
-        cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
-        m_plateau->poser(*m_plateau->getBornes(choix_borne), carteTroupeEliteChoisie);
-        cout << "Borne " << choix_borne << " :" << endl;
-        affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes());
-        cout << endl;
+        if (cartetacJoué1<cartetacJoué2+1){
 
+            if (CarteTactique *carteTactiqueChoisie = dynamic_cast<CarteTactique *>(carte)) {
+
+                cout << "Vous avez choisi la carte : Nom :" << carteTactiqueChoisie->getNom() << endl;
+
+                if (carteTactiqueChoisie->getNom() == "Colin Maillard") {
+                    cout << "Voulez-vous utiliser cette carte sur quelle borne ? :" << endl;
+                    int choix_borne;
+                    cin >> choix_borne;
+                    while (choix_borne > 8 || choix_borne < 0) {
+                        cout << "Vous n'avez pas cette borne, veuillez saisir une borne :" << endl;
+                        cin >> choix_borne;
+                    }
+                    cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
+                    CarteModeCombat::jouer_ColinMaillard(m_plateau->getBornes(choix_borne));
+                    m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
+                    attente_valide= 1;
+                    cartetacJoué1++;
+                }
+                else if (carteTactiqueChoisie->getNom() == "Combat de Boue") {
+                    int choix_borne;
+                    cin >> choix_borne;
+                    while (choix_borne > 8 || choix_borne < 0) {
+                        cout << "Vous n'avez pas cette borne, veuillez saisir une borne :" << endl;
+                        cin >> choix_borne;
+                    }
+                    cout << "On pose la carte choisie sur la borne " << choix_borne << " :" << endl;
+                    CarteModeCombat::jouer_CombatdeBoue(m_plateau->getBornes(choix_borne));
+                    m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
+                    attente_valide= 1;
+                } else if (carteTactiqueChoisie->getNom() == "Chasseur de Tete") {
+                    CarteRuse::Jouer_ChasseurdeTete();
+                    attente_valide= 1;
+                    m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
+                } else if (carteTactiqueChoisie->getNom() == "Stratege") {
+                    for (int i = 0; i < 9; i++) {
+                        if (m_plateau->getBornes(i)->getCartesJ1()->getCartes().size() != 0) {
+                            nb_clan++;
+                        }
+
+                    }
+                    if (nb_clan != 0) {
+                        CarteRuse::Jouer_Stratege();
+                        attente_valide=1;
+                        m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
+                    } else {
+                        cout << "Vous n'avez pas de carte sur le plateau." << endl;
+                        attente_valide= 0;
+                    }
+                    attente_valide = 0;
+
+                } else if (carteTactiqueChoisie->getNom() == "Banshee") {
+                    for (int i = 0; i < 9; i++) {
+                        if (m_plateau->getBornes(i)->getCartesJ1()->getCartes().size() != 0) {
+                            nb_clan++;
+                        }
+
+                    }
+                    if (nb_clan != 0) {
+                        CarteRuse::Jouer_Banshee();
+                        attente_valide= 1;
+                        m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
+                    } else {
+                        cout << "Vous n'avez pas de carte sur le plateau." << endl;
+                        attente_valide= 0;
+
+                    }
+
+                } else if (carteTactiqueChoisie->getNom() == "Traitre") {
+                    for (int i = 0; i < 9; i++) {
+                        if (m_plateau->getBornes(i)->getCartesJ1()->getCartes().size() != 0) {
+                            nb_clan++;
+                        }
+
+                    }
+                    if (nb_clan != 0) {
+                        CarteRuse::Jouer_Traitre();
+                        attente_valide= 1;
+                        m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
+                    } else {
+                        cout << "L'adversaire n'a pas de cartes sur le plateau." << endl;
+                        attente_valide=0;
+                    }
+
+
+                }
+                //TODO ne sert a rien car une carte troupeELite est une carteCLan
+                cartetacJoué1++;}
+        }else{
+            cout << "Vous avez joue une carte tactique de plus que l'adversaire, donc vous pouvez pas jouer de carte tactique." << endl;
+        }
     }
     cout << "Voulez vous revendiquer une borne ? 1 pour oui, 0 pour non :" << endl;
     int choix_revendication;
@@ -645,31 +728,38 @@ void Controleur::JouerTour2(){
         cout << "Veuillez choisir la borne que vous voulez revendiquer :" << endl;
         int choix_borne;
         cin >> choix_borne;
-        while (m_plateau->m_bornes[choix_borne]->getRevendique()==2 || m_plateau->m_bornes[choix_borne]->getRevendique()==1 && (choix_borne > 9 || choix_borne < 1)) {
+        while (m_plateau->m_bornes[choix_borne]->getRevendique()==2 || m_plateau->m_bornes[choix_borne]->getRevendique()==1 && (choix_borne > 8 || choix_borne < 0)) {
             cout << "La borne a déjà été revendiquée, veuillez choisir une autre borne :" << endl;
             cin>> choix_borne;
             return;
         }
-        auto msg =revendiquer_borne(choix_borne);
+        auto msg =revendiquer_borne(choix_borne,true);
         cout << msg << endl;
+        sleep(5);
         auto cartesBornes = m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes();
         int i =0;
 
     }
-    cout << "Veuillez choisir si vous voulez choisir une carte tactique ou normale :, 1 pour normale et n'importe qu'elle autre chiffre pour tactique" << endl;
+    system ("CLS");
+    m_plateau->afficherPlateau(2);
+    cout << "Veuillez choisir si vous voulez choisir une carte tactique ou normale : 0 pour normale et 1 pour  tactique" << endl;
     int choix_style;
     cin >> choix_style;
-    m_plateau->afficherMainJoueur(2);
-    cout <<"taille pioche clan : "<<getPiocheClan()->getNbCartes()<<"\n";
-    if( int(choix_style)==1 ){
-        CarteClan* ci = new CarteClan(getPiocheClan()->piocherCarteClan());
-        m_plateau->getJoueur2()->getMain()->ajouterCarte(ci);
-        cout <<"Carte piochee : "<< ci->getPuissance() <<" "<< ci->getCouleur() << endl;
-
+    while(choix_style!=0 && choix_style!=1){
+        cout << "Veuillez choisir si vous voulez choisir une carte tactique ou normale : 0 pour normale et 1 pour  tactique" << endl;
+        cin >> choix_style;
     }
+    if (choix_style == 0) {
+        if( !getPiocheClan()->estVide()) {
 
-    else {
-        switch (getPiocheTactique()->quandjepiochejefaisattention()) {
+            CarteClan *ci = new CarteClan(getPiocheClan()->piocherCarteClan());
+            m_plateau->getJoueur2()->getMain()->ajouterCarte(ci);
+            cout << "Carte piochee : " << ci->getPuissance() << " " << ci->getCouleur() << endl;
+
+        }
+    }
+    else if ( !getPiocheTactique()->estVide() && choix_style==1){
+        switch (getPiocheTactique()->quandjepiochejefaisattention() ) {
             case 1: {
                 cout << "Vous avez pioche la carte tactique :" << endl;
                 CarteTactique * a = new CarteTactique(getPiocheTactique()->piocherCarteTactique());
@@ -687,9 +777,13 @@ void Controleur::JouerTour2(){
         }
 
     }
-    //Affichage de la main du joueur 1
+    else {
+        cout << "Vous n'avez plus de cartes dans vos pioches" << endl;
+    }
+    //Affichage de la main du joueur2
+    system ("CLS");
     cout << "Votre main est maintenant composee de : " << endl;
-    m_plateau->afficherMainJoueur(2);
+    m_plateau->afficherPlateau(2);
 
     cout << "\nFIN DU TOUR" << endl;
 }
@@ -739,7 +833,7 @@ void Controleur::JouerTourIAClassique(){
         auto cartesBornes = m_plateau->getBornes(i)->getCartesJ2()->getCartes();
             if (cartesBornes.size() ==3) {
                 count_cartes = 3;
-                auto msg =revendiquer_borne(i);
+                auto msg =revendiquer_borne(i,false);
                 cout << msg << endl;
                 cout << "L'ia a  revendique la borne " << i << endl;
         }
@@ -822,7 +916,7 @@ void Controleur::JouerTourClassique1(){
             cin >> choix_borne;
             return;
         }
-        auto msg =revendiquer_borne(choix_borne);
+        auto msg =revendiquer_borne(choix_borne,true);
         cout << msg << endl;
         sleep(3);
     }
@@ -900,7 +994,7 @@ void Controleur::JouerTourClassique2(){
             cin >> choix_borne;
             return;
         }
-        auto msg =revendiquer_borne(choix_borne);
+        auto msg =revendiquer_borne(choix_borne,true);
         cout << msg << endl;
         cout << "appuie" ;
         string oui;
@@ -959,7 +1053,7 @@ bool Controleur::check_fin_partie() {
     return false;
 }
 
-std::string Controleur::revendiquer_borne(int num_borne) {
+std::string Controleur::revendiquer_borne(int num_borne, bool humain) {
 
     Borne *borne = m_plateau->getBornes(num_borne);
     Combinaison *combi_j1 = borne->getCartesJ1();
@@ -973,8 +1067,13 @@ std::string Controleur::revendiquer_borne(int num_borne) {
     cout << "\nJ2:" << endl;
     affichage_vecteur_carteclan(cartes_pose_j2);
     cout <<"\n"<<endl;
+    // on verifie que la borne n'a pas deja ete revendiquee
+    if (borne->getRevendique() != 0){
+        return "La borne a deja ete revendiquee";
+    }
 
     int joueur_qui_revendique = getPlateau()->getJoueurActif();
+    // on verifie que le joueur a bien pose 3 ou 4 cartes
     if (joueur_qui_revendique == 1){
         if(combi_j1->getBoue() == 0){
             if (cartes_pose_j1.size() !=3){
@@ -1000,28 +1099,63 @@ std::string Controleur::revendiquer_borne(int num_borne) {
         }
     }
 
+
     if (joueur_qui_revendique == 1) {
         cout << "J1 revendique la borne "<< num_borne << endl;
-
-        if (il_y_a_joker(cartes_pose_j1) || il_y_a_portebou(cartes_pose_j1) || il_y_a_espion(cartes_pose_j1)) {
+        if (humain) {
             //Si on a des cartes troupes d'elite alors J1 choisi leur valeur
-            for (auto c: cartes_pose_j1) {
-                if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
-                    auto nom = t->getNom();
-                    if (nom == "Joker") {
-                        t->jouer_Joker();
-                        combi_j1->calculerForceCombi();
-                        combi_j1->setTotalPuissance(combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
-                    } else if (nom == "Espion") {
-                        t->jouer_Espion();
-                        combi_j1->calculerForceCombi();
-                        combi_j1->setTotalPuissance(combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+            if (il_y_a_joker(cartes_pose_j1) || il_y_a_portebou(cartes_pose_j1) || il_y_a_espion(cartes_pose_j1)) {
+                for (auto c: cartes_pose_j1) {
+                    if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
+                        auto nom = t->getNom();
+                        if (nom == "Joker") {
+                            t->jouer_Joker();
+                            combi_j1->calculerForceCombi();
+                            combi_j1->setTotalPuissance(
+                                    combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+                        } else if (nom == "Espion") {
+                            t->jouer_Espion();
+                            combi_j1->calculerForceCombi();
+                            combi_j1->setTotalPuissance(
+                                    combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
-                    } else if (nom == "Porte_Bouclier") {
-                        t->jouer_PorteBouclier();
-                        combi_j1->calculerForceCombi();
-                        combi_j1->setTotalPuissance(combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+                        } else if (nom == "Porte_Bouclier") {
+                            t->jouer_PorteBouclier();
+                            combi_j1->calculerForceCombi();
+                            combi_j1->setTotalPuissance(
+                                    combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            if (humain) {
+                if (il_y_a_joker(cartes_pose_j1) || il_y_a_portebou(cartes_pose_j1) || il_y_a_espion(cartes_pose_j1)) {
+                    //Si on a des cartes troupes d'elite alors J1 choisi leur valeur
+                    for (auto c: cartes_pose_j1) {
+                        if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
+                            auto nom = t->getNom();
+                            if (nom == "Joker") {
+                                t->jouer_JokerIA();
+                                combi_j1->calculerForceCombi();
+                                combi_j1->setTotalPuissance(
+                                        combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+                            } else if (nom == "Espion") {
+                                t->jouer_EspionIA();
+                                combi_j1->calculerForceCombi();
+                                combi_j1->setTotalPuissance(
+                                        combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+
+                            } else if (nom == "Porte_Bouclier") {
+                                t->jouer_PorteBouclierIA();
+                                combi_j1->calculerForceCombi();
+                                combi_j1->setTotalPuissance(
+                                        combi_j1->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+
+                            }
+                        }
                     }
                 }
             }
@@ -1130,17 +1264,7 @@ std::string Controleur::revendiquer_borne(int num_borne) {
                         }
                     }
             }
-            // TODO temporaire
-            /*
-            cout << "\ncartes" << endl;
-            cout << cartes_pose_j2.size()<< endl;
-            cout << "\ncartes_a1" << endl;
-            affichage_vecteur_carteclan(cartes_a1);
-            cout << "\ncartes_a2" << endl;
-            affichage_vecteur_carteclan(cartes_a2);
-            cout << "\ncartes_a3" << endl;
-            affichage_vecteur_carteclan(cartes_a3);
-            */
+
 
             for (auto a1: cartes_a1) {
                 for (auto a2: cartes_a2) {
@@ -1280,15 +1404,7 @@ std::string Controleur::revendiquer_borne(int num_borne) {
                         }
                     }
             }
-            // TODO temporaire
-            /*cout << "cartes_a1" << endl;
-            affichage_vecteur_carteclan(cartes_a1);
-            cout << "cartes_a2" << endl;
-            affichage_vecteur_carteclan(cartes_a2);
-            cout << "cartes_a3" << endl;
-            affichage_vecteur_carteclan(cartes_a3);
-            cout << "cartes_a4" << endl;
-            affichage_vecteur_carteclan(cartes_a4);*/
+
             for (auto a1: cartes_a1) {
                 for (auto a2: cartes_a2) {
                     for (auto a3: cartes_a3) {
@@ -1324,27 +1440,56 @@ std::string Controleur::revendiquer_borne(int num_borne) {
     else {
         // J2 revendique
         cout << "J2 revendique la borne "<< num_borne << endl;
-        if(il_y_a_joker(cartes_pose_j2) || il_y_a_espion(cartes_pose_j2) || il_y_a_portebou(cartes_pose_j2)){
-            for (auto c: cartes_pose_j2) {
-                if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
-                    auto nom = t->getNom();
-                    if (nom == "Joker") {
-                        t->jouer_Joker();
-                        combi_j2->calculerForceCombi();
-                        combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+        if (humain) {
+            if(il_y_a_joker(cartes_pose_j2) || il_y_a_espion(cartes_pose_j2) || il_y_a_portebou(cartes_pose_j2)){
+                for (auto c: cartes_pose_j2) {
+                    if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
+                        auto nom = t->getNom();
+                        if (nom == "Joker") {
+                            t->jouer_Joker();
+                            combi_j2->calculerForceCombi();
+                            combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
-                    } else if (nom == "Espion") {
-                        t->jouer_Espion();
-                        combi_j2->calculerForceCombi();
-                        combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+                        } else if (nom == "Espion") {
+                            t->jouer_Espion();
+                            combi_j2->calculerForceCombi();
+                            combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
-                    } else if (nom == "Porte_Bouclier") {
-                        t->jouer_PorteBouclier();
-                        combi_j2->calculerForceCombi();
-                        combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+                        } else if (nom == "Porte_Bouclier") {
+                            t->jouer_PorteBouclier();
+                            combi_j2->calculerForceCombi();
+                            combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
 
+                        }
                     }
                 }
+
+            }
+        }
+        else {
+            if(il_y_a_joker(cartes_pose_j2) || il_y_a_espion(cartes_pose_j2) || il_y_a_portebou(cartes_pose_j2)){
+                for (auto c: cartes_pose_j2) {
+                    if (auto t = dynamic_cast<CarteTroupeElite *>(c)) {
+                        auto nom = t->getNom();
+                        if (nom == "Joker") {
+                            t->jouer_JokerIA();
+                            combi_j2->calculerForceCombi();
+                            combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+
+                        } else if (nom == "Espion") {
+                            t->jouer_EspionIA();
+                            combi_j2->calculerForceCombi();
+                            combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+
+                        } else if (nom == "Porte_Bouclier") {
+                            t->jouer_PorteBouclierIA();
+                            combi_j2->calculerForceCombi();
+                            combi_j2->setTotalPuissance(combi_j2->getTotalPuissance() + static_cast<int>(t->getPuissance()));
+
+                        }
+                    }
+                }
+
             }
 
         }
