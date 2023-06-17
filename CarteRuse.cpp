@@ -16,7 +16,7 @@ int generateRandomNumber2() {
 
 void Supp_PushCarteClanTactique(){
     vector<Carte*> cartesMain = Controleur::getControleur(true).getPlateau()->getJoueur1()->getMain()->getCartes();
-    cout << "Veuillez choisir la carte que vous voulez jouer (son id) :" << endl;
+    cout << "Veuillez choisir la carte que vous voulez supprimer (son id) :" << endl;
     int choix_carte, nb_tac = 0, nb_clan = 0, nb_total = 0;
     cin >> choix_carte;
     while (choix_carte >= cartesMain.size() || choix_carte < 0) {
