@@ -8,7 +8,12 @@
 #include "CarteModeCombat.h"
 #include <ctime>
 #include <random>
-#include <unistd.h>
+#ifdef __unix__
+# include <unistd.h>
+#elif defined _WIN32
+# include <windows.h>
+#define sleep(x) Sleep(1000 * (x))
+#endif
 #include <sstream>
 
 
@@ -106,8 +111,8 @@ void Controleur::afficherCartesNonPose() const
 }
 int Joker1 = 0;
 int Joker2=0;
-int cartetacJoué1 =0;
-int cartetacJoué2 =0;
+int cartetacJoue1 =0;
+int cartetacJoue2 =0;
 int testclan = 1;
 int testclan2 = 1;
 void Controleur::JouerTour1(){
@@ -143,7 +148,7 @@ void Controleur::JouerTour1(){
             Carte *carte = cartes[choix_carte];
 
             if (CarteTroupeElite *carteTroupeEliteChoisie = dynamic_cast<CarteTroupeElite *>(carte)) {
-                if (cartetacJoué1 < cartetacJoué2 + 1) {
+                if (cartetacJoue1 < cartetacJoue2 + 1) {
                     if (carteTroupeEliteChoisie->getNom() == "Joker") {
                         Joker1++;
                     }
@@ -170,7 +175,7 @@ void Controleur::JouerTour1(){
                         cout << "Borne " << choix_borne << " :" << endl;
                         affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes());
                         cout << endl;
-                        cartetacJoué1++;
+                        cartetacJoue1++;
                         attente_valide = 1;
                         cartClan = 1;
                         m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
@@ -208,7 +213,7 @@ void Controleur::JouerTour1(){
                 cartClan = 1;
             }
             if (cartClan == 0) {
-                if (cartetacJoué1 < cartetacJoué2 + 1) {
+                if (cartetacJoue1 < cartetacJoue2 + 1) {
 
                     if (CarteTactique *carteTactiqueChoisie = dynamic_cast<CarteTactique *>(carte)) {
 
@@ -226,7 +231,7 @@ void Controleur::JouerTour1(){
                             CarteModeCombat::jouer_ColinMaillard(m_plateau->getBornes(choix_borne));
                             m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
                             attente_valide = 1;
-                            cartetacJoué1++;
+                            cartetacJoue1++;
                         } else if (carteTactiqueChoisie->getNom() == "Combat de Boue") {
                             int choix_borne;
                             cin >> choix_borne;
@@ -295,7 +300,7 @@ void Controleur::JouerTour1(){
 
                         }
                         //TODO ne sert a rien car une carte troupeELite est une carteCLan
-                        cartetacJoué1++;
+                        cartetacJoue1++;
                     }
                 } else if (testclan == 0 && print == 0) {
                     cout
@@ -399,7 +404,7 @@ void Controleur::JouerTourIA(){
             vector<Carte *> cartes = m_plateau->m_joueur2->getMain()->getCartes();
             Carte *carte = cartes[choix_carte];
             if (CarteTroupeElite *carteTroupeEliteChoisie = dynamic_cast<CarteTroupeElite *>(carte)) {
-                if (cartetacJoué2 < cartetacJoué1 + 1) {
+                if (cartetacJoue2 < cartetacJoue1 + 1) {
                     if (carteTroupeEliteChoisie->getNom() == "Joker") {
                         Joker2++;
                     }
@@ -422,7 +427,7 @@ void Controleur::JouerTourIA(){
                         cartClan = 1;
                         cout << endl;
                         attente_valide = 1;
-                        cartetacJoué2++;
+                        cartetacJoue2++;
                         m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
                     }
                 } else if (testclan2 == 0) {
@@ -453,7 +458,7 @@ void Controleur::JouerTourIA(){
                 cartClan = 1;
             }
             if (cartClan == 0) {
-                if (cartetacJoué2 < cartetacJoué1 + 1) {
+                if (cartetacJoue2 < cartetacJoue1 + 1) {
 
 
                     if (CarteTactique *carteTactiqueChoisie = dynamic_cast<CarteTactique *>(carte)) {
@@ -538,7 +543,7 @@ void Controleur::JouerTourIA(){
                             }
 
                         }
-                        cartetacJoué2++;
+                        cartetacJoue2++;
                     }
                 } else if (testclan == 0 && print == 0) {
                     cout
@@ -642,7 +647,7 @@ void Controleur::JouerTour2(){
             Carte *carte = cartes[choix_carte];
 
             if (CarteTroupeElite *carteTroupeEliteChoisie = dynamic_cast<CarteTroupeElite *>(carte)) {
-                if (cartetacJoué2 < cartetacJoué1 + 1) {
+                if (cartetacJoue2 < cartetacJoue1 + 1) {
                     if (carteTroupeEliteChoisie->getNom() == "Joker") {
                         Joker2++;
                     }
@@ -669,7 +674,7 @@ void Controleur::JouerTour2(){
                         cout << "Borne " << choix_borne << " :" << endl;
                         affichage_vecteur_carteclan(m_plateau->getBornes(choix_borne)->getCartesJ2()->getCartes());
                         cout << endl;
-                        cartetacJoué1++;
+                        cartetacJoue1++;
                         attente_valide = 1;
                         cartClan = 1;
                         m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
@@ -707,7 +712,7 @@ void Controleur::JouerTour2(){
                 cartClan = 1;
             }
             if (cartClan == 0) {
-                if (cartetacJoué1 < cartetacJoué2 + 1) {
+                if (cartetacJoue1 < cartetacJoue2 + 1) {
 
                     if (CarteTactique *carteTactiqueChoisie = dynamic_cast<CarteTactique *>(carte)) {
 
@@ -725,7 +730,7 @@ void Controleur::JouerTour2(){
                             CarteModeCombat::jouer_ColinMaillard(m_plateau->getBornes(choix_borne));
                             m_plateau->getJoueur2()->getMain()->supprimerCarte(choix_carte);
                             attente_valide = 1;
-                            cartetacJoué2++;
+                            cartetacJoue2++;
                         } else if (carteTactiqueChoisie->getNom() == "Combat de Boue") {
                             int choix_borne;
                             cin >> choix_borne;
@@ -794,7 +799,7 @@ void Controleur::JouerTour2(){
 
                         }
                         //TODO ne sert a rien car une carte troupeELite est une carteCLan
-                        cartetacJoué2++;
+                        cartetacJoue2++;
                     }
                 } else if (testclan2 == 0 && print == 0) {
                     cout

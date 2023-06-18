@@ -17,7 +17,12 @@
 
 #include <typeinfo>
 #include <stdlib.h>
-#include <unistd.h>
+#ifdef __unix__
+# include <unistd.h>
+#elif defined _WIN32
+# include <windows.h>
+#define sleep(x) Sleep(1000 * (x))
+#endif
 
 
 using namespace std;
