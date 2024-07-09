@@ -241,7 +241,10 @@ void Controleur::JouerTour1(){
                         } else if (carteTactiqueChoisie->getNom() == "Chasseur de Tete") {
                             CarteRuse::Jouer_ChasseurdeTete();
                             attente_valide = 1;
+
                             m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
+                            system ("CLS");
+                            m_plateau->afficherPlateau(1);
                         } else if (carteTactiqueChoisie->getNom() == "Stratege") {
                             for (int i = 0; i < 9; i++) {
                                 if (m_plateau->getBornes(i)->getCartesJ1()->getCartes().size() != 0) {
@@ -253,6 +256,8 @@ void Controleur::JouerTour1(){
                                 CarteRuse::Jouer_Stratege();
                                 attente_valide = 1;
                                 m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
+                                system ("CLS");
+                                m_plateau->afficherPlateau(1);
                             } else {
                                 cout << "Vous n'avez pas de carte sur le plateau." << endl;
                                 attente_valide = 0;
@@ -270,6 +275,8 @@ void Controleur::JouerTour1(){
                                 CarteRuse::Jouer_Banshee();
                                 attente_valide = 1;
                                 m_plateau->getJoueur1()->getMain()->supprimerCarte(choix_carte);
+                                system ("CLS");
+                                m_plateau->afficherPlateau(1);
                             } else {
                                 cout << "Vous n'avez pas de carte sur le plateau." << endl;
                                 attente_valide = 0;
@@ -323,7 +330,7 @@ void Controleur::JouerTour1(){
         }
         auto msg =revendiquer_borne(choix_borne,true);
         cout << msg << endl;
-        sleep(3);
+        sleep(5);
         auto cartesBornes = m_plateau->getBornes(choix_borne)->getCartesJ1()->getCartes();
         int i =0;
 
@@ -567,8 +574,8 @@ void Controleur::JouerTourIA(){
 
         }
     }
-    int choix_style = generateRandomNumber()%4;
-    if (choix_style==3){
+    int choix_style = generateRandomNumber()%3;
+    if (choix_style==2){
      if ( !getPiocheTactique()->estVide()){
         switch (getPiocheTactique()->quandjepiochejefaisattention() ) {
             case 1: {
@@ -590,7 +597,7 @@ void Controleur::JouerTourIA(){
     }
     }
 
-    else if (choix_style != 3) {
+    else if (choix_style != 2) {
         if( !getPiocheClan()->estVide()) {
             CarteClan *ci = new CarteClan(getPiocheClan()->piocherCarteClan());
             m_plateau->getJoueur2()->getMain()->ajouterCarte(ci);
@@ -1007,14 +1014,14 @@ void Controleur::JouerTourClassique1(){
         }
         auto msg =revendiquer_borne(choix_borne,true);
         cout << msg << endl;
-        sleep(3);
+        sleep(5);
     }
+    if (!getPiocheClan()->estVide()){
     CarteClan* ci = new CarteClan(getPiocheClan()->piocherCarteClan());
-
-    m_plateau->getJoueur1()->getMain()->ajouterCarte(ci);
-    system ("CLS");
-    m_plateau->afficherPlateau(1);
-    cout <<"Carte piochee : "<< ci->getPuissance() <<" "<< ci->getCouleur() << endl;
+        m_plateau->getJoueur1()->getMain()->ajouterCarte(ci);
+        system ("CLS");
+        m_plateau->afficherPlateau(1);
+    cout <<"Carte piochee : "<< ci->getPuissance() <<" "<< ci->getCouleur() << endl;}
     cout << "\nFIN DU TOUR" << endl;
 
 }
@@ -1089,12 +1096,13 @@ void Controleur::JouerTourClassique2(){
         string oui;
         cin >>  oui;
     }
+    if (!getPiocheClan()->estVide()){
     CarteClan* ci = new CarteClan(getPiocheClan()->piocherCarteClan());
 
     m_plateau->getJoueur2()->getMain()->ajouterCarte(ci);
     system ("CLS");
     m_plateau->afficherPlateau(2);
-    cout <<"Carte piochee : "<< ci->getPuissance() <<" "<< ci->getCouleur() << endl;
+    cout <<"Carte piochee : "<< ci->getPuissance() <<" "<< ci->getCouleur() << endl;}
     cout << "\nFIN DU TOUR" << endl;
 
 }
